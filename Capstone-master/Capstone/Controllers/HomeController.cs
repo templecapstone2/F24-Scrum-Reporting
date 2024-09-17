@@ -13,7 +13,7 @@ namespace Capstone.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public IActionResult StudentHome()
         {
             return View();
         }
