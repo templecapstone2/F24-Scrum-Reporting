@@ -1,0 +1,45 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    width: 100%;
+    height: 100vh; 
+    font-family: 'Sitka Heading', sans-serif;
+    background-color: rgb(240, 240, 240);
+    box-sizing: border-box;
+}
+
+body {
+    border-radius: 0;
+}
+
+.footer {
+    background-color: #A41E35; 
+    color: white; 
+    text-align: center; 
+    padding: 10px; 
+    position: fixed; 
+    bottom: 0; 
+    width: 100%; 
+    box-sizing: border-box; 
+    border-top: 4px solid #A41E35; 
+}
+
+    .footer a {
+        color: white; 
+        text-decoration: none; 
+    }
+
+        .footer a:hover {
+            text-decoration: underline; 
+        }
+
+.container {
+    max-width: 1200px; 
+    margin: 0 auto; 
+    padding: 0 20px; 
+}
+
