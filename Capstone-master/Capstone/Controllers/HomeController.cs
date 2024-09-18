@@ -42,5 +42,10 @@ namespace Capstone.Controllers
         {
             return View();
         }
+
+        public IActionResult ViewReports()
+        {
+            return View();
+        }
     }
 }
