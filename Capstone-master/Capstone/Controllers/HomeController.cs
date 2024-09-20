@@ -13,7 +13,7 @@ namespace Capstone.Controllers
             _logger = logger;
         }
 
-        public IActionResult StudentHome()
+        public IActionResult Index()
         {
             return View();
         }
@@ -39,6 +39,11 @@ namespace Capstone.Controllers
         }
 
         public IActionResult Register()
+        {
+            return View();
+        }
+
+        public IActionResult StudentHome()
         {
             return View();
         }

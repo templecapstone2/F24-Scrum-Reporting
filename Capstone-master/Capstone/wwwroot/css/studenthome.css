@@ -1,22 +1,90 @@
-﻿* {
+﻿*{
     margin: 0;
     padding: 0;
 }
 
+
 html, body {
-    height: 100vh;
     font-family: 'Sitka Heading', sans-serif;
-    background-color: #f0f0f0;
 }
 
 .headerbg {
-    background-image: url('images/headerbg.jpg');
-    background-size: cover; 
-    background-position: center; 
-    background-repeat: no-repeat; 
 
-    width: 100%; 
-    height: 33vh; 
+    background-image: url('/images/headerbg.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover; 
+    height: 47vh; 
 }
+
+.sidenav {
+    width: 20vw;
+    height: 40vh;
+    background-color: #D9D9D9;
+    padding: 10px;
+    border-radius: 10px; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center; 
+}
+
+
+    .sidenav a {
+        width: 90%;
+        display: block;
+        color: black;
+        background-color: #FFFF;
+        padding: 10px;
+        text-align: center;
+        text-decoration: none;
+        font-size: 25px;
+        border-radius: 30px;
+        transition: background-color 0.3s, border-radius 0.3s;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        border: 2px solid #A41E35;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+        .sidenav a:hover {
+            color: white;
+            background-color: #A41E35;
+            border-radius: 30px;
+            font-weight: bold;
+        }
+
+
+.middle-container {
+    display: flex;
+    padding: 10px;
+}
+
+.content-container{
+    background-color: red;
+
+}
+
+.footer {
+    background-color: #A41E35;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    box-sizing: border-box;
+    border-top: 4px solid #A41E35;
+    z-index: 2; 
+}
+
+    .footer a {
+        color: white;
+        text-decoration: none;
+    }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
 
 

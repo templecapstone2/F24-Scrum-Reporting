@@ -10,17 +10,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Home Page</title>
-    <link rel="stylesheet" type="text/css" href="~/css/studenthome.css">
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/css/studenthome.css")">
 </head>
 <body>
+
     <header class="headerbg">
-        <!-- Content for the header if needed -->
     </header>
 
-    <div class="">
+    <section class="middle-container">
         <form method="post">
+
+            <nav class="sidenav">
+                <a href="@Url.Action("Index", "Home")">Home</a>
+                <a href="@Url.Action("Reports", "Report")">Reports</a>
+                <a href="@Url.Action("Logout", "Account")">Logout</a>
+            </nav>
+
+            <div class="content-container">
+                <h2>Welcome Back John!</h2>
+                <h1></h1>
+            </div>
+
         </form>
-    </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            &copy; 2024 Temple SCRUM. All rights reserved.
+        </div>
+    </footer>
 </body>
 </html>
 
