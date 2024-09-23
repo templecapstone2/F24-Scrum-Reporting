@@ -18,20 +18,20 @@
     </header>
 
     <section class="middle-container">
-        <form method="post">
+        <nav class="sidenav">
+            <a href="@Url.Action("Index", "Home")">Home</a>
+            <a href="@Url.Action("Reports", "Report")">Reports</a>
+            <a href="@Url.Action("Logout", "Account")">Logout</a>
+        </nav>
 
-            <nav class="sidenav">
-                <a href="@Url.Action("Index", "Home")">Home</a>
-                <a href="@Url.Action("Reports", "Report")">Reports</a>
-                <a href="@Url.Action("Logout", "Account")">Logout</a>
-            </nav>
-
-            <div class="content-container">
-                <h2>Welcome Back John!</h2>
-                <h1></h1>
-            </div>
-
-        </form>
+        <div class="content-container">
+            <h1>Welcome Back John!</h1>
+            <h2>SCRUM Reporting</h2>
+            <h3>
+                Streamlining SCRUM reporting
+                for Temple University students and professors.
+            </h3> 
+        </div>
     </section>
 
     <footer class="footer">

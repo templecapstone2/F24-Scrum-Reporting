@@ -32,6 +32,7 @@ html, body {
 
     .sidenav a {
         width: 90%;
+        height: 10%;
         display: block;
         color: black;
         background-color: #FFFF;
@@ -57,13 +58,32 @@ html, body {
 
 .middle-container {
     display: flex;
+    flex-direction: row;
+    padding: 10px;
+    gap: 20px;
+}
+
+.content-container {
+    width: 40vw;
+    height: 33vh;
     padding: 10px;
 }
 
-.content-container{
-    background-color: red;
+    .content-container h1 {
+        font-size: 50px;
+        margin-bottom: 20px;
+        color: #A41E35;
+    }
 
-}
+    .content-container h2 {
+        font-size: 35px; 
+    }
+
+    .content-container h3 {
+        font-size: 25px;
+    }
+
+
 
 .footer {
     background-color: #A41E35;
