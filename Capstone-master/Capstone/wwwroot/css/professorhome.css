@@ -9,22 +9,23 @@ html, body {
 }
 
 .headerbg {
+
     background-image: url('/images/headerbg.jpg');
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover; 
     height: 47vh; 
-
 }
 
 .logo {
-    position: absolute; 
+    position: absolute;
     top: 0;
     left: 0;
-    width: 60px; 
+    width: 60px;
     height: auto;
-    padding: 10px; 
+    padding: 10px;
 }
+
 
 .sidenav {
     width: 20vw;
