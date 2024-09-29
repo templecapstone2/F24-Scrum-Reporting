@@ -43,6 +43,23 @@ h2 {
     width: 100%;
 }
 
+.dropdown {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    width: 150px;
+    background-color: white;
+    background-image: url('data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjMDAwMDAwIiBoZWlnaHQ9IjI0IiB2aWV3Qm94PSIwIDAgMjQgMjQiIHdpZHRoPSIyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNOC4yOSAxMC41NGwzLjcxIDMuNzEgMy43MS0zLjcxYTEgMSAwIDEgMSAxLjQxIDEuNDFsLTQuNzcgNC43N2ExIDEgMCAwIDEtMS40MSAwTDYuODggMTEuOTVhMSAxIDAgMSAxIDEuNDEtMS40MXoiLz48L3N2Zz4=');
+    background-position: right 10px center;
+    background-repeat: no-repeat;
+    background-size: 16px;
+    cursor: pointer;
+}
+
 .textbox {
     margin: 20px 0;
 }

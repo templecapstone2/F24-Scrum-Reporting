@@ -14,8 +14,18 @@ namespace Capstone.Controllers
             return View();
         }
 
-        public IActionResult Register()
+        [HttpPost]
+        public IActionResult Login(string UserType)
         {
+            if (UserType == "Professor")
+            {
+                return RedirectToAction("ProfessorHome", "Home");
+            }
+            else if (UserType == "Student")
+            {
+                return RedirectToAction("StudentHome", "Home");
+            }
+
             return View();
         }
     }
