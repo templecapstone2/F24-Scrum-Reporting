@@ -10,9 +10,12 @@ namespace DataAPI.Controllers
     [Route("api/[controller]")]
     public class LoginController : Controller
     {
-        private readonly DBConnect dbConnect = new DBConnect();
+        private readonly DBConnect dbConnect;
         SqlCommand? sqlCommand;
 
-
+        public LoginController(IConfiguration configuration)
+        {
+            dbConnect = new DBConnect(configuration);
+        }
     }
 }
