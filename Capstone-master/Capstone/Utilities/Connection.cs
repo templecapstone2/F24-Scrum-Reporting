@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAPI.Utilities
+namespace Capstone.Models
 {
     public class DBConnect
     {

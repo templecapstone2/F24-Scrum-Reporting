@@ -1,4 +1,4 @@
-﻿namespace Capstone.Models
+﻿namespace DataAPI.Models
 {
     public class User
     {
