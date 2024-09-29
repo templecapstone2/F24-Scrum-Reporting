@@ -1,24 +1,20 @@
 ﻿namespace Capstone.Models
 {
-    public class Report
+    public class Scrum
     {
         private int id;
         private String name;
-        private DateTime dateOpen;
         private DateTime dateDue;
         private bool isActive;
-        private int courseID;
 
-        public Report() { }
+        public Scrum() { }
 
-        public Report(int id, string name, DateTime dateOpen, DateTime dateDue, bool isActive, int courseID)
+        public Scrum(int id, string name, DateTime dateDue, bool isActive)
         {
             this.id = id;
             this.name = name;
-            this.dateOpen = dateOpen;
             this.dateDue = dateDue;
             this.isActive = isActive;
-            this.courseID = courseID;
         }
 
         public int ID
@@ -33,12 +29,6 @@
             set { name = value; }
         }
 
-        public DateTime DateOpen
-        {
-            get { return dateOpen; }
-            set { dateOpen = value; }
-        }
-
         public DateTime DateDue
         {
             get { return dateDue; }
@@ -49,12 +39,6 @@
         {
             get { return isActive; }
             set { isActive = value; }
-        }
-
-        public int CourseID
-        {
-            get { return courseID; }
-            set { courseID = value; }
         }
     }
 }
