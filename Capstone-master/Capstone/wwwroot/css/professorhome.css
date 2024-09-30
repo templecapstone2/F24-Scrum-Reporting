@@ -39,15 +39,15 @@ html, body {
     align-items: center; 
 }
 
-
     .sidenav a {
         width: 90%;
-        height: 10%;
-        display: block;
+        height: 5%;
+        display: flex;
+        justify-content: center; /* Centers text horizontally */
+        align-items: center; /* Centers text vertically */
         color: black;
         background-color: #FFFF;
         padding: 10px;
-        text-align: center;
         text-decoration: none;
         font-size: 25px;
         border-radius: 30px;
@@ -57,6 +57,7 @@ html, body {
         font-weight: bold;
         margin-bottom: 10px;
     }
+
 
         .sidenav a:hover {
             color: white;
