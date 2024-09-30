@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using DataAPI.Utilities;
 using DataAPI.Models;
 using System.Diagnostics;
+using System.Text.Json.Serialization;
 
 namespace DataAPI.Controllers
 {
@@ -54,9 +55,15 @@ namespace DataAPI.Controllers
                     Scrum scrum = new Scrum();
                     foreach (var property in scrum.GetType().GetProperties())
                     {
-                        if (row.Table.Columns.Contains(property.Name))
+                        var jsonPropertyName = property.GetCustomAttributes(typeof(JsonPropertyNameAttribute), false)
+                       .FirstOrDefault() as JsonPropertyNameAttribute;
+
+                        // Use json attribute name if present, otherwise use property name
+                        string columnName = jsonPropertyName != null ? jsonPropertyName.Name : property.Name;
+
+                        if (row.Table.Columns.Contains(columnName))
                         {
-                            object value = row[property.Name];
+                            object value = row[columnName];
 
                             if (value != DBNull.Value)
                             {
