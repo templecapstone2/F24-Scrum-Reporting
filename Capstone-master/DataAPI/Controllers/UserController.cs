@@ -11,8 +11,13 @@ namespace DataAPI.Controllers
     public class UserController : Controller
     {
         //do I want to add a team controller?
-        private readonly DBConnect dbConnect = new DBConnect();
+        private readonly DBConnect dbConnect;
         SqlCommand? sqlCommand;
+
+        public UserController(IConfiguration configuration)
+        {
+            dbConnect = new DBConnect(configuration);
+        }
 
         [HttpPost("team/add")]
         public IActionResult AddTeam([FromBody] Team team)

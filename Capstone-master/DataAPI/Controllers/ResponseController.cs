@@ -10,8 +10,13 @@ namespace DataAPI.Controllers
     [Route("api/[controller]")]
     public class ResponseController : Controller
     {
-        private readonly DBConnect dbConnect = new DBConnect();
+        private readonly DBConnect dbConnect;
         SqlCommand? sqlCommand;
+
+        public ResponseController(IConfiguration configuration)
+        {
+            dbConnect = new DBConnect(configuration);
+        }
 
         [HttpPost("add")]
         public IActionResult AddResponse([FromBody] Response response)

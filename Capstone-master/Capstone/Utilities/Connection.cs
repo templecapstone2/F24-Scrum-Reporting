@@ -10,19 +10,18 @@ namespace Capstone.Models
 {
     public class DBConnect
     {
-        // Main Connection String - used for the published web application and project submissions.
+        //Main Connection String
         String SqlConnectString;
 
-        // Home Connection String - used for working from home using SSH Tunneling.
-        //String SqlConnectString;
         
         SqlConnection myConnectionSql;
         SqlCommand objCmd;
         SqlDataReader objDataReader;
         DataSet ds;
 
-        public DBConnect()
+        public DBConnect(IConfiguration configuration)
         {
+            SqlConnectString = configuration.GetConnectionString("StemConnection");
             myConnectionSql = new SqlConnection(SqlConnectString);
         }
 

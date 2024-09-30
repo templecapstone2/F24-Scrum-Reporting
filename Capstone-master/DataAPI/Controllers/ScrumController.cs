@@ -8,11 +8,16 @@ using System.Diagnostics;
 namespace DataAPI.Controllers
 {
     [Route("api/[controller]")]
+    [ApiController]
     public class ScrumController : Controller
     {
-        private readonly DBConnect dbConnect = new DBConnect();
+        private readonly DBConnect dbConnect;
         SqlCommand? sqlCommand;
 
+        public ScrumController(IConfiguration configuration)
+        {
+            dbConnect = new DBConnect(configuration);
+        }
         [HttpPost("add")]
         public IActionResult AddScrum([FromBody] Scrum scrum)
         {

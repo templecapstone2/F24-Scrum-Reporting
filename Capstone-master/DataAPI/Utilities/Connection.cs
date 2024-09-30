@@ -5,20 +5,38 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace DataAPI.Utilities
 {
     public class DBConnect
     {
         String SqlConnectString;
+        // Home Connection String - used for working from home using SSH Tunneling.
+        //String SqlConnectString;
+        
+        // Home Connection String - used for working from home using SSH Tunneling.
+        public DBConnect(IConfiguration configuration)
+        
+        // Home Connection String - used for working from home using SSH Tunneling.
+        //String SqlConnectString;
+        
+        // Home Connection String - used for working from home using SSH Tunneling.
+        //String SqlConnectString;
+        
+        // Home Connection String - used for working from home using SSH Tunneling.
+        //String SqlConnectString;
+        
+        // Home Connection String - used for working from home using SSH Tunneling.
+        //String SqlConnectString;
         
         SqlConnection myConnectionSql;
         SqlCommand objCmd;
         SqlDataReader objDataReader;
         DataSet ds;
-
-        public DBConnect()
+        public DBConnect(IConfiguration configuration)
         {
+            SqlConnectString = configuration.GetConnectionString("StemConnection");
             myConnectionSql = new SqlConnection(SqlConnectString);
         }
 
@@ -156,6 +174,7 @@ namespace DataAPI.Utilities
 
         public DataSet GetDataSetUsingCmdObj(SqlCommand theCommand)
         {
+            Debug.WriteLine(SqlConnectString);
             // This method is used for Stored Procedures (SELECT statement only) with Parameters
             theCommand.Connection = myConnectionSql;
             SqlDataAdapter myDataAdapter = new SqlDataAdapter(theCommand);
