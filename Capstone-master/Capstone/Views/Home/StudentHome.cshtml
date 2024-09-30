@@ -19,11 +19,16 @@
     </header>
 
     <section class="middle-container">
+
+        <button class="hamburger" onclick="toggleNav()">&#9776;</button>
+
         <nav class="sidenav">
-            <a href="@Url.Action("Index", "Home")">Home</a>
-            <a href="@Url.Action("Reports", "Report")">Reports</a>
-            <a href="@Url.Action("Logout", "Account")">Logout</a>
+            <a asp-controller="Home" asp-action="Index">Home</a>
+            <a asp-controller="Report" asp-action="Reports">Reports</a>
+            <a asp-controller="Account" asp-action="Logout">Logout</a>
+
         </nav>
+
 
         <div class="content-container">
             <h1>Welcome Back John!</h1>
@@ -31,7 +36,7 @@
             <h3>
                 Streamlining SCRUM reporting
                 for Temple University students and professors.
-            </h3> 
+            </h3>
         </div>
     </section>
 
@@ -40,6 +45,14 @@
             &copy; 2024 Temple SCRUM. All rights reserved.
         </div>
     </footer>
+
+    <script>
+        function toggleNav() {
+            var sidenav = document.querySelector(".sidenav");
+            sidenav.classList.toggle("open");
+        }
+    </script>
+
 </body>
 </html>
 

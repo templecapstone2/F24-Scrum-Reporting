@@ -1,0 +1,94 @@
+﻿@{
+    Layout = "~/Views/Shared/_SecureLayout.cshtml";
+}
+
+<div class="content">
+    <div class="card report-card">
+        <div class="card-body">
+            <h5 class="card-title">Jacob Zall</h5>
+            <p class="card-subtitle mb-2 text-muted">Scrum Reporting</p>
+
+            <!-- Text Input Section (Q1 - Q4) -->
+            <div class="form-group">
+                <label for="q1Input">1. List what you accomplished since the last Scrum</label>
+                <textarea class="form-control" id="q1Input" rows="3"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="q2Input">2. List what you will accomplish for the next Scrum</label>
+                <textarea class="form-control" id="q2Input" rows="3"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="q3Input">3. What challenges or problems do you face (if any that need attention)?</label>
+                <textarea class="form-control" id="q3Input" rows="3"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="q4Input">4. Any additional comments</label>
+                <textarea class="form-control" id="q4Input" rows="3"></textarea>
+            </div>
+
+            <small class="text-muted">Date: 9/7/24 - 9/24/24</small>
+
+            <!-- Button Section -->
+            <div class="btn-container d-flex justify-content-between mt-3">
+                <button type="button" class="btn btn-danger" onclick="window.history.back();">Back</button>
+                <button type="submit" class="btn btn-success">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .card-container {
+        width: 80% !important;
+    }
+
+    .card-subtitle {
+        font-size: 0.9em;
+    }
+
+    .form-group label {
+        font-weight: bold;
+    }
+
+    .form-control {
+        background-color: #f2f2f2;
+        border-radius: 5px;
+        margin-bottom: 15px;
+    }
+
+    .filter_container {
+        margin-bottom: 30px;
+    }
+
+    /* Buttons styling */
+    .btn-container {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .btn {
+        width: 100px;
+        border-radius: 5px;
+    }
+
+    .btn-success {
+        background-color: #28a745;
+        border: none;
+    }
+
+        .btn-success:hover {
+            background-color: #218838;
+        }
+
+    .btn-danger {
+        background-color: #dc3545;
+        border: none;
+    }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+</style>

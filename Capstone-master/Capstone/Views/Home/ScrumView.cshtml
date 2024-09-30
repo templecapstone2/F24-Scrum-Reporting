@@ -1,0 +1,65 @@
+﻿@model List<Capstone.Models.Scrum>
+
+@{
+    Layout = "~/Views/Shared/_SecureLayout.cshtml";
+}
+
+<div class="content">
+    <h3 class="mb-4">Scrum Management</h3>
+
+    <!-- Scrum List Section -->
+    <div class="scrum-list mb-4">
+        @foreach (var scrum in Model)
+        {
+            <div class="scrum-item d-flex justify-content-between align-items-center p-3 mb-2">
+                <div class="scrum-info d-flex align-items-center">
+                    <span class="scrum-name mr-4">@scrum.Name</span>
+                    <span class="scrum-due-date">Due Date: @scrum.DateDue.ToShortDateString()</span>
+                </div>
+
+                <div class="scrum-actions d-flex align-items-center">
+                    @if (scrum.IsActive)
+                    {
+                        <button class="btn btn-secondary mr-2" disabled>Published</button>
+                    }
+                    else
+                    {
+                        <button class="btn btn-danger mr-2">Publish</button>
+                    }
+                    <button class="btn btn-outline-danger">&times;</button>
+                </div>
+            </div>
+        }
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="action-buttons d-flex justify-content-between">
+        <button class="btn btn-danger">Add Scrum</button>
+        <button class="btn btn-danger">Export Data</button>
+        <button class="btn btn-danger">New Semester</button>
+    </div>
+</div>
+
+<style>
+    .scrum-item {
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .scrum-name {
+        font-weight: bold;
+    }
+
+    .scrum-due-date {
+        font-size: 0.9em;
+    }
+
+    .btn {
+        border-radius: 20px;
+    }
+
+    .action-buttons button {
+        width: 150px;
+    }
+</style>
