@@ -1,0 +1,177 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Capstone</title>
+
+    <!-- Different CSS file for the alternative layout -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+
+    <style>
+        .d_flex {
+            display: flex;
+        }
+
+        .d_flex_column {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .profile_container {
+            /* padding: 20px; */
+            display: flex;
+            position: relative;
+        }
+
+        .side_nav {
+            background-color: #D9D9D9;
+            padding: 20px;
+            width: 20%;
+            gap: 1em;
+            padding-top: 20px;
+        }
+
+        .nav_item {
+            border-radius: 20px;
+            background-color: white;
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        }
+
+        .nav_item a {
+            color: black;
+            text-decoration: none;
+            font-weight: lighter;
+            text-align: center;
+            padding: 5px 0px;
+        }
+
+        .side_nav .active {
+            background-color: #A41E35;
+            color: white;
+        }
+
+        .side_nav .active a {
+            color: white !important;
+        }
+
+        .side_nav h3 {
+            font-weight: lighter;
+            text-align: center;
+            padding: 5px 0px;
+        }
+
+        .card {
+            background-color: #D9D9D9;
+            border-radius: 5px;
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            position: relative;
+            justify-content: center;
+            height: 70px;
+            padding: 10px 0px;
+            border-bottom: 3px solid #A41E35;
+        }
+
+            header img {
+                position: absolute;
+                top: 0;
+                left: 0;
+            }
+
+            header h1 {
+                align-self: center;
+            }
+
+        .content {
+            border-left: 2px solid black;
+            height: calc(100vh - 90px);
+            width: calc(80% - 2px);
+            padding: 20px;
+        }
+
+        .card-container {
+            display: flex;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+        }
+
+        .report-card {
+            flex: 0 0 300px;
+            margin: 10px;
+        }
+
+        .filter_container {
+            width: 80%;
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <img height="70" width="70"
+             src="~/images/TempleLogo.svg"
+             alt="">
+        <h1>Temple Scrum</h1>
+    </header>
+
+        <main role="main" class="profile_container">
+            <div class="side_nav d_flex_column">
+            <!-- Home -->
+            <div class="nav_item @(ViewContext.RouteData.Values["controller"].ToString() == "Home" ? "active" : "")">
+                <h3>
+                    <a href="/">Home</a>
+                </h3>
+            </div>
+
+            <!-- View Reports -->
+            <div class="nav_item @(ViewContext.RouteData.Values["controller"].ToString() == "Reports" && ViewContext.RouteData.Values["action"].ToString() == "View" ? "active" : "")">
+                <h3>
+                    <a href="/Home/ViewReports">View Reports</a>
+                </h3>
+            </div>
+
+            <!-- Add Report -->
+            <div class="nav_item @(ViewContext.RouteData.Values["controller"].ToString() == "Reports" && ViewContext.RouteData.Values["action"].ToString() == "Add" ? "active" : "")">
+                <h3>
+                    <a href="/Reports/Add">Add Report</a>
+                </h3>
+            </div>
+
+            <!-- Users -->
+            <div class="nav_item @(ViewContext.RouteData.Values["controller"].ToString() == "Users" ? "active" : "")">
+                <h3>
+                    <a href="/Users">Users</a>
+                </h3>
+            </div>
+
+            <!-- Logout -->
+            <div class="nav_item">
+                <h3>
+                    <a href="/Account/Logout">Logout</a>
+                </h3>
+            </div>
+            </div>
+
+            <!-- The page content will be injected here -->
+            @RenderBody()
+        </main>
+
+    <footer class="footer">
+        <div class="container">
+            &copy; 2024 Temple SCRUM - Alternative Layout. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- Render any specific scripts added in the page using this layout -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

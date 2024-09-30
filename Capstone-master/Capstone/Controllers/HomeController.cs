@@ -28,6 +28,28 @@ namespace Capstone.Controllers
             return View();
         }
 
+
+        public IActionResult Scrums()
+        {
+            return View();
+        }
+
+        public IActionResult ScrumView()
+        {
+
+
+            // Default Scrum data using your existing Scrum model
+            var scrums = new List<Scrum>
+            {
+                new Scrum(1, "Scrum #1", new DateTime(2024, 9, 7), true),
+                new Scrum(2, "Scrum #2", new DateTime(2024, 9, 14), true),
+                new Scrum(3, "Scrum #3", new DateTime(2024, 9, 21), false)
+            };
+
+            return View(scrums);
+        }
+
+
         public IActionResult Report()
         {
             return View();
