@@ -70,26 +70,27 @@ html, body {
     flex-direction: row;
     padding: 10px;
     gap: 20px;
+    height: 25rem;
 }
 
 .content-container {
     width: 80vw;
-    height: 33vh;
+    height: 45vh;
     padding: 10px;
 }
 
     .content-container h1 {
-        font-size: 50px;
+        font-size: 3rem;
         margin-bottom: 20px;
         color: #A41E35;
     }
 
     .content-container h2 {
-        font-size: 35px; 
+        font-size: 2rem;
     }
 
     .content-container h3 {
-        font-size: 25px;
+        font-size: 1.5rem;
     }
 
 
@@ -117,3 +118,38 @@ html, body {
         }
 
 
+
+.hamburger {
+    display: none;
+    font-size: 30px;
+    cursor: pointer;
+    z-index: 2;
+    background-color: #A41E35;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+
+/* Media Queries */
+@media (max-width: 768px) {
+    /* Hide sidenav and show hamburger */
+    .sidenav {
+        transform: translateX(-200%);
+        width: 100%;
+    }
+
+    .hamburger {
+        display: block;
+
+    }
+
+    .sidenav.open {
+        transform: translateX(0);
+    }
+
+    .middle-container {
+        margin-left: 0;
+    }
+}
