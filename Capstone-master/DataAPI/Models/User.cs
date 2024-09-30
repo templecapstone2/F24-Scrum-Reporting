@@ -1,4 +1,6 @@
-﻿namespace DataAPI.Models
+﻿using System.Text.Json.Serialization;
+
+namespace DataAPI.Models
 {
     public class User
     {
@@ -19,30 +21,35 @@
             this.userTypeID = userTypeID;
         }
 
+        [JsonPropertyName("id")]
         public int ID
         {
             get { return id; }
             set { id = value; }
         }
 
+        [JsonPropertyName("first_name")]
         public string FirstName
         {
             get { return firstName; }
             set { firstName = value; }
         }
 
+        [JsonPropertyName("last_name")]
         public string LastName
         {
             get { return lastName; }
             set { lastName = value; }
         }
 
+        [JsonPropertyName("email")]
         public string Email
         {
             get { return email; }
             set { email = value; }
         }
 
+        [JsonPropertyName("usertype_id")]
         public int UserTypeID
         {
             get { return userTypeID; }

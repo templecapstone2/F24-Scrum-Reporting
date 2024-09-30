@@ -1,4 +1,6 @@
-﻿namespace DataAPI.Models
+﻿using System.Text.Json.Serialization;
+
+namespace DataAPI.Models
 {
     public class Team
     {
@@ -13,12 +15,14 @@
             this.name = name;
         }
 
+        [JsonPropertyName("id")]
         public int ID
         {
             get { return id; }
             set { id = value; }
         }
 
+        [JsonPropertyName("name")]
         public string Name
         {
             get { return name; }

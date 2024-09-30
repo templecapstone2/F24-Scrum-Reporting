@@ -13,9 +13,9 @@ namespace DataAPI.Controllers
         private readonly DBConnect dbConnect;
         SqlCommand? sqlCommand;
 
-        public LoginController(IConfiguration configuration)
+        public LoginController(DBConnect dbConnect)
         {
-            dbConnect = new DBConnect(configuration);
+            this.dbConnect = dbConnect;
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace DataAPI.Models
+﻿using System.Text.Json.Serialization;
+
+namespace DataAPI.Models
 {
     public class Scrum
     {
@@ -17,24 +19,28 @@
             this.isActive = isActive;
         }
 
+        [JsonPropertyName("id")]
         public int ID
         {
             get { return id; }
             set { id = value; }
         }
 
+        [JsonPropertyName("name")]
         public string Name
         {
             get { return name; }
             set { name = value; }
         }
 
+        [JsonPropertyName("date_due")]
         public DateTime DateDue
         {
             get { return dateDue; }
             set { dateDue = value; }
         }
 
+        [JsonPropertyName("is_active")]
         public bool IsActive
         {
             get { return isActive; }

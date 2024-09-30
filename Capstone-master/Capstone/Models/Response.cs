@@ -1,4 +1,6 @@
-﻿namespace Capstone.Models
+﻿using System.Text.Json.Serialization;
+
+namespace Capstone.Models
 {
     public class Response
     {
@@ -23,42 +25,49 @@
             this.userID = userID;
         }
 
+        [JsonPropertyName("id")]
         public int ID
         {
             get { return id; }
             set { id = value; }
         }
 
+        [JsonPropertyName("question_one")]
         public string QuestionOne
         {
             get { return questionOne; }
             set { questionOne = value; }
         }
 
+        [JsonPropertyName("question_two")]
         public string QuestionTwo
         {
             get { return questionTwo; }
             set { questionTwo = value; }
         }
 
+        [JsonPropertyName("question_three")]
         public string QuestionThree
         {
             get { return questionThree; }
             set { questionThree = value; }
         }
 
+        [JsonPropertyName("date_submitted")]
         public DateTime DateSubmitted
         {
             get { return dateSubmitted; }
             set { dateSubmitted = value; }
         }
 
+        [JsonPropertyName("scrum_id")]
         public int ScrumID
         {
             get { return scrumID; }
             set { scrumID = value; }
         }
 
+        [JsonPropertyName("user_id")]
         public int UserID
         {
             get { return userID; }

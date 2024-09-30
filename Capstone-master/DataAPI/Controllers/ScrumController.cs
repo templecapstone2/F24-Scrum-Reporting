@@ -14,10 +14,11 @@ namespace DataAPI.Controllers
         private readonly DBConnect dbConnect;
         SqlCommand? sqlCommand;
 
-        public ScrumController(IConfiguration configuration)
+        public ScrumController(DBConnect dbConnect)
         {
-            dbConnect = new DBConnect(configuration);
+            this.dbConnect = dbConnect;
         }
+
         [HttpPost("add")]
         public IActionResult AddScrum([FromBody] Scrum scrum)
         {

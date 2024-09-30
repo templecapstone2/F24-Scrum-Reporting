@@ -13,9 +13,9 @@ namespace DataAPI.Controllers
         private readonly DBConnect dbConnect;
         SqlCommand? sqlCommand;
 
-        public ResponseController(IConfiguration configuration)
+        public ResponseController(DBConnect dbConnect)
         {
-            dbConnect = new DBConnect(configuration);
+            this.dbConnect = dbConnect;
         }
 
         [HttpPost("add")]

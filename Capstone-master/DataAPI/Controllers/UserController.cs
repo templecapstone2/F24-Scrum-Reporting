@@ -10,48 +10,30 @@ namespace DataAPI.Controllers
     [Route("api/[controller]")]
     public class UserController : Controller
     {
-        //do I want to add a team controller?
         private readonly DBConnect dbConnect;
         SqlCommand? sqlCommand;
 
-        public UserController(IConfiguration configuration)
+        public UserController(DBConnect dbConnect)
         {
-            dbConnect = new DBConnect(configuration);
+            this.dbConnect = dbConnect;
         }
 
-        [HttpPost("team/add")]
-        public IActionResult AddTeam([FromBody] Team team)
-        {
-            sqlCommand = new SqlCommand();
-            sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
-            sqlCommand.CommandText = "AddResponse";
-            sqlCommand.Parameters.AddWithValue("@name", team.Name);
-            //idk if I want to pass the object in body or just a name string as url param
-            if (dbConnect.DoUpdateUsingCmdObj(sqlCommand) == 1)
-            {
-                return Ok("Team " + team.Name + " added successfully");
-            }
-            else
-            {
-                return BadRequest("Error");
-            }
-        }
 
-        [HttpGet("teams")]
-        public IActionResult GetTeams()
+        [HttpGet("users")]
+        public IActionResult GetUsers()
         {
-            List<Team> teams = new List<Team>();
+            List<User> users = new List<User>();
             sqlCommand = new SqlCommand();
             sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
-            sqlCommand.CommandText = "GetTeams";
+            sqlCommand.CommandText = "GetUsers";
             DataSet ds = dbConnect.GetDataSetUsingCmdObj(sqlCommand);
 
             if (ds.Tables[0].Rows.Count > 0)
             {
                 foreach (DataRow row in ds.Tables[0].Rows)
                 {
-                    Team team = new Team();
-                    foreach (var property in team.GetType().GetProperties())
+                    User user = new User();
+                    foreach (var property in user.GetType().GetProperties())
                     {
                         if (row.Table.Columns.Contains(property.Name))
                         {
@@ -59,17 +41,17 @@ namespace DataAPI.Controllers
 
                             if (value != DBNull.Value)
                             {
-                                property.SetValue(team, value);
+                                property.SetValue(user, value);
                             }
                             else
                             {
-                                property.SetValue(team, null);
+                                property.SetValue(user, null);
                             }
                         }
                     }
-                    teams.Add(team);
+                    users.Add(user);
                 }
-                return Ok(teams);
+                return Ok(users);
             }
             else
             {
@@ -114,24 +96,6 @@ namespace DataAPI.Controllers
             else
             {
                 return NotFound();
-            }
-        }
-
-        [HttpDelete("team/delete/{id:int}")]
-        public IActionResult DeleteTeam(int id)
-        {
-            sqlCommand = new SqlCommand();
-            sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
-            sqlCommand.CommandText = "DeleteTeam";
-            sqlCommand.Parameters.AddWithValue("@id", id);
-
-            if (dbConnect.DoUpdateUsingCmdObj(sqlCommand) == 1)
-            {
-                return Ok("Team with ID " + id + " deleted successfully");
-            }
-            else
-            {
-                return BadRequest("Error");
             }
         }
     }
