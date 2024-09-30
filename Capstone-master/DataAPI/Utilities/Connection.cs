@@ -10,11 +10,7 @@ namespace DataAPI.Utilities
 {
     public class DBConnect
     {
-        // Main Connection String - used for the published web application and project submissions.
         String SqlConnectString;
-
-        // Home Connection String - used for working from home using SSH Tunneling.
-        //String SqlConnectString;
         
         SqlConnection myConnectionSql;
         SqlCommand objCmd;
