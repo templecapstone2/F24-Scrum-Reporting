@@ -23,7 +23,7 @@ namespace DataAPI.Controllers
         {
             sqlCommand = new SqlCommand();
             sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
-            sqlCommand.CommandText = "AddResponse";
+            sqlCommand.CommandText = "AddTeam";
             sqlCommand.Parameters.AddWithValue("@name", team.Name);
             //idk if I want to pass the object in body or just a name string as url param
             if (dbConnect.DoUpdateUsingCmdObj(sqlCommand) == 1)
