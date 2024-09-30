@@ -1,0 +1,6 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/Capstone-master/Capstone/appsettings.json
+/Capstone-master/DataAPI/appsettings.json
