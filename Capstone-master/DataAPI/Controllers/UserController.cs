@@ -36,6 +36,7 @@ namespace DataAPI.Controllers
                     User user = new User();
                     foreach (var property in user.GetType().GetProperties())
                     {
+                        // Get the JsonPropertyName for each property of the model
                         var jsonPropertyName = property.GetCustomAttributes(typeof(JsonPropertyNameAttribute), false)
                                                .FirstOrDefault() as JsonPropertyNameAttribute;
 
@@ -82,6 +83,7 @@ namespace DataAPI.Controllers
                     User student = new User();
                     foreach (var property in student.GetType().GetProperties())
                     {
+                        // Get the JsonPropertyName for each property of the model
                         var jsonPropertyName = property.GetCustomAttributes(typeof(JsonPropertyNameAttribute), false)
                        .FirstOrDefault() as JsonPropertyNameAttribute;
 

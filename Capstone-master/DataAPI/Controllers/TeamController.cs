@@ -18,7 +18,7 @@ namespace DataAPI.Controllers
             this.dbConnect = dbConnect;
         }
 
-        [HttpPost("add")]
+        [HttpPost]
         public IActionResult AddTeam([FromBody] Team team)
         {
             sqlCommand = new SqlCommand();
@@ -36,7 +36,7 @@ namespace DataAPI.Controllers
             }
         }
 
-        [HttpGet("teams")]
+        [HttpGet]
         public IActionResult GetTeams()
         {
             List<Team> teams = new List<Team>();
@@ -52,6 +52,7 @@ namespace DataAPI.Controllers
                     Team team = new Team();
                     foreach (var property in team.GetType().GetProperties())
                     {
+                        // Get the JsonPropertyName for each property of the model
                         var jsonPropertyName = property.GetCustomAttributes(typeof(JsonPropertyNameAttribute), false)
                        .FirstOrDefault() as JsonPropertyNameAttribute;
 
@@ -82,7 +83,7 @@ namespace DataAPI.Controllers
             }
         }
 
-        [HttpDelete("delete/{id:int}")]
+        [HttpDelete("{id:int}")]
         public IActionResult DeleteTeam(int id)
         {
             sqlCommand = new SqlCommand();
@@ -96,7 +97,7 @@ namespace DataAPI.Controllers
             }
             else
             {
-                return BadRequest("Error");
+                return NotFound("No team found with ID " + id);
             }
         }
     }

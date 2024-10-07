@@ -19,7 +19,7 @@ namespace DataAPI.Controllers
             this.dbConnect = dbConnect;
         }
 
-        [HttpPost("add")]
+        [HttpPost]
         public IActionResult AddResponse([FromBody] Response response)
         {
             sqlCommand = new SqlCommand();
@@ -42,7 +42,7 @@ namespace DataAPI.Controllers
             }
         }
 
-        [HttpGet("responses")]
+        [HttpGet]
         public IActionResult GetResponses()
         {
             List<Response> responses = new List<Response>();
@@ -57,6 +57,7 @@ namespace DataAPI.Controllers
                     Response response = new Response();
                     foreach (var property in response.GetType().GetProperties())
                     {
+                        // Get the JsonPropertyName for each property of the model
                         var jsonPropertyName = property.GetCustomAttributes(typeof(JsonPropertyNameAttribute), false)
                        .FirstOrDefault() as JsonPropertyNameAttribute;
 
@@ -87,13 +88,18 @@ namespace DataAPI.Controllers
             }
         }
 
-        [HttpPut("modify")]
-        public IActionResult ModifyResponse([FromBody] Response response)
+        [HttpPut("{id:int}")]
+        public IActionResult ModifyResponse(int id, [FromBody] Response response)
         {
+            if (id != response.ID)
+            {
+                return BadRequest("ID in the URL does not match ID in the request body.");
+            }
+
             sqlCommand = new SqlCommand();
             sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
-            sqlCommand.CommandText = "ModiifyResponse";
-            sqlCommand.Parameters.AddWithValue("@id", response.ID);
+            sqlCommand.CommandText = "ModifyResponse";
+            sqlCommand.Parameters.AddWithValue("@id", id);
             sqlCommand.Parameters.AddWithValue("@question_one", response.QuestionOne);
             sqlCommand.Parameters.AddWithValue("@question_two", response.QuestionTwo);
             sqlCommand.Parameters.AddWithValue("@question_three", response.QuestionThree);
@@ -104,24 +110,24 @@ namespace DataAPI.Controllers
             }
             else
             {
-                return BadRequest("Error");
+                return NotFound("No response found with ID " + id);
             }
         }
 
-        [HttpDelete("clear")]
+        [HttpDelete]
         public IActionResult DeleteResponses()
         {
             sqlCommand = new SqlCommand();
             sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
             sqlCommand.CommandText = "DeleteResponses";
 
-            if (dbConnect.DoUpdateUsingCmdObj(sqlCommand) == 1)
+            if (dbConnect.DoUpdateUsingCmdObj(sqlCommand) > 0)
             {
                 return Ok("Responses deleted successfully");
             }
             else
             {
-                return BadRequest("Error");
+                return NoContent();
             }
         }
     }

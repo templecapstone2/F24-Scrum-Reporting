@@ -20,7 +20,7 @@ namespace DataAPI.Controllers
             this.dbConnect = dbConnect;
         }
 
-        [HttpPost("add")]
+        [HttpPost]
         public IActionResult AddScrum([FromBody] Scrum scrum)
         {
             sqlCommand = new SqlCommand();
@@ -40,7 +40,7 @@ namespace DataAPI.Controllers
             }
         }
 
-        [HttpGet("scrums")]
+        [HttpGet]
         public IActionResult GetScrums()
         {
             List<Scrum> scrums = new List<Scrum>();
@@ -55,6 +55,7 @@ namespace DataAPI.Controllers
                     Scrum scrum = new Scrum();
                     foreach (var property in scrum.GetType().GetProperties())
                     {
+                        // Get the JsonPropertyName for each property of the model
                         var jsonPropertyName = property.GetCustomAttributes(typeof(JsonPropertyNameAttribute), false)
                        .FirstOrDefault() as JsonPropertyNameAttribute;
 
@@ -85,13 +86,18 @@ namespace DataAPI.Controllers
             }
         }
 
-        [HttpPut("modify")]
-        public IActionResult ModifyScrum([FromBody] Scrum scrum)
+        [HttpPut("{id:int}")]
+        public IActionResult ModifyScrum(int id, [FromBody] Scrum scrum)
         {
+            if (id != scrum.ID)
+            {
+                return BadRequest("ID in the URL does not match ID in the request body.");
+            }
+
             sqlCommand = new SqlCommand();
             sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
             sqlCommand.CommandText = "ModifyScrum";
-            sqlCommand.Parameters.AddWithValue("@id", scrum.ID);
+            sqlCommand.Parameters.AddWithValue("@id", id);
             sqlCommand.Parameters.AddWithValue("@name", scrum.Name);
             sqlCommand.Parameters.AddWithValue("@date_due", scrum.DateDue);
             sqlCommand.Parameters.AddWithValue("@is_active", scrum.IsActive);
@@ -102,7 +108,7 @@ namespace DataAPI.Controllers
             }
             else
             {
-                return BadRequest("Error");
+                return NotFound("No scrum found with ID " + id);
             }
         }
 
@@ -114,13 +120,13 @@ namespace DataAPI.Controllers
             sqlCommand.CommandText = "DeleteScrum";
             sqlCommand.Parameters.AddWithValue("@id", id);
 
-            if (dbConnect.DoUpdateUsingCmdObj(sqlCommand) == 1)
+            if (dbConnect.DoUpdateUsingCmdObj(sqlCommand) > 0)
             {
                 return Ok("Scrum with ID " + id + " deleted successfully");
             }
             else
             {
-                return BadRequest("Error");
+                return NotFound("No scrum found with ID " + id);
             }
         }
     }

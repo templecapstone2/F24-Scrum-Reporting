@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Capstone-master",
+    "\\Capstone-master\\DataAPI",
+    "\\Capstone-master\\DataAPI\\Controllers"
   ],
-  "SelectedNode": "\\Capstone.sln",
   "PreviewInSolutionExplorer": false
 }
