@@ -19,98 +19,111 @@ namespace DataAPI.Controllers
             this.dbConnect = dbConnect;
         }
 
-
         [HttpGet("users")]
         public IActionResult GetUsers()
         {
-            List<User> users = new List<User>();
-            sqlCommand = new SqlCommand();
-            sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
-            sqlCommand.CommandText = "GetUsers";
-            DataSet ds = dbConnect.GetDataSetUsingCmdObj(sqlCommand);
-
-            if (ds.Tables[0].Rows.Count > 0)
+            try
             {
-                foreach (DataRow row in ds.Tables[0].Rows)
+                List<User> users = new List<User>();
+                sqlCommand = new SqlCommand();
+                sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                sqlCommand.CommandText = "GetUsers";
+                DataSet ds = dbConnect.GetDataSetUsingCmdObj(sqlCommand);
+
+                if (ds.Tables[0].Rows.Count > 0)
                 {
-                    User user = new User();
-                    foreach (var property in user.GetType().GetProperties())
+                    foreach (DataRow row in ds.Tables[0].Rows)
                     {
-                        // Get the JsonPropertyName for each property of the model
-                        var jsonPropertyName = property.GetCustomAttributes(typeof(JsonPropertyNameAttribute), false)
+                        User user = new User();
+                        foreach (var property in user.GetType().GetProperties())
+                        {
+                            // Get the JsonPropertyName for each property of the model
+                            var jsonPropertyName = property.GetCustomAttributes(typeof(JsonPropertyNameAttribute), false)
                                                .FirstOrDefault() as JsonPropertyNameAttribute;
 
-                        // Use json attribute name if present, otherwise use property name
-                        string columnName = jsonPropertyName != null ? jsonPropertyName.Name : property.Name;
+                            // Use json attribute name if present, otherwise use property name
+                            string columnName = jsonPropertyName != null ? jsonPropertyName.Name : property.Name;
 
-                        if (row.Table.Columns.Contains(columnName))
-                        {
-                            object value = row[columnName];
+                            if (row.Table.Columns.Contains(columnName))
+                            {
+                                object value = row[columnName];
 
-                            if (value != DBNull.Value)
-                            {
-                                property.SetValue(user, value);
-                            }
-                            else
-                            {
-                                property.SetValue(user, null);
+                                if (value != DBNull.Value)
+                                {
+                                    property.SetValue(user, value);
+                                }
+                                else
+                                {
+                                    property.SetValue(user, null);
+                                }
                             }
                         }
+                        users.Add(user);
                     }
-                    users.Add(user);
+                    return Ok(users);
                 }
-                return Ok(users);
+                else
+                {
+                    return NotFound();
+                }
             }
-            else
+            catch (Exception ex)
             {
-                return NotFound();
+                return StatusCode(500, "Internal server error: " + ex.Message);
             }
         }
 
         [HttpGet("students")]
         public IActionResult GetStudents()
         {
-            List<User> students = new List<User>();
-            sqlCommand = new SqlCommand();
-            sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
-            sqlCommand.CommandText = "GetStudents";
-            DataSet ds = dbConnect.GetDataSetUsingCmdObj(sqlCommand);
-
-            if (ds.Tables[0].Rows.Count > 0)
+            try
             {
-                foreach (DataRow row in ds.Tables[0].Rows)
+                List<User> students = new List<User>();
+                sqlCommand = new SqlCommand();
+                sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                sqlCommand.CommandText = "GetStudents";
+                DataSet ds = dbConnect.GetDataSetUsingCmdObj(sqlCommand);
+
+                if (ds.Tables[0].Rows.Count > 0)
                 {
-                    User student = new User();
-                    foreach (var property in student.GetType().GetProperties())
+                    foreach (DataRow row in ds.Tables[0].Rows)
                     {
-                        // Get the JsonPropertyName for each property of the model
-                        var jsonPropertyName = property.GetCustomAttributes(typeof(JsonPropertyNameAttribute), false)
+                        User student = new User();
+                        foreach (var property in student.GetType().GetProperties())
+                        {
+                            // Get the JsonPropertyName for each property of the model
+                            var jsonPropertyName = property.GetCustomAttributes(typeof(JsonPropertyNameAttribute), false)
                        .FirstOrDefault() as JsonPropertyNameAttribute;
 
-                        // Use json attribute name if present, otherwise use property name
-                        string columnName = jsonPropertyName != null ? jsonPropertyName.Name : property.Name;
+                            // Use json attribute name if present, otherwise use property name
+                            string columnName = jsonPropertyName != null ? jsonPropertyName.Name : property.Name;
 
-                        if (row.Table.Columns.Contains(columnName))
-                        {
-                            object value = row[columnName];
+                            if (row.Table.Columns.Contains(columnName))
+                            {
+                                object value = row[columnName];
 
-                            if (value != DBNull.Value)
-                            {
-                                property.SetValue(student, value);
-                            }
-                            else
-                            {
-                                property.SetValue(student, null);
+                                if (value != DBNull.Value)
+                                {
+                                    property.SetValue(student, value);
+                                }
+                                else
+                                {
+                                    property.SetValue(student, null);
+                                }
                             }
                         }
+                        students.Add(student);
                     }
-                    students.Add(student);
+                    return Ok(students);
                 }
-                return Ok(students);
+                else
+                {
+                    return NotFound();
+                }
             }
-            else
+            catch (Exception ex)
             {
-                return NotFound();
+                return StatusCode(500, "Internal server error: " + ex.Message);
             }
         }
     }

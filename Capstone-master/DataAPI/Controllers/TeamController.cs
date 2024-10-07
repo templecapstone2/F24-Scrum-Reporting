@@ -13,6 +13,7 @@ namespace DataAPI.Controllers
     {
         private readonly DBConnect dbConnect;
         SqlCommand? sqlCommand;
+
         public TeamController(DBConnect dbConnect)
         {
             this.dbConnect = dbConnect;
@@ -21,83 +22,104 @@ namespace DataAPI.Controllers
         [HttpPost]
         public IActionResult AddTeam([FromBody] Team team)
         {
-            sqlCommand = new SqlCommand();
-            sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
-            sqlCommand.CommandText = "AddTeam";
-            sqlCommand.Parameters.AddWithValue("@name", team.Name);
-            //idk if I want to pass the object in body or just a name string as url param
-            if (dbConnect.DoUpdateUsingCmdObj(sqlCommand) == 1)
+            try
             {
-                return Ok("Team " + team.Name + " added successfully");
+                sqlCommand = new SqlCommand();
+                sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                sqlCommand.CommandText = "AddTeam";
+                sqlCommand.Parameters.AddWithValue("@name", team.Name);
+                //idk if I want to pass the object in body or just a name string as url param
+                if (dbConnect.DoUpdateUsingCmdObj(sqlCommand) == 1)
+                {
+                    return Ok("Team " + team.Name + " added successfully");
+                }
+                else
+                {
+                    return BadRequest("Error");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                return BadRequest("Error");
+                return StatusCode(500, "Internal server error: " + ex.Message);
             }
         }
 
         [HttpGet]
         public IActionResult GetTeams()
         {
-            List<Team> teams = new List<Team>();
-            sqlCommand = new SqlCommand();
-            sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
-            sqlCommand.CommandText = "GetTeams";
-            DataSet ds = dbConnect.GetDataSetUsingCmdObj(sqlCommand);
-
-            if (ds.Tables[0].Rows.Count > 0)
+            try
             {
-                foreach (DataRow row in ds.Tables[0].Rows)
+                List<Team> teams = new List<Team>();
+                sqlCommand = new SqlCommand();
+                sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                sqlCommand.CommandText = "GetTeams";
+                DataSet ds = dbConnect.GetDataSetUsingCmdObj(sqlCommand);
+
+                if (ds.Tables[0].Rows.Count > 0)
                 {
-                    Team team = new Team();
-                    foreach (var property in team.GetType().GetProperties())
+                    foreach (DataRow row in ds.Tables[0].Rows)
                     {
-                        // Get the JsonPropertyName for each property of the model
-                        var jsonPropertyName = property.GetCustomAttributes(typeof(JsonPropertyNameAttribute), false)
+                        Team team = new Team();
+                        foreach (var property in team.GetType().GetProperties())
+                        {
+                            // Get the JsonPropertyName for each property of the model
+                            var jsonPropertyName = property.GetCustomAttributes(typeof(JsonPropertyNameAttribute), false)
                        .FirstOrDefault() as JsonPropertyNameAttribute;
 
-                        // Use json attribute name if present, otherwise use property name
-                        string columnName = jsonPropertyName != null ? jsonPropertyName.Name : property.Name;
+                            // Use json attribute name if present, otherwise use property name
+                            string columnName = jsonPropertyName != null ? jsonPropertyName.Name : property.Name;
 
-                        if (row.Table.Columns.Contains(columnName))
-                        {
-                            object value = row[columnName];
+                            if (row.Table.Columns.Contains(columnName))
+                            {
+                                object value = row[columnName];
 
-                            if (value != DBNull.Value)
-                            {
-                                property.SetValue(team, value);
-                            }
-                            else
-                            {
-                                property.SetValue(team, null);
+                                if (value != DBNull.Value)
+                                {
+                                    property.SetValue(team, value);
+                                }
+                                else
+                                {
+                                    property.SetValue(team, null);
+                                }
                             }
                         }
+                        teams.Add(team);
                     }
-                    teams.Add(team);
+                    return Ok(teams);
                 }
-                return Ok(teams);
+                else
+                {
+                    return NotFound();
+                }
             }
-            else
+            catch (Exception ex)
             {
-                return NotFound();
+                return StatusCode(500, "Internal server error: " + ex.Message);
             }
         }
 
         [HttpDelete("{id:int}")]
         public IActionResult DeleteTeam(int id)
         {
-            sqlCommand = new SqlCommand();
-            sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
-            sqlCommand.CommandText = "DeleteTeam";
-            sqlCommand.Parameters.AddWithValue("@id", id);
+            try
+            {
+                sqlCommand = new SqlCommand();
+                sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                sqlCommand.CommandText = "DeleteTeam";
+                sqlCommand.Parameters.AddWithValue("@id", id);
 
-            if (dbConnect.DoUpdateUsingCmdObj(sqlCommand) == 1)
-            {
-                return Ok("Team with ID " + id + " deleted successfully");
+                if (dbConnect.DoUpdateUsingCmdObj(sqlCommand) == 1)
+                {
+                    return Ok("Team with ID " + id + " deleted successfully");
+                }
+                else
+                {
+                    return NotFound("No team found with ID " + id);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                return NotFound("No team found with ID " + id);
+                return StatusCode(500, "Internal server error: " + ex.Message);
             }
         }
     }

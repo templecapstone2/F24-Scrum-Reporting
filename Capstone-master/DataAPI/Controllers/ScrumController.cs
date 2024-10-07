@@ -23,110 +23,138 @@ namespace DataAPI.Controllers
         [HttpPost]
         public IActionResult AddScrum([FromBody] Scrum scrum)
         {
-            sqlCommand = new SqlCommand();
-            sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
-            sqlCommand.CommandText = "AddScrum";
-            sqlCommand.Parameters.AddWithValue("@name", scrum.Name);
-            sqlCommand.Parameters.AddWithValue("@date_due", scrum.DateDue);
-            sqlCommand.Parameters.AddWithValue("@is_active", scrum.IsActive);
+            try
+            {
+                sqlCommand = new SqlCommand();
+                sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                sqlCommand.CommandText = "AddScrum";
+                sqlCommand.Parameters.AddWithValue("@name", scrum.Name);
+                sqlCommand.Parameters.AddWithValue("@date_due", scrum.DateDue);
+                sqlCommand.Parameters.AddWithValue("@is_active", scrum.IsActive);
 
-            if (dbConnect.DoUpdateUsingCmdObj(sqlCommand) == 1)
-            {
-                return Ok("Scrum added successfully");
+                if (dbConnect.DoUpdateUsingCmdObj(sqlCommand) == 1)
+                {
+                    return Ok("Scrum added successfully");
+                }
+                else
+                {
+                    return BadRequest("Error");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                return BadRequest("Error");
+                return StatusCode(500, "Internal server error: " + ex.Message);
             }
         }
 
         [HttpGet]
         public IActionResult GetScrums()
         {
-            List<Scrum> scrums = new List<Scrum>();
-            sqlCommand = new SqlCommand();
-            sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
-            sqlCommand.CommandText = "GetScrums";
-            DataSet ds = dbConnect.GetDataSetUsingCmdObj(sqlCommand);
-            if (ds.Tables[0].Rows.Count > 0)
+            try
             {
-                foreach (DataRow row in ds.Tables[0].Rows)
+                List<Scrum> scrums = new List<Scrum>();
+                sqlCommand = new SqlCommand();
+                sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                sqlCommand.CommandText = "GetScrums";
+                DataSet ds = dbConnect.GetDataSetUsingCmdObj(sqlCommand);
+                if (ds.Tables[0].Rows.Count > 0)
                 {
-                    Scrum scrum = new Scrum();
-                    foreach (var property in scrum.GetType().GetProperties())
+                    foreach (DataRow row in ds.Tables[0].Rows)
                     {
-                        // Get the JsonPropertyName for each property of the model
-                        var jsonPropertyName = property.GetCustomAttributes(typeof(JsonPropertyNameAttribute), false)
+                        Scrum scrum = new Scrum();
+                        foreach (var property in scrum.GetType().GetProperties())
+                        {
+                            // Get the JsonPropertyName for each property of the model
+                            var jsonPropertyName = property.GetCustomAttributes(typeof(JsonPropertyNameAttribute), false)
                        .FirstOrDefault() as JsonPropertyNameAttribute;
 
-                        // Use json attribute name if present, otherwise use property name
-                        string columnName = jsonPropertyName != null ? jsonPropertyName.Name : property.Name;
+                            // Use json attribute name if present, otherwise use property name
+                            string columnName = jsonPropertyName != null ? jsonPropertyName.Name : property.Name;
 
-                        if (row.Table.Columns.Contains(columnName))
-                        {
-                            object value = row[columnName];
+                            if (row.Table.Columns.Contains(columnName))
+                            {
+                                object value = row[columnName];
 
-                            if (value != DBNull.Value)
-                            {
-                                property.SetValue(scrum, value);
-                            }
-                            else
-                            {
-                                property.SetValue(scrum, null);
+                                if (value != DBNull.Value)
+                                {
+                                    property.SetValue(scrum, value);
+                                }
+                                else
+                                {
+                                    property.SetValue(scrum, null);
+                                }
                             }
                         }
+                        scrums.Add(scrum);
                     }
-                    scrums.Add(scrum);
+                    return Ok(scrums);
                 }
-                return Ok(scrums);
+                else
+                {
+                    return NotFound();
+                }
             }
-            else
+            catch (Exception ex)
             {
-                return NotFound();
+                return StatusCode(500, "Internal server error: " + ex.Message);
             }
         }
 
         [HttpPut("{id:int}")]
         public IActionResult ModifyScrum(int id, [FromBody] Scrum scrum)
         {
-            if (id != scrum.ID)
+            try
             {
-                return BadRequest("ID in the URL does not match ID in the request body.");
-            }
+                if (id != scrum.ID)
+                {
+                    return BadRequest("ID in the URL does not match ID in the request body.");
+                }
 
-            sqlCommand = new SqlCommand();
-            sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
-            sqlCommand.CommandText = "ModifyScrum";
-            sqlCommand.Parameters.AddWithValue("@id", id);
-            sqlCommand.Parameters.AddWithValue("@name", scrum.Name);
-            sqlCommand.Parameters.AddWithValue("@date_due", scrum.DateDue);
-            sqlCommand.Parameters.AddWithValue("@is_active", scrum.IsActive);
-            //idk if this will work or I want to pass ID separately and use it as a url parameter
-            if (dbConnect.DoUpdateUsingCmdObj(sqlCommand) == 1)
-            {
-                return Ok("Scrum modified successfully");
+                sqlCommand = new SqlCommand();
+                sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                sqlCommand.CommandText = "ModifyScrum";
+                sqlCommand.Parameters.AddWithValue("@id", id);
+                sqlCommand.Parameters.AddWithValue("@name", scrum.Name);
+                sqlCommand.Parameters.AddWithValue("@date_due", scrum.DateDue);
+                sqlCommand.Parameters.AddWithValue("@is_active", scrum.IsActive);
+
+                if (dbConnect.DoUpdateUsingCmdObj(sqlCommand) == 1)
+                {
+                    return Ok("Scrum modified successfully");
+                }
+                else
+                {
+                    return NotFound("No scrum found with ID " + id);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                return NotFound("No scrum found with ID " + id);
+                return StatusCode(500, "Internal server error: " + ex.Message);
             }
         }
 
         [HttpDelete("{id:int}")]
         public IActionResult DeleteScrum(int id)
         {
-            sqlCommand = new SqlCommand();
-            sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
-            sqlCommand.CommandText = "DeleteScrum";
-            sqlCommand.Parameters.AddWithValue("@id", id);
+            try
+            {
+                sqlCommand = new SqlCommand();
+                sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                sqlCommand.CommandText = "DeleteScrum";
+                sqlCommand.Parameters.AddWithValue("@id", id);
 
-            if (dbConnect.DoUpdateUsingCmdObj(sqlCommand) > 0)
-            {
-                return Ok("Scrum with ID " + id + " deleted successfully");
+                if (dbConnect.DoUpdateUsingCmdObj(sqlCommand) > 0)
+                {
+                    return Ok("Scrum with ID " + id + " deleted successfully");
+                }
+                else
+                {
+                    return NotFound("No scrum found with ID " + id);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                return NotFound("No scrum found with ID " + id);
+                return StatusCode(500, "Internal server error: " + ex.Message);
             }
         }
     }
