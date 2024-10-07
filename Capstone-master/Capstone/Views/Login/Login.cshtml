@@ -1,0 +1,40 @@
+﻿@*
+*@
+@{
+    string routePrefix = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") != "Development" ? "/cis4396-f05" : "";
+}
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log In</title>
+    <link rel="stylesheet" type="text/css" href="~/css/login.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo-container">
+                <img src="~/images/logo.png" alt="Temple Scrum Logo" class="logo">
+            </div>
+        </nav>
+    </header>
+
+        <div class="login-box">
+            <h2>Login</h2>
+            <form action="Secure/Submit" method="post">
+                <div class="login-btn">
+                    <button type="submit" id="btnSSO" style="font-size: 18px;">Secure Login</button>
+                </div>
+            </form>
+        </div>
+    <script>
+        const routePrefix = "@(routePrefix)";
+        document.getElementById("btnSSO").addEventListener("click", function (e) {
+            e.preventDefault();
+            const redirectURL = routePrefix + "/Secure/Index";
+            window.location.href = redirectURL;
+        });
+    </script>
+</body>
+</html>
