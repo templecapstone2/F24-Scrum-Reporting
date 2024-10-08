@@ -68,5 +68,20 @@ namespace Capstone.Controllers
         {
             return View();
         }
+
+        public IActionResult ScrumReport()
+        {
+            var model = new ScrumReport
+            {
+                ScrumItems = new List<ScrumItem>
+                {
+                    new ScrumItem { Name = "Scrum #1", DueDate = DateTime.Parse("2024-09-07"), IsSubmitted = true },
+                    new ScrumItem { Name = "Scrum #2", DueDate = DateTime.Parse("2024-09-14"), IsSubmitted = false },
+                    new ScrumItem { Name = "Scrum #3", DueDate = DateTime.Parse("2024-09-14"), IsSubmitted = false }
+                }
+            };
+            return View(model);
+        }
+
     }
 }
