@@ -20,12 +20,12 @@
 
     <section class="middle-container">
         <nav class="sidenav">
-            <a href="@Url.Action("Index", "Home")">Home</a>
-            <a href="@Url.Action("Users", "Account")">Users</a>
-            <a href="@Url.Action("Reports", "")">Reports</a>
-            <a href="@Url.Action("Scrums", "")">Scrums</a>
-            <a href="@Url.Action("Teams", "")">Teams</a>
-            <a href="@Url.Action("Logout", "")">Logout</a>
+            <a href="@Url.Action("ProfessorHome", "Home")">Home</a> @* Professor Home *@
+            <a href="@Url.Action("Users", "Home")">User Management</a> @* User Management *@
+            <a href="@Url.Action("ViewReports", "Home")">Scrum View</a> @* Professor Aggregate Views *@
+            <a href="@Url.Action("ScrumView", "Home")">Scrum Management</a> @* Scrum Management *@
+            <a href="@Url.Action("TeamManagement", "Home")">Team Management</a> @* Team Management *@
+            <a href="@Url.Action("Logout", "Home")">Logout</a>
         </nav>
 
         <div class="content-container">

@@ -18,16 +18,6 @@ namespace Capstone.Controllers
             return View();
         }
 
-        public IActionResult Aggregate()
-        {
-            return View();
-        }
-
-        public IActionResult Users()
-        {
-            return View();
-        }
-
 
         public IActionResult Scrums()
         {
@@ -50,17 +40,17 @@ namespace Capstone.Controllers
         }
 
 
-        public IActionResult Report()
+        public IActionResult UserManagement()
         {
             return View();
         }
 
-        public IActionResult Login()
+        public IActionResult TeamManagement()
         {
             return View();
         }
 
-        public IActionResult Register()
+        public IActionResult ScrumManagement()
         {
             return View();
         }
