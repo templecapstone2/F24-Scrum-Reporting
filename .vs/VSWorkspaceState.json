@@ -1,13 +1,17 @@
 {
   "ExpandedNodes": [
+<<<<<<< HEAD
+    ""
+  ],
+  "SelectedNode": "\\Capstone.sln",
+=======
     "",
     "\\Capstone-master",
     "\\Capstone-master\\Capstone",
     "\\Capstone-master\\Capstone\\Views",
-    "\\Capstone-master\\Capstone\\Views\\Home",
-    "\\Capstone-master\\DataAPI",
-    "\\Capstone-master\\DataAPI\\Models"
+    "\\Capstone-master\\Capstone\\Views\\Home"
   ],
-  "SelectedNode": "\\Capstone-master\\Capstone\\Views\\Home\\ScrumReport.cshtml",
+  "SelectedNode": "\\Capstone-master\\Capstone\\Views\\Home\\Scrums.cshtml",
+>>>>>>> a07c6a0dbf8da35fb6430a37010a898f62123294
   "PreviewInSolutionExplorer": false
 }

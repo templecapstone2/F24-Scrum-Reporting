@@ -42,7 +42,16 @@ namespace Capstone.Controllers
 
         public IActionResult UserManagement()
         {
-            return View();
+            var users = new List<User>
+            {
+                new User("user1@mail.com", "john", "doe",""),
+                new User("user2@mail.com", "Mike", "smith",""),
+                new User("user3@mail.com", "Antonio", "lopez","")
+            };
+            ViewBag.Teams = new List<string> { "Scrum Reporting", "Team x", "Team y" };
+
+            return View(users);
+          
         }
 
         public IActionResult TeamManagement()
@@ -62,6 +71,18 @@ namespace Capstone.Controllers
 
         public IActionResult StudentHome()
         {
+            var tuId = HttpContext.Session.GetString("TU_ID");
+            var email = HttpContext.Session.GetString("Email");
+            var title = HttpContext.Session.GetString("Title");
+            var affiliation = HttpContext.Session.GetString("Affiliation_Primary");
+            var fullName = HttpContext.Session.GetString("Full_Name");
+
+            ViewBag.TU_ID = tuId;
+            ViewBag.Email = email;
+            ViewBag.Title = title;
+            ViewBag.Affiliation = affiliation;
+            ViewBag.Full_Name = fullName;
+
             return View();
         }
         public IActionResult ProfessorHome()
@@ -82,6 +103,6 @@ namespace Capstone.Controllers
             };
             return View(model);
         }
-
+     
     }
 }

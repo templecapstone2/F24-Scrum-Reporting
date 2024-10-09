@@ -4,42 +4,33 @@ namespace Capstone.Models
 {
     public class User
     {
-        private int id;
+        private String id;
         private String email;
-        private String firstName;
-        private String lastName;
-        private int userTypeID;
+        private String name;
+        private String userType;
 
         public User() { }
 
-        public User(int id, string email, string firstName, string lastName, int userTypeID)
+        public User(string id, string email, string name, string userType)
         {
             this.id = id;
             this.email = email;
-            this.firstName = firstName;
-            this.lastName = lastName;
-            this.userTypeID = userTypeID;
+            this.name = name;
+            this.userType = userType;
         }
 
         [JsonPropertyName("id")]
-        public int ID
+        public string ID
         {
             get { return id; }
             set { id = value; }
         }
 
-        [JsonPropertyName("first_name")]
-        public string FirstName
+        [JsonPropertyName("name")]
+        public string Name
         {
-            get { return firstName; }
-            set { firstName = value; }
-        }
-
-        [JsonPropertyName("last_name")]
-        public string LastName
-        {
-            get { return lastName; }
-            set { lastName = value; }
+            get { return name; }
+            set { name = value; }
         }
 
         [JsonPropertyName("email")]
@@ -50,10 +41,10 @@ namespace Capstone.Models
         }
 
         [JsonPropertyName("usertype_id")]
-        public int UserTypeID
+        public string UserType
         {
-            get { return userTypeID; }
-            set { userTypeID = value; }
+            get { return userType; }
+            set { userType = value; }
         }
     }
 }
