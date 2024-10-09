@@ -19,9 +19,19 @@
             </div>
         </nav>
     </header>
-
         <div class="login-box">
+        <form asp-action="Login" method="post">
             <h2>Login</h2>
+            <label for="ddlUserType">User Type</label>
+            <br />
+            <select class="dropdown" id="ddlUserType" name="UserType">
+                <option value="Professor">Professor</option>
+                <option value="Student">Student</option>
+            </select>
+            <div class="login-btn">
+                <button type="submit" value="Login" name="btnSubmit" style="font-size: 18px;">Log In</button>
+            </div>
+        </form>
             <form action="Secure/Submit" method="post">
                 <div class="login-btn">
                     <button type="submit" id="btnSSO" style="font-size: 18px;">Secure Login</button>
