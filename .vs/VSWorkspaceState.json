@@ -4,10 +4,8 @@
     "\\Capstone-master",
     "\\Capstone-master\\Capstone",
     "\\Capstone-master\\Capstone\\Views",
-    "\\Capstone-master\\Capstone\\Views\\Home",
-    "\\Capstone-master\\DataAPI",
-    "\\Capstone-master\\DataAPI\\Models"
+    "\\Capstone-master\\Capstone\\Views\\Home"
   ],
-  "SelectedNode": "\\Capstone-master\\Capstone\\Views\\Home\\ScrumReport.cshtml",
+  "SelectedNode": "\\Capstone-master\\Capstone\\Views\\Home\\Scrums.cshtml",
   "PreviewInSolutionExplorer": false
 }

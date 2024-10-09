@@ -1,12 +1,121 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\tun30817\\source\\repos\\F24-Scrum-Reporting\\",
-  "Documents": [],
+  "WorkspaceRootPath": "C:\\Users\\chess\\source\\repos\\templecapstone2\\F24-Scrum-Reporting\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\chess\\OneDrive\\Documents\\CIS4396\\F24-Scrum-Reporting-main\\F24-Scrum-Reporting-main\\Capstone-master\\Capstone\\Controllers\\UserController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\chess\\source\\repos\\templecapstone2\\F24-Scrum-Reporting\\Capstone-master\\Capstone\\Views\\Home\\Scrums.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Capstone-master\\Capstone\\Views\\Home\\Scrums.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\chess\\source\\repos\\templecapstone2\\F24-Scrum-Reporting\\Capstone-master\\Capstone\\Controllers\\HomeController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Capstone-master\\Capstone\\Controllers\\HomeController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\chess\\source\\repos\\templecapstone2\\F24-Scrum-Reporting\\Capstone-master\\Capstone\\Views\\Home\\Privacy.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Capstone-master\\Capstone\\Views\\Home\\Privacy.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\chess\\source\\repos\\templecapstone2\\F24-Scrum-Reporting\\Capstone-master\\DataAPI\\Controllers\\UserController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Capstone-master\\DataAPI\\Controllers\\UserController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\chess\\source\\repos\\templecapstone2\\F24-Scrum-Reporting\\Capstone-master\\DataAPI\\Controllers\\TeamUserController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Capstone-master\\DataAPI\\Controllers\\TeamUserController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "UserController.cs",
+              "DocumentMoniker": "C:\\Users\\chess\\OneDrive\\Documents\\CIS4396\\F24-Scrum-Reporting-main\\F24-Scrum-Reporting-main\\Capstone-master\\Capstone\\Controllers\\UserController.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\OneDrive\\Documents\\CIS4396\\F24-Scrum-Reporting-main\\F24-Scrum-Reporting-main\\Capstone-master\\Capstone\\Controllers\\UserController.cs",
+              "ToolTip": "C:\\Users\\chess\\OneDrive\\Documents\\CIS4396\\F24-Scrum-Reporting-main\\F24-Scrum-Reporting-main\\Capstone-master\\Capstone\\Controllers\\UserController.cs",
+              "RelativeToolTip": "..\\..\\..\\..\\OneDrive\\Documents\\CIS4396\\F24-Scrum-Reporting-main\\F24-Scrum-Reporting-main\\Capstone-master\\Capstone\\Controllers\\UserController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-09T19:47:18.588Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "HomeController.cs",
+              "DocumentMoniker": "C:\\Users\\chess\\source\\repos\\templecapstone2\\F24-Scrum-Reporting\\Capstone-master\\Capstone\\Controllers\\HomeController.cs",
+              "RelativeDocumentMoniker": "Capstone-master\\Capstone\\Controllers\\HomeController.cs",
+              "ToolTip": "C:\\Users\\chess\\source\\repos\\templecapstone2\\F24-Scrum-Reporting\\Capstone-master\\Capstone\\Controllers\\HomeController.cs",
+              "RelativeToolTip": "Capstone-master\\Capstone\\Controllers\\HomeController.cs",
+              "ViewState": "AQIAADkAAAAAAAAAAAAAAEEAAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-09T19:45:50.376Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Scrums.cshtml",
+              "DocumentMoniker": "C:\\Users\\chess\\source\\repos\\templecapstone2\\F24-Scrum-Reporting\\Capstone-master\\Capstone\\Views\\Home\\Scrums.cshtml",
+              "RelativeDocumentMoniker": "Capstone-master\\Capstone\\Views\\Home\\Scrums.cshtml",
+              "ToolTip": "C:\\Users\\chess\\source\\repos\\templecapstone2\\F24-Scrum-Reporting\\Capstone-master\\Capstone\\Views\\Home\\Scrums.cshtml",
+              "RelativeToolTip": "Capstone-master\\Capstone\\Views\\Home\\Scrums.cshtml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABYAAABsAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-10-09T19:45:41.418Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Privacy.cshtml",
+              "DocumentMoniker": "C:\\Users\\chess\\source\\repos\\templecapstone2\\F24-Scrum-Reporting\\Capstone-master\\Capstone\\Views\\Home\\Privacy.cshtml",
+              "RelativeDocumentMoniker": "Capstone-master\\Capstone\\Views\\Home\\Privacy.cshtml",
+              "ToolTip": "C:\\Users\\chess\\source\\repos\\templecapstone2\\F24-Scrum-Reporting\\Capstone-master\\Capstone\\Views\\Home\\Privacy.cshtml",
+              "RelativeToolTip": "Capstone-master\\Capstone\\Views\\Home\\Privacy.cshtml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-10-09T19:45:33.167Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "UserController.cs",
+              "DocumentMoniker": "C:\\Users\\chess\\source\\repos\\templecapstone2\\F24-Scrum-Reporting\\Capstone-master\\DataAPI\\Controllers\\UserController.cs",
+              "RelativeDocumentMoniker": "Capstone-master\\DataAPI\\Controllers\\UserController.cs",
+              "ToolTip": "C:\\Users\\chess\\source\\repos\\templecapstone2\\F24-Scrum-Reporting\\Capstone-master\\DataAPI\\Controllers\\UserController.cs",
+              "RelativeToolTip": "Capstone-master\\DataAPI\\Controllers\\UserController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-09T19:45:10.331Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "TeamUserController.cs",
+              "DocumentMoniker": "C:\\Users\\chess\\source\\repos\\templecapstone2\\F24-Scrum-Reporting\\Capstone-master\\DataAPI\\Controllers\\TeamUserController.cs",
+              "RelativeDocumentMoniker": "Capstone-master\\DataAPI\\Controllers\\TeamUserController.cs",
+              "ToolTip": "C:\\Users\\chess\\source\\repos\\templecapstone2\\F24-Scrum-Reporting\\Capstone-master\\DataAPI\\Controllers\\TeamUserController.cs",
+              "RelativeToolTip": "Capstone-master\\DataAPI\\Controllers\\TeamUserController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-09T19:44:59.846Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
