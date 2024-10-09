@@ -44,9 +44,9 @@ namespace Capstone.Controllers
         {
             var users = new List<User>
             {
-                new User(1, "user1@mail.com", "john", "doe",1),
-                new User(2, "user2@mail.com", "Mike", "smith",1),
-                new User(3, "user3@mail.com", "Antonio", "lopez",1)
+                new User("user1@mail.com", "john", "doe",""),
+                new User("user2@mail.com", "Mike", "smith",""),
+                new User("user3@mail.com", "Antonio", "lopez","")
             };
             ViewBag.Teams = new List<string> { "Scrum Reporting", "Team x", "Team y" };
 
