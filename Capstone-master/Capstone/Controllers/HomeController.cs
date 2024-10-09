@@ -42,7 +42,16 @@ namespace Capstone.Controllers
 
         public IActionResult UserManagement()
         {
-            return View();
+            var users = new List<User>
+            {
+                new User(1, "user1@mail.com", "john", "doe",1),
+                new User(2, "user2@mail.com", "Mike", "smith",1),
+                new User(3, "user3@mail.com", "Antonio", "lopez",1)
+            };
+            ViewBag.Teams = new List<string> { "Scrum Reporting", "Team x", "Team y" };
+
+            return View(users);
+          
         }
 
         public IActionResult TeamManagement()
@@ -94,6 +103,6 @@ namespace Capstone.Controllers
             };
             return View(model);
         }
-
+     
     }
 }
