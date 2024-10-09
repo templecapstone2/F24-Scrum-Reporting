@@ -62,6 +62,18 @@ namespace Capstone.Controllers
 
         public IActionResult StudentHome()
         {
+            var tuId = HttpContext.Session.GetString("TU_ID");
+            var email = HttpContext.Session.GetString("Email");
+            var title = HttpContext.Session.GetString("Title");
+            var affiliation = HttpContext.Session.GetString("Affiliation_Primary");
+            var fullName = HttpContext.Session.GetString("Full_Name");
+
+            ViewBag.TU_ID = tuId;
+            ViewBag.Email = email;
+            ViewBag.Title = title;
+            ViewBag.Affiliation = affiliation;
+            ViewBag.Full_Name = fullName;
+
             return View();
         }
         public IActionResult ProfessorHome()
