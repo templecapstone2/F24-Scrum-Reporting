@@ -1,4 +1,4 @@
-﻿*{
+﻿* {
     margin: 0;
     padding: 0;
 }
@@ -9,12 +9,11 @@ html, body {
 }
 
 .headerbg {
-
     background-image: url('/images/headerbg.jpg');
     background-repeat: no-repeat;
     background-position: center;
-    background-size: cover; 
-    height: 47vh; 
+    background-size: cover;
+    height: 47vh;
 }
 
 .logo {
@@ -31,28 +30,27 @@ html, body {
     width: 20vw;
     background-color: #D9D9D9;
     padding: 10px;
-    border-radius: 10px; 
+    border-radius: 10px;
     display: flex;
     flex-direction: column;
-    justify-content: center; 
-    align-items: center; 
+    justify-content: center;
+    align-items: center;
 }
 
     .sidenav a {
         width: 90%;
-        height: 5%;
         display: flex;
         justify-content: center;
-        align-items: center; 
+        align-items: center;
+        text-align: center;
         color: black;
         background-color: #FFFF;
         padding: 10px;
         text-decoration: none;
-        font-size: 25px;
-        border-radius: 30px;
+        font-size: 22px;
+        border-radius: 15px;
         transition: background-color 0.3s, border-radius 0.3s;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        border: 2px solid #A41E35;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
         font-weight: bold;
         margin-bottom: 10px;
     }
@@ -75,8 +73,6 @@ html, body {
 
 .content-container {
     width: 80vw;
-    height: 33vh;
-    padding: 10px;
 }
 
     .content-container h1 {
@@ -86,7 +82,7 @@ html, body {
     }
 
     .content-container h2 {
-        font-size: 35px; 
+        font-size: 35px;
     }
 
     .content-container h3 {
@@ -100,12 +96,10 @@ html, body {
     color: white;
     text-align: center;
     padding: 10px;
-    position: fixed;
-    bottom: 0;
     width: 100%;
     box-sizing: border-box;
     border-top: 4px solid #A41E35;
-    z-index: 2; 
+    z-index: 2;
 }
 
     .footer a {
@@ -118,3 +112,36 @@ html, body {
         }
 
 
+.hamburger {
+    display: none;
+    font-size: 30px;
+    cursor: pointer;
+    z-index: 2;
+    background-color: #A41E35;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+
+/* Media Queries */
+@media (max-width: 768px) {
+    /* Hide sidenav and show hamburger */
+    .sidenav {
+        transform: translateX(-200%);
+        width: 100%;
+    }
+
+    .hamburger {
+        display: block;
+    }
+
+    .sidenav.open {
+        transform: translateX(0);
+    }
+
+    .middle-container {
+        margin-left: 0;
+    }
+}

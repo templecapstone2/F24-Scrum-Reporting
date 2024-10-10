@@ -1,47 +1,71 @@
 ﻿@page
 @model Capstone.Models.ScrumReport
 
+@{
+    Layout = "~/Views/Shared/_TempleScrumHeader.cshtml";
+
+    // Teams list passed via ViewBag from the controller
+    var teams = ViewBag.Teams as List<string>;
+}
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="~/css/scrumreport.css"> <!-- Link to your CSS file -->
+
     <title>Temple Scrum</title>
 </head>
 <body>
-    <div class="container">
-        <h1>Temple Scrum</h1>
-        <h2>Scrum Report Page</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Scrum</th>
-                    <th>Due Date</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-@*                 @foreach (var item in Model.ScrumItems)
-                {
+
+    <div class="content-container">
+
+        <div class="content-tittle">
+            <h1>Scrum Report Page</h1>
+        </div>
+
+        <nav class="sidenav">
+            <a asp-controller="Home" asp-action="StudentHome">Home</a> @* Student Home Page *@
+            <a asp-controller="Home" asp-action="ScrumReport">Scrums</a> @* Student Report Management Page *@
+            <a asp-controller="Login" asp-action="Login">Logout</a>
+        </nav>
+
+        <div class="container">
+            <h2>Scrum Report Page</h2>
+            <table>
+                <thead>
                     <tr>
-                        <td>@item.Name</td>
-                        <td>@item.DueDate.ToString("M/d/yyyy")</td>
-                        <td>
-                            @if (item.IsSubmitted)
-                            {
-                                <span>Submitted</span>
-                            }
-                            else
-                            {
-                        <a href="#">Edit</a>
-                        < a href = "#" > Submit </ a >
-                                    }
-                        </td>
+                        <th>Scrum</th>
+                        <th>Due Date</th>
+                        <th>Action</th>
                     </tr>
-                } *@
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @*                 @foreach (var item in Model.ScrumItems)
+                    {
+                    <tr>
+                    <td>@item.Name</td>
+                    <td>@item.DueDate.ToString("M/d/yyyy")</td>
+                    <td>
+                    @if (item.IsSubmitted)
+                    {
+                    <span>Submitted</span>
+                    }
+                    else
+                    {
+                    <a href="#">Edit</a>
+                    < a href = "#" > Submit </ a >
+                    }
+                    </td>
+                    </tr>
+                    } *@
+                </tbody>
+            </table>
+        </div>
+
     </div>
+    
 </body>
 </html>

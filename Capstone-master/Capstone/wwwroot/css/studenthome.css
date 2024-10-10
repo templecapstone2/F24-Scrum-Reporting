@@ -49,10 +49,9 @@ html, body {
         padding: 10px;
         text-decoration: none;
         font-size: 25px;
-        border-radius: 30px;
+        border-radius: 20px;
         transition: background-color 0.3s, border-radius 0.3s;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        border: 2px solid #A41E35;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
         font-weight: bold;
         margin-bottom: 10px;
     }
@@ -75,8 +74,6 @@ html, body {
 
 .content-container {
     width: 80vw;
-    height: 45vh;
-    padding: 10px;
 }
 
     .content-container h1 {
@@ -100,12 +97,10 @@ html, body {
     color: white;
     text-align: center;
     padding: 10px;
-    position: fixed;
-    bottom: 0;
     width: 100%;
     box-sizing: border-box;
     border-top: 4px solid #A41E35;
-    z-index: 2; 
+    z-index: 2;
 }
 
     .footer a {
@@ -116,6 +111,7 @@ html, body {
         .footer a:hover {
             text-decoration: underline;
         }
+
 
 
 

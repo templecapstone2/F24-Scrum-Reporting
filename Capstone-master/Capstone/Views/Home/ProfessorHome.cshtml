@@ -19,14 +19,19 @@
     </header>
 
     <section class="middle-container">
+
+        <button class="hamburger" onclick="toggleNav()">&#9776;</button>
+
         <nav class="sidenav">
-            <a href="@Url.Action("ProfessorHome", "Home")">Home</a> @* Professor Home *@
-            <a href="@Url.Action("Users", "Home")">User Management</a> @* User Management *@
-            <a href="@Url.Action("ViewReports", "Home")">Scrum View</a> @* Professor Aggregate Views *@
-            <a href="@Url.Action("ScrumView", "Home")">Scrum Management</a> @* Scrum Management *@
-            <a href="@Url.Action("TeamManagement", "Home")">Team Management</a> @* Team Management *@
-            <a href="@Url.Action("Logout", "Home")">Logout</a>
+            <a asp-controller="Home" asp-action="ProfessorHome">Home</a> @* Professor Home *@
+            <a asp-controller="Home" asp-action="Users">User Management</a> @* User Management *@
+            <a asp-controller="Home" asp-action="ViewReports">Scrum View</a> @* Professor Aggregate Views *@
+            <a asp-controller="Home" asp-action="ScrumView">Scrum Management</a> @* Scrum Management *@
+            <a asp-controller="Home" asp-action="TeamManagement">Team Management</a> @* Team Management *@
+            <a asp-controller="Home" asp-action="Logout">Logout</a> @* Logout *@
         </nav>
+
+
 
         <div class="content-container">
             <h1>Welcome Back Professor Brigilia!</h1>
@@ -43,6 +48,14 @@
             &copy; 2024 Temple SCRUM. All rights reserved.
         </div>
     </footer>
+
+    <script>
+        function toggleNav() {
+            var sidenav = document.querySelector(".sidenav");
+            sidenav.classList.toggle("open");
+        }
+    </script>
+
 </body>
 </html>
 
