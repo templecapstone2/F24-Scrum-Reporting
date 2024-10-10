@@ -1,3 +1,4 @@
+using Capstone.Models;
 using Capstone.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +14,8 @@ builder.Services.AddSession(options =>
     options.Cookie.HttpOnly = true; // Make the cookie HTTP only
     options.Cookie.IsEssential = true; // Make the session cookie essential
 });
+
+builder.Services.Configure<LDAPSettings>(builder.Configuration.GetSection("LDAPSettings"));
 
 var app = builder.Build();
 builder.Configuration.GetConnectionString("Connection_Database");
