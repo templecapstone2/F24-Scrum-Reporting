@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Capstone</title>
+
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between; 
+            align-items: center; 
+            border-bottom: 4px solid #A41E35;
+        }
+
+        .T-logo {
+            width: 5rem;
+            height: 5rem;
+            margin-left: 0; 
+            padding: 10px;
+            position: fixed;
+        }
+
+        .TScrum-logo {
+            height: 100px;
+            margin-right: auto; 
+            margin-left: auto; 
+        }
+
+
+    </style>
+
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <img src="~/images/TempleLogo.svg" alt="T Logo" class="T-logo"/>
+            <img src="~/images/logo.png" alt="Temple Scrum Logo" class="TScrum-logo">
+        </div>
+    </header>
+
+
+    <main role="main">
+        @RenderBody()
+    </main>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

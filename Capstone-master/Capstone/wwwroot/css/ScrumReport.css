@@ -1,7 +1,54 @@
 ﻿/* ScrumReport.css */
-body {
-    font-family: Arial, sans-serif;
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    font-family: 'Sitka Heading', sans-serif;
     background-color: #f7f7f7;
+}
+
+.sidenav {
+    width: 20vw;
+    background-color: #D9D9D9;
+    padding: 10px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+    .sidenav a {
+        width: 90%;
+        height: 10%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: black;
+        background-color: #FFFF;
+        padding: 10px;
+        text-decoration: none;
+        font-size: 25px;
+        border-radius: 20px;
+        transition: background-color 0.3s, border-radius 0.3s;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+        .sidenav a:hover {
+            color: white;
+            background-color: #A41E35;
+            border-radius: 30px;
+            font-weight: bold;
+        }
+
+.content-container {
+    padding: 10px;
 }
 
 .container {

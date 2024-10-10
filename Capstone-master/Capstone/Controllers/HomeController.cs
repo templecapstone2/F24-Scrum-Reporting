@@ -24,6 +24,7 @@ namespace Capstone.Controllers
             return View();
         }
 
+
         public IActionResult ScrumView()
         {
 
