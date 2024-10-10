@@ -12,6 +12,7 @@ html, body {
 
 .sidenav {
     width: 20vw;
+    height: 20vh;
     background-color: #D9D9D9;
     padding: 10px;
     border-radius: 10px;
@@ -49,15 +50,82 @@ html, body {
 
 .content-container {
     padding: 10px;
+    display: flex;
+    gap: 10px;
 }
 
-.container {
+
+.content-tittle {
+    margin-top: 10px;
+}
+
+.table-container {
     width: 80%;
-    margin: auto;
+    height: 100%;
     padding: 20px;
     background: #fff;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+
+
+.form-container {
+    width: 50%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #D8D8D8;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+    margin-bottom: 20px;
+
+}
+
+    .form-group label {
+        font-weight: bold;
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .form-group textarea, .form-group input {
+        width: 90%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        resize: none;
+    }
+
+.form-buttons {
+    margin-top: 20px;
+    gap: 50px;
+    display: flex;
+    justify-content: center;
+
+}
+
+    .form-buttons .btn {
+        width: 100px;
+        height: 50px;
+        border-radius: 10px;
+        color: white;
+        background: #BF6070;
+    }
+        .form-buttons .btn:hover {
+            background: #A41C34;
+        }
+
+.info-group{
+    display: flex;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+
+.info-container {
+
 }
 
 h1 {
@@ -68,6 +136,8 @@ h1 {
 h2 {
     text-align: center;
     color: #333;
+    font-size: 2rem;
+    margin-bottom: 20px;
 }
 
 table {
