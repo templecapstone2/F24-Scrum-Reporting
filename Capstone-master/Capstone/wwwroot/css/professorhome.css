@@ -73,8 +73,6 @@ html, body {
 
 .content-container {
     width: 80vw;
-    height: 33vh;
-    padding: 10px;
 }
 
     .content-container h1 {
@@ -98,8 +96,6 @@ html, body {
     color: white;
     text-align: center;
     padding: 10px;
-    position: fixed;
-    bottom: 0;
     width: 100%;
     box-sizing: border-box;
     border-top: 4px solid #A41E35;

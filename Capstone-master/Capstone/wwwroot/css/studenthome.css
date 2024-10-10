@@ -74,8 +74,6 @@ html, body {
 
 .content-container {
     width: 80vw;
-    height: 45vh;
-    padding: 10px;
 }
 
     .content-container h1 {
@@ -99,12 +97,10 @@ html, body {
     color: white;
     text-align: center;
     padding: 10px;
-    position: fixed;
-    bottom: 0;
     width: 100%;
     box-sizing: border-box;
     border-top: 4px solid #A41E35;
-    z-index: 2; 
+    z-index: 2;
 }
 
     .footer a {
@@ -115,6 +111,7 @@ html, body {
         .footer a:hover {
             text-decoration: underline;
         }
+
 
 
 
