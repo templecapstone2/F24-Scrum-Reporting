@@ -19,6 +19,34 @@ namespace DataAPI.Controllers
             this.dbConnect = dbConnect;
         }
 
+        [HttpPost]
+        public IActionResult AddUser([FromBody] User user)
+        {
+            try
+            {
+                sqlCommand = new SqlCommand();
+                sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                sqlCommand.CommandText = "AddUser";
+                sqlCommand.Parameters.AddWithValue("@tuid", user.TUID);
+                sqlCommand.Parameters.AddWithValue("@first_name", user.FirstName);
+                sqlCommand.Parameters.AddWithValue("@last_name", user.LastName);
+                sqlCommand.Parameters.AddWithValue("@user_type", user.UserType);
+
+                if (dbConnect.DoUpdateUsingCmdObj(sqlCommand) == 1)
+                {
+                    return Ok("User added successfully");
+                }
+                else
+                {
+                    return BadRequest("Error");
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal server error: " + ex.Message);
+            }
+        }
+
         [HttpGet("users")]
         public IActionResult GetUsers()
         {
@@ -119,6 +147,30 @@ namespace DataAPI.Controllers
                 else
                 {
                     return NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal server error: " + ex.Message);
+            }
+        }
+
+        [HttpDelete]
+        public IActionResult DeleteStudents()
+        {
+            try
+            {
+                sqlCommand = new SqlCommand();
+                sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                sqlCommand.CommandText = "DeleteStudents";
+
+                if (dbConnect.DoUpdateUsingCmdObj(sqlCommand) > 0)
+                {
+                    return Ok("Students deleted successfully");
+                }
+                else
+                {
+                    return NoContent();
                 }
             }
             catch (Exception ex)

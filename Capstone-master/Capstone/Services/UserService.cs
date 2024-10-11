@@ -14,6 +14,19 @@ namespace Capstone.Services
             this.httpClient = httpClientFactory.CreateClient();
         }
 
+        public async Task<bool> AddUser(User user)
+        {
+            try
+            {
+                return (await httpClient.PostAsJsonAsync(baseURL, user)).IsSuccessStatusCode;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error occurred while adding user: {ex.Message}");
+                return false;
+            }
+        }
+
         public async Task<List<User>> GetUsers()
         {
             try
@@ -37,6 +50,19 @@ namespace Capstone.Services
             {
                 Console.WriteLine("Error occurred while getting students: " + ex.Message);
                 return new List<User>();
+            }
+        }
+
+        public async Task<bool> DeleteStudents()
+        {
+            try
+            {
+                return (await httpClient.DeleteAsync(baseURL)).IsSuccessStatusCode;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error occurred while deleting responses: {ex.Message}");
+                return false;
             }
         }
     }
