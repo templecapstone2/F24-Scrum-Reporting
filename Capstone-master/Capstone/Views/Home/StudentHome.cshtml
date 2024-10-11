@@ -24,14 +24,14 @@
 
         <nav class="sidenav">
             <a asp-controller="Home" asp-action="StudentHome">Home</a> @* Student Home Page *@
-            <a asp-controller="Home" asp-action="StudentReport">Scrums</a> @* Student Report Management Page *@
-            <a asp-controller="Home" asp-action="Logout">Logout</a>
+            <a asp-controller="Home" asp-action="ScrumReport">Scrums</a> @* Student Report Management Page *@
+            <a asp-controller="Login" asp-action="Login">Logout</a>
 
         </nav>
 
 
         <div class="content-container">
-            <h1>Welcome Back John!</h1>
+            <h1>Welcome Back @ViewBag.Full_Name!</h1>
             <h2>SCRUM Reporting</h2>
             <h3>
                 Streamlining SCRUM reporting

@@ -22,7 +22,7 @@ namespace Capstone.Models
         }
 
         [JsonPropertyName("id")]
-        public int ID
+        public string ID
         {
             get { return id; }
             set { id = value; }
@@ -45,8 +45,8 @@ namespace Capstone.Models
         [JsonPropertyName("last_name")]
         public string LastName
         {
-            get { return lastName; }
-            set { lastName = value; }
+            get { return name; }
+            set { name = value; }
         }
 
         [JsonPropertyName("user_type")]

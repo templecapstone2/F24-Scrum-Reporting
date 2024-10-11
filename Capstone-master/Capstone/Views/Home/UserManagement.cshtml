@@ -1,0 +1,186 @@
+﻿@model List<Capstone.Models.User>
+
+@{
+    Layout = "~/Views/Shared/_TempleScrumHeader.cshtml";
+
+    // Teams list passed via ViewBag from the controller
+    var teams = ViewBag.Teams as List<string>;
+}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/css/usersmanagement.css"> 
+
+    <title>Users Management Page</title>
+
+
+    <style>
+        /* .scrum-item {
+                    background-color: #f8f9fa;
+                    border-radius: 8px;
+                    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                }
+
+                .scrum-name {
+                    font-weight: bold;
+                }
+
+                .scrum-due-date {
+                    font-size: 0.9em;
+                }
+
+                .btn {
+                    border-radius: 20px;
+                }
+
+                .action-buttons button {
+                    width: 150px;
+                }
+
+                .team-select select {
+                    border-radius: 20px;
+                    padding: 5px;
+                } */
+
+
+
+
+
+    </style>
+
+</head>
+<body>
+
+    <div class="content-title">
+        <h1>User Management Page</h1>
+    </div>
+
+    <div class="content-container">
+        <nav class="sidenav">
+            <a asp-controller="Home" asp-action="ProfessorHome">Home</a>
+            <a asp-controller="Home" asp-action="UserManagement">User Management</a>
+            <a asp-controller="Home" asp-action="ViewReports">Scrum View</a>
+            <a asp-controller="Home" asp-action="ScrumView">Scrum Management</a>
+            <a asp-controller="Home" asp-action="TeamManagement">Team Management</a>
+            <a asp-controller="Login" asp-action="Login">Logout</a>
+        </nav>
+
+        <div class="users-container">
+            <!-- Team Filter Dropdown -->
+            <div class="team-filter">
+                <label for="teamFilter">Teams:</label>
+                <select id="teamFilter" class="form-control" onchange="filterUsersByTeam()">
+                    <option value="all">ALL</option>
+                    <option value="scrum">Scrum Reporting</option>
+                    <option value="unassigned">Unassigned</option>
+                    <!-- Add other team options dynamically here -->
+                </select>
+            </div>
+
+            <!-- Users List -->
+            @* <div id="usersList">
+                @foreach (var user in Model.Users)
+                {
+                    <div class="user-row">
+                        <span class="user-name">@user.Name</span>
+                        <select class="team-dropdown">
+                            <option value="scrum" @(user.Team == "Scrum Reporting" ? "selected" : "")>Scrum Reporting</option>
+                            <option value="unassigned" @(user.Team == "Unassigned" ? "selected" : "")>Unassigned</option>
+                            <!-- Add other teams here -->
+                        </select>
+                        <button type="button" class="change-team-btn" onclick="changeTeam('@user.Id')">Change Team</button>
+                    </div>
+                }
+            </div> *@
+        </div>
+    </div>
+
+    <script>
+        // Function to dynamically filter users based on the selected team
+        function filterUsersByTeam() {
+            var selectedTeam = document.getElementById('teamFilter').value;
+            var userRows = document.getElementsByClassName('user-row');
+
+            for (var i = 0; i < userRows.length; i++) {
+                var userRow = userRows[i];
+                var userTeam = userRow.getElementsByClassName('team-dropdown')[0].value;
+                if (selectedTeam === 'all' || userTeam === selectedTeam) {
+                    userRow.style.display = 'flex';
+                } else {
+                    userRow.style.display = 'none';
+                }
+            }
+        }
+
+        // Function to change the team of a user (dummy function to be connected with backend)
+        function changeTeam(userId) {
+            var selectedTeam = document.querySelector(`[data-user-id='${userId}'] .team-dropdown`).value;
+            // Make an AJAX call here to update the team for the user in the backend
+            alert("Changing team for user ID: " + userId + " to " + selectedTeam);
+        }
+    </script>
+
+    
+
+</body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@* <div class="user-list mb-4">
+    @foreach (var user in Model)
+    {
+        <div class="user-item d-flex justify-content-between align-items-center p-3 mb-2">
+            <div class="scrum-info d-flex align-items-center">
+                <span class="user-name mr-4">@user.Name</span>
+
+                <!-- Dropdown List for Teams -->
+                <div class="team-select mr-4">
+                    <select name="team" class="form-control">
+                        @foreach (var team in teams)
+                        {
+                            <option value="@team">@team</option>
+                        }
+                    </select>
+                </div>
+            </div>
+
+            <div class="scrum-actions d-flex align-items-center">
+                <button class="btn btn-danger mr-2">Change Team</button>
+                <button class="btn btn-outline-danger">&times;</button>
+            </div>
+        </div>
+    }
+</div> *@
+
+
+
+
+
+
+
