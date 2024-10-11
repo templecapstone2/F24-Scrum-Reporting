@@ -54,7 +54,6 @@ namespace Capstone.Controllers
             return View(users);
           
         }
-
         public IActionResult TeamManagement()
         {
             return View();
@@ -90,6 +89,8 @@ namespace Capstone.Controllers
         {
             return View();
         }
+
+
 
         public IActionResult ScrumReport()
         {
