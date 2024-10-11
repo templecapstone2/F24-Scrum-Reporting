@@ -1,29 +1,41 @@
 ﻿using Capstone.Models;
+using Capstone.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using ServiceReference1;
-using System.ServiceModel;
+using System.ServiceModel; 
 
 namespace Capstone.Controllers
 {
     public class SecureController : Controller
     {
         private readonly IConfiguration configuration;
+        private readonly UserService userService;
 
-        public SecureController(IConfiguration configuration)
+        public SecureController(UserService userService, IConfiguration configuration)
         {
+            this.userService = userService;
             this.configuration = configuration;
         }
         public async Task<IActionResult> Index()
         {
+            //if (!User.Identity.IsAuthenticated)
+            //{
+            //    // Redirect to the Shibboleth login page
+            //    return RedirectToAction("Login", "Login"); 
+            //}
+
             // For Publish Testing
-            //var id = GetShibbolethHeaderAttributes();
+            var id = GetShibbolethHeaderAttributes();
 
             // For Local Testing
-            var id = "915905753";
+            //var id = "915905753";
 
             ViewData["tuid"] = id;
+            HttpContext.Session.SetString("TUID", id);
+
 
             // Create the request object for the search
             var searchRequestBody = new SearchRequestBody
@@ -49,10 +61,11 @@ namespace Capstone.Controllers
                         searchRequestBody.attribute,
                         searchRequestBody.value);
 
-                    // Access the SearchResult from the response
                     if (response != null && response.Body != null && response.Body.SearchResult != null && response.Body.SearchResult.Length > 0)
                     {
                         templeInformation = response.Body.SearchResult[0];
+                        HttpContext.Session.SetString("fullname", templeInformation.givenName + " " + templeInformation.sn);
+                        HttpContext.Session.SetString("usertype", templeInformation.eduPersonPrimaryAffiliation);
                     }
                 }
             }
@@ -63,16 +76,29 @@ namespace Capstone.Controllers
 
             if (templeInformation != null)
             {
-                // Store user information in the session
-                HttpContext.Session.SetString("TUID", templeInformation.templeEduTUID); 
-                HttpContext.Session.SetString("Email", templeInformation.mail); 
-                HttpContext.Session.SetString("Name", templeInformation.cn); 
-                HttpContext.Session.SetString("Role", templeInformation.eduPersonPrimaryAffiliation); 
-                ViewData["firstname"] = templeInformation.cn;
-                ViewData["lastname"] = templeInformation.sn;
-                ViewData["usertype"] = templeInformation.eduPersonPrimaryAffiliation;
+                var users = await userService.GetUsers();
+                bool userExists = false;
+                foreach (var user in users)
+                {
+                    if (user.TUID == id)
+                    {
+                        userExists = true;
+                    }
+                }
 
-                // Redirect based on user type
+                if (!userExists)
+                {
+                    var newUser = new User
+                    {
+                        TUID = id,
+                        FirstName = templeInformation.givenName, 
+                        LastName = templeInformation.sn, 
+                        UserType = templeInformation.eduPersonPrimaryAffiliation 
+                    };
+
+                    bool isAdded = await userService.AddUser(newUser);
+                }
+
                 if (templeInformation.eduPersonPrimaryAffiliation == "professor") 
                 {
                     Console.WriteLine("Redirecting to ProfessorHome.");

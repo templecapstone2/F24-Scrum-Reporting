@@ -1,4 +1,5 @@
 using Capstone.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -71,22 +72,31 @@ namespace Capstone.Controllers
 
         public IActionResult StudentHome()
         {
-            var tuId = HttpContext.Session.GetString("TU_ID");
-            var email = HttpContext.Session.GetString("Email");
-            var title = HttpContext.Session.GetString("Title");
-            var affiliation = HttpContext.Session.GetString("Affiliation_Primary");
-            var fullName = HttpContext.Session.GetString("Full_Name");
+            var tuId = HttpContext.Session.GetString("TUID");
+            var usertype = HttpContext.Session.GetString("usertype");
+            var fullName = HttpContext.Session.GetString("fullname");
 
-            ViewBag.TU_ID = tuId;
-            ViewBag.Email = email;
-            ViewBag.Title = title;
-            ViewBag.Affiliation = affiliation;
+            // Debugging output
+            Console.WriteLine($"TUID: {tuId}, UserType: {usertype}, FullName: {fullName}");
+            _logger.LogInformation($"Retrieved from session: TUID={tuId}, UserType={usertype}, FullName={fullName}");
+
             ViewBag.Full_Name = fullName;
+            ViewBag.TU_ID = tuId;
+            ViewBag.User_Type = usertype;
 
             return View();
         }
         public IActionResult ProfessorHome()
         {
+            var tuId = HttpContext.Session.GetString("TUID");
+            var usertype = HttpContext.Session.GetString("usertype");
+            var fullName = HttpContext.Session.GetString("fullname");
+            ViewBag.Full_Name = fullName;
+
+            ViewBag.TU_ID = tuId;
+            ViewBag.User_Type = usertype;
+            ViewBag.Full_Name = fullName;
+
             return View();
         }
 

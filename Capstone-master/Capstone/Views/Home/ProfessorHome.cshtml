@@ -2,6 +2,7 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+    string routePrefix = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") != "Development" ? "/cis4396-f05" : "";
 }
 
 
@@ -34,7 +35,7 @@
 
 
         <div class="content-container">
-            <h1>Welcome Back Professor Brigilia!</h1>
+            <h1>Welcome Back @ViewBag.full_name, @ViewBag.full_TU_ID, @ViewBag.User_Type!</h1>
             <h2>SCRUM Reporting</h2>
             <h3>
                 Streamlining SCRUM reporting
