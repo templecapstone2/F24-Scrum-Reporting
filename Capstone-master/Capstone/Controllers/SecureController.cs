@@ -68,9 +68,9 @@ namespace Capstone.Controllers
                 HttpContext.Session.SetString("Email", templeInformation.mail); 
                 HttpContext.Session.SetString("Name", templeInformation.cn); 
                 HttpContext.Session.SetString("Role", templeInformation.eduPersonPrimaryAffiliation); 
-                ViewData["mail"] = templeInformation.mail;
-                ViewData["name"] = templeInformation.cn;
-                ViewData["role"] = templeInformation.eduPersonPrimaryAffiliation;
+                ViewData["firstname"] = templeInformation.cn;
+                ViewData["lastname"] = templeInformation.sn;
+                ViewData["usertype"] = templeInformation.eduPersonPrimaryAffiliation;
 
                 // Redirect based on user type
                 if (templeInformation.eduPersonPrimaryAffiliation == "professor") 
