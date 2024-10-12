@@ -6,6 +6,13 @@
 
 html, body {
     font-family: 'Sitka Heading', sans-serif;
+    height: 100%;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 .headerbg {
@@ -70,6 +77,7 @@ html, body {
     padding: 10px;
     gap: 20px;
     height: 25rem;
+    flex: 1;
 }
 
 .content-container {

@@ -13,46 +13,47 @@
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/css/studenthome.css")">
 </head>
 <body>
+    <div class="wrapper">
+        <header class="headerbg">
+            <img src="~/images/TempleLogo.svg" alt="Company Logo" class="logo" />
+        </header>
 
-    <header class="headerbg">
-        <img src="~/images/TempleLogo.svg" alt="Company Logo" class="logo" />
-    </header>
+        <section class="middle-container">
 
-    <section class="middle-container">
+            <button class="hamburger" onclick="toggleNav()">&#9776;</button>
 
-        <button class="hamburger" onclick="toggleNav()">&#9776;</button>
+            <nav class="sidenav">
+                <a asp-controller="Home" asp-action="StudentHome">Home</a> @* Student Home Page *@
+                <a asp-controller="Home" asp-action="ScrumReport">Scrums</a> @* Student Report Management Page *@
+                <a asp-controller="Login" asp-action="Login">Logout</a>
 
-        <nav class="sidenav">
-            <a asp-controller="Home" asp-action="StudentHome">Home</a> @* Student Home Page *@
-            <a asp-controller="Home" asp-action="ScrumReport">Scrums</a> @* Student Report Management Page *@
-            <a asp-controller="Login" asp-action="Login">Logout</a>
-
-        </nav>
+            </nav>
 
 
-        <div class="content-container">
-            <h1>Welcome Back @ViewBag.Full_Name, @ViewBag.TU_ID, @ViewBag.User_Type!</h1>
-            <h2>SCRUM Reporting</h2>
-            <h3>
-                Streamlining SCRUM reporting
-                for Temple University students and professors.
-            </h3>
-        </div>
-    </section>
+            <div class="content-container">
+                <h1>Welcome Back @ViewBag.Full_Name, @ViewBag.TU_ID, @ViewBag.User_Type!</h1>
+                <h2>SCRUM Reporting</h2>
+                <h3>
+                    Streamlining SCRUM reporting
+                    for Temple University students and professors.
+                </h3>
+            </div>
+        </section>
 
-    <footer class="footer">
-        <div class="container">
-            &copy; 2024 Temple SCRUM. All rights reserved.
-        </div>
-    </footer>
+        <footer class="footer">
+            <div class="container">
+                &copy; 2024 Temple SCRUM. All rights reserved.
+            </div>
+        </footer>
 
+
+    </div>
     <script>
         function toggleNav() {
             var sidenav = document.querySelector(".sidenav");
             sidenav.classList.toggle("open");
         }
     </script>
-
 </body>
 </html>
 

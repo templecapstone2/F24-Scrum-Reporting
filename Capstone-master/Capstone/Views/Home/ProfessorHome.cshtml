@@ -14,41 +14,36 @@
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/css/professorhome.css")">
 </head>
 <body>
+    <div class="wrapper">
+        <header class="headerbg">
+            <img src="~/images/TempleLogo.svg" alt="Company Logo" class="logo" />
+        </header>
 
-    <header class="headerbg">
-        <img src="~/images/TempleLogo.svg" alt="Company Logo" class="logo" />
-    </header>
+        <section class="middle-container">
+            <button class="hamburger" onclick="toggleNav()">&#9776;</button>
 
-    <section class="middle-container">
+            <nav class="sidenav">
+                <a asp-controller="Home" asp-action="ProfessorHome">Home</a>
+                <a asp-controller="Home" asp-action="UserManagement">User Management</a>
+                <a asp-controller="Home" asp-action="ViewReports">Scrum View</a>
+                <a asp-controller="Home" asp-action="ScrumView">Scrum Management</a>
+                <a asp-controller="Home" asp-action="TeamManagement">Team Management</a>
+                <a asp-controller="Login" asp-action="Login">Logout</a>
+            </nav>
 
-        <button class="hamburger" onclick="toggleNav()">&#9776;</button>
+            <div class="content-container">
+                <h1>Welcome Back @ViewBag.full_name, @ViewBag.full_TU_ID, @ViewBag.User_Type!</h1>
+                <h2>SCRUM Reporting</h2>
+                <h3>Streamlining SCRUM reporting for Temple University students and professors.</h3>
+            </div>
+        </section>
 
-        <nav class="sidenav">
-            <a asp-controller="Home" asp-action="ProfessorHome">Home</a> @* Professor Home *@
-            <a asp-controller="Home" asp-action="UserManagement">User Management</a> @* User Management *@
-            <a asp-controller="Home" asp-action="ViewReports">Scrum View</a> @* Professor Aggregate Views *@
-            <a asp-controller="Home" asp-action="ScrumView">Scrum Management</a> @* Scrum Management *@
-            <a asp-controller="Home" asp-action="TeamManagement">Team Management</a> @* Team Management *@
-            <a asp-controller="Login" asp-action="Login">Logout</a> @* Logout *@
-        </nav>
-
-
-
-        <div class="content-container">
-            <h1>Welcome Back @ViewBag.full_name, @ViewBag.full_TU_ID, @ViewBag.User_Type!</h1>
-            <h2>SCRUM Reporting</h2>
-            <h3>
-                Streamlining SCRUM reporting
-                for Temple University students and professors.
-            </h3>
-        </div>
-    </section>
-
-    <footer class="footer">
-        <div class="container">
-            &copy; 2024 Temple SCRUM. All rights reserved.
-        </div>
-    </footer>
+        <footer class="footer">
+            <div class="container">
+                &copy; 2024 Temple SCRUM. All rights reserved.
+            </div>
+        </footer>
+    </div>
 
     <script>
         function toggleNav() {
@@ -56,8 +51,8 @@
             sidenav.classList.toggle("open");
         }
     </script>
-
 </body>
+
 </html>
 
 
