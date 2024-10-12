@@ -5,13 +5,120 @@
 }
 
 @{
-    Layout = "~/Views/Shared/_SecureLayout.cshtml";
+    Layout = "~/Views/Shared/_TempleScrumHeader.cshtml";
 }
 
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/css/professorStyling.css">
+
+    <title>View Reports Page</title>
+
+</head>
+<body>
+
+    <div class="content-title">
+        <h1>View Reports Page</h1>
+    </div>
+
+    <div class="content-container">
+        <nav class="sidenav">
+            <a asp-controller="Home" asp-action="ProfessorHome">Home</a>
+            <a asp-controller="Home" asp-action="UserManagement">User Management</a>
+            <a asp-controller="Home" asp-action="ViewReports">Scrum View</a>
+            <a asp-controller="Home" asp-action="ScrumView">Scrum Management</a>
+            <a asp-controller="Home" asp-action="TeamManagement">Team Management</a>
+            <a asp-controller="Login" asp-action="Login">Logout</a>
+        </nav>
+
+        <div class="reports-container">
+            <div class="team-filter">
+                <label for="teamFilter">Teams:</label>
+                <select id="teamFilter" class="form-control" onchange="filterUsersByTeam()">
+                    <option value="all">All</option>
+                    <option value="scrum">Scrum Reporting</option>
+                    <!-- Add other team options dynamically here -->
+                </select>
+            </div>
+            <div class="team-filter">
+                <label for="teamFilter">Students:</label>
+                <select id="teamFilter" class="form-control" onchange="filterUsersByTeam()">
+                    <option value="all">All</option>
+                    <option value="scrum">John Doe </option>
+                    <option value="unassigned">Steve Jobs</option>
+                    <!-- Add other team options dynamically here -->
+                </select>
+            </div>
+            <div class="team-filter">
+                <label for="teamFilter">From:</label>
+                <select id="teamFilter" class="form-control" onchange="filterUsersByTeam()">
+                    <option value="all">Select</option>
+                    <option value="scrum">10/11/24</option>
+                    <option value="unassigned">10/12/24</option>
+                    <!-- Add other team options dynamically here -->
+                </select>
+            </div>
+            <div class="team-filter">
+                <label for="teamFilter">To:</label>
+                <select id="teamFilter" class="form-control" onchange="filterUsersByTeam()">
+                    <option value="all">Select</option>
+                    <option value="scrum">10/11/24</option>
+                    <option value="unassigned">10/12/24</option>
+                    <!-- Add other team options dynamically here -->
+                </select>
+            </div>
+        </div>
 
 
-<div class="content">
+
+
+
+    </div>
+
+</body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@* <div class="content">
     <!-- Filters Section -->
     <div class="d-flex justify-content-between mb-3 filter_container">
         <div class="form-group">
@@ -60,4 +167,4 @@
         </div>
         <!-- Add more cards as needed -->
     </div>
-</div>
+</div> *@

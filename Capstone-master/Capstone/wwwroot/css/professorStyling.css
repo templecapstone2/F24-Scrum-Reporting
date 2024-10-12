@@ -52,7 +52,7 @@ html, body {
 }
 
 
-.content-tittle {
+.content-title {
     margin-top: 10px;
 }
 
@@ -67,11 +67,23 @@ h1 {
 
 .users-container {
     display: flex;
+
 }
 
+.reports-container {
+    display: flex;
+    gap: 1.5rem;
+}
+
+
 .team-filter {
-    margin-bottom: 20px;
     font-size: 20px;
+
+}
+
+.form-control{
+    width: 100%;
+
 }
 
 .user-row {
@@ -100,3 +112,5 @@ h1 {
     .change-team-btn:hover {
         background-color: #880f27;
     }
+
+

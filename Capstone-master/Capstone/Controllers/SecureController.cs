@@ -28,10 +28,10 @@ namespace Capstone.Controllers
             //}
 
             // For Publish Testing
-            var id = GetShibbolethHeaderAttributes();
+            //var id = GetShibbolethHeaderAttributes();
 
             // For Local Testing
-            //var id = "915905753";
+            var id = "915905753";
 
             ViewData["tuid"] = id;
             HttpContext.Session.SetString("TUID", id);
