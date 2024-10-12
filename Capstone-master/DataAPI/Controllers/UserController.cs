@@ -32,9 +32,15 @@ namespace DataAPI.Controllers
                 sqlCommand.Parameters.AddWithValue("@last_name", user.LastName);
                 sqlCommand.Parameters.AddWithValue("@user_type", user.UserType);
 
+                SqlParameter outputIdParam = new SqlParameter("@newUserID", SqlDbType.Int) { Direction = ParameterDirection.Output };
+                sqlCommand.Parameters.Add(outputIdParam);
+
                 if (dbConnect.DoUpdateUsingCmdObj(sqlCommand) == 1)
                 {
-                    return Ok("User added successfully");
+                    int newUserId = (int)outputIdParam.Value; 
+                    user.ID = newUserId; 
+
+                    return Ok(user); 
                 }
                 else
                 {

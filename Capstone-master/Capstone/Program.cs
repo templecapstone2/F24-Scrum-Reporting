@@ -9,7 +9,11 @@ var builder = WebApplication.CreateBuilder(args);
 // Register HttpClient
 builder.Services.AddHttpClient();
 
-// Register UserService
+// Register Services
+builder.Services.AddScoped<ResponseService>();
+builder.Services.AddScoped<ScrumService>();
+builder.Services.AddScoped<TeamUserService>();
+builder.Services.AddScoped<TeamService>();
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<DBConnect>();
 

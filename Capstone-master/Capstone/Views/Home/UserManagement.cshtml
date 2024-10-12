@@ -17,31 +17,31 @@
 
     <style>
         /* .scrum-item {
-                    background-color: #f8f9fa;
-                    border-radius: 8px;
-                    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-                }
+                                    background-color: #f8f9fa;
+                                    border-radius: 8px;
+                                    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                                }
 
-                .scrum-name {
-                    font-weight: bold;
-                }
+                                .scrum-name {
+                                    font-weight: bold;
+                                }
 
-                .scrum-due-date {
-                    font-size: 0.9em;
-                }
+                                .scrum-due-date {
+                                    font-size: 0.9em;
+                                }
 
-                .btn {
-                    border-radius: 20px;
-                }
+                                .btn {
+                                    border-radius: 20px;
+                                }
 
-                .action-buttons button {
-                    width: 150px;
-                }
+                                .action-buttons button {
+                                    width: 150px;
+                                }
 
-                .team-select select {
-                    border-radius: 20px;
-                    padding: 5px;
-                } */
+                                .team-select select {
+                                    border-radius: 20px;
+                                    padding: 5px;
+                                } */
 
 
 
@@ -66,62 +66,55 @@
             <a asp-controller="Login" asp-action="Login">Logout</a>
         </nav>
 
-        <div class="users-container">
-            <!-- Team Filter Dropdown -->
-            <div class="team-filter">
-                <label for="teamFilter">Teams:</label>
-                <select id="teamFilter" class="form-control" onchange="filterUsersByTeam()">
-                    <option value="all">ALL</option>
-                    <option value="scrum">Scrum Reporting</option>
-                    <option value="unassigned">Unassigned</option>
-                    <!-- Add other team options dynamically here -->
-                </select>
-            </div>
+        <!-- Team Filter Dropdown -->
+        <div class="team-filter">
+            <label for="teamFilter">Teams:</label>
+            <select id="teamFilter" class="form-control" onchange="filterUsersByTeam()">
+                <option value="all">ALL</option>
+                @foreach (var team in ViewBag.Teams)
+                {
+                    <option value="@team.ID">@team.Name</option>
+                }
+            </select>
 
             <!-- Users List -->
-            @* <div id="usersList">
-                @foreach (var user in Model.Users)
+            <div id="usersList">
+                @foreach (var user in Model)
                 {
-                    <div class="user-row">
-                        <span class="user-name">@user.Name</span>
-                        <select class="team-dropdown">
-                            <option value="scrum" @(user.Team == "Scrum Reporting" ? "selected" : "")>Scrum Reporting</option>
-                            <option value="unassigned" @(user.Team == "Unassigned" ? "selected" : "")>Unassigned</option>
-                            <!-- Add other teams here -->
-                        </select>
-                        <button type="button" class="change-team-btn" onclick="changeTeam('@user.Id')">Change Team</button>
-                    </div>
+                    if (user.UserType == "student")
+                    {
+                        <div class="user-row" data-user-id="@user.ID">
+                            <form action="UserManagement" method="post">
+                                <span class="user-name">@user.FirstName @user.LastName</span>
+                                @Html.DropDownList("newTeamID", user.SelectList, new { @class = "team-dropdown" })
+                                <input type="hidden" name="userID" value="@user.ID" />
+                                <button type="submit" class="change-team-btn">Change Team</button>
+                            </form>
+                        </div>
+                    }
                 }
-            </div> *@
+            </div>
         </div>
     </div>
 
     <script>
         // Function to dynamically filter users based on the selected team
         function filterUsersByTeam() {
-            var selectedTeam = document.getElementById('teamFilter').value;
-            var userRows = document.getElementsByClassName('user-row');
+            var selectedTeam = document.getElementById("teamFilter").value;
+            var userRows = document.querySelectorAll(".user-row");
 
-            for (var i = 0; i < userRows.length; i++) {
-                var userRow = userRows[i];
-                var userTeam = userRow.getElementsByClassName('team-dropdown')[0].value;
-                if (selectedTeam === 'all' || userTeam === selectedTeam) {
-                    userRow.style.display = 'flex';
+            userRows.forEach(function (row) {
+                var teamId = row.querySelector(".team-dropdown").value;
+                if (selectedTeam === "all" || teamId === selectedTeam) {
+                    row.style.display = "";
                 } else {
-                    userRow.style.display = 'none';
+                    row.style.display = "none";
                 }
-            }
-        }
-
-        // Function to change the team of a user (dummy function to be connected with backend)
-        function changeTeam(userId) {
-            var selectedTeam = document.querySelector(`[data-user-id='${userId}'] .team-dropdown`).value;
-            // Make an AJAX call here to update the team for the user in the backend
-            alert("Changing team for user ID: " + userId + " to " + selectedTeam);
+            });
         }
     </script>
 
-    
+
 
 </body>
 

@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Text.Json.Serialization;
 
 namespace Capstone.Models
 {
@@ -9,6 +10,7 @@ namespace Capstone.Models
         private string firstName;
         private string lastName;
         private string userType;
+        public SelectList SelectList { get; set; }
 
         public User() { }
 

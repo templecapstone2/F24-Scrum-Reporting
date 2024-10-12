@@ -13,103 +13,166 @@ namespace Capstone.Controllers
     {
         private readonly IConfiguration configuration;
         private readonly UserService userService;
+        private readonly TeamUserService teamUserService;
 
-        public SecureController(UserService userService, IConfiguration configuration)
+        public SecureController(TeamUserService teamUserService, UserService userService, IConfiguration configuration)
         {
+            this.teamUserService = teamUserService;
             this.userService = userService;
             this.configuration = configuration;
         }
+        //public async Task<IActionResult> Index()
+        //{
+        //    //if (!User.Identity.IsAuthenticated)
+        //    //{
+        //    //    // Redirect to the Shibboleth login page
+        //    //    return RedirectToAction("Login", "Login"); 
+        //    //}
+
+        //    // For Publish Testing
+        //    //var id = GetShibbolethHeaderAttributes();
+
+        //    // For Local Testing
+        //    var id = "915905753";
+
+        //    ViewData["tuid"] = id;
+        //    HttpContext.Session.SetString("TUID", id);
+
+
+        //    // Create the request object for the search
+        //    var searchRequestBody = new SearchRequestBody
+        //    {
+        //        username = configuration["LDAPSettings:Username"],
+        //        password = configuration["LDAPSettings:Password"],
+        //        attribute = configuration["LDAPSettings:Attribute"],
+        //        value = id
+        //    };
+
+        //    TempleLDAPEntry templeInformation = null;
+
+        //    try
+        //    {
+        //        var binding = new BasicHttpBinding(BasicHttpSecurityMode.Transport);
+        //        var endpoint = new EndpointAddress("https://preprod-wsw.temple.edu/ws_ldapsearch/ldap_search.asmx?wsdl");
+
+        //        using (var client = new LDAP_SearchSoapClient(binding, endpoint))
+        //        {
+        //            var response = await client.SearchAsync(
+        //                searchRequestBody.username,
+        //                searchRequestBody.password,
+        //                searchRequestBody.attribute,
+        //                searchRequestBody.value);
+
+        //            if (response != null && response.Body != null && response.Body.SearchResult != null && response.Body.SearchResult.Length > 0)
+        //            {
+        //                templeInformation = response.Body.SearchResult[0];
+        //                HttpContext.Session.SetString("fullname", templeInformation.givenName + " " + templeInformation.sn);
+        //                HttpContext.Session.SetString("usertype", templeInformation.eduPersonPrimaryAffiliation);
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine($"An error occurred while fetching data {ex.Message}");
+        //    }
+
+        //    if (templeInformation != null)
+        //    {
+        //        var users = await userService.GetUsers();
+        //        bool userExists = false;
+        //        foreach (var user in users)
+        //        {
+        //            if (user.TUID == id)
+        //            {
+        //                userExists = true;
+        //            }
+        //        }
+
+        //        if (!userExists)
+        //        {
+        //            var newUser = new User
+        //            {
+        //                TUID = id,
+        //                FirstName = templeInformation.givenName,
+        //                LastName = templeInformation.sn,
+        //                UserType = templeInformation.eduPersonPrimaryAffiliation
+        //            };
+
+        //            var addedUser = await userService.AddUser(newUser);
+        //            if (addedUser != null && addedUser.ID > 0)
+        //            {
+        //                int unassignedTeamID = 1; 
+        //                bool teamUserAdded = await teamUserService.AddTeamUser(unassignedTeamID, addedUser.ID);
+
+        //                if (!teamUserAdded)
+        //                {
+        //                    Console.WriteLine("Failed to add user to unassigned team.");
+        //                }
+        //            }
+        //        }
+
+        //        if (templeInformation.eduPersonPrimaryAffiliation == "professor")
+        //        {
+        //            Console.WriteLine("Redirecting to ProfessorHome.");
+        //            return RedirectToAction("ProfessorHome", "Home");
+        //        }
+        //        else if (templeInformation.eduPersonPrimaryAffiliation == "student")
+        //        {
+        //            Console.WriteLine("Redirecting to StudentHome.");
+        //            return RedirectToAction("StudentHome", "Home");
+        //        }
+        //    }
+        //    return View();
+        //}
+
         public async Task<IActionResult> Index()
         {
-            //if (!User.Identity.IsAuthenticated)
-            //{
-            //    // Redirect to the Shibboleth login page
-            //    return RedirectToAction("Login", "Login"); 
-            //}
-
-            // For Publish Testing
-            //var id = GetShibbolethHeaderAttributes();
-
-            // For Local Testing
-            var id = "915905753";
-
-            ViewData["tuid"] = id;
+            // Use a hardcoded TUID for testing
+            string id = "123456789"; // Replace with the appropriate TUID for your test user
             HttpContext.Session.SetString("TUID", id);
 
-
-            // Create the request object for the search
-            var searchRequestBody = new SearchRequestBody
+            TempleLDAPEntry templeInformationTest = new TempleLDAPEntry
             {
-                username = configuration["LDAPSettings:Username"],
-                password = configuration["LDAPSettings:Password"],
-                attribute = configuration["LDAPSettings:Attribute"],
-                value = id 
+                givenName = "Anthony",
+                sn = "Briglia",
+                eduPersonPrimaryAffiliation = "professor" // Set user type as professor for testing
             };
 
-            TempleLDAPEntry templeInformation = null;
-
-            try
+            if (templeInformationTest != null)
             {
-                var binding = new BasicHttpBinding(BasicHttpSecurityMode.Transport);
-                var endpoint = new EndpointAddress("https://preprod-wsw.temple.edu/ws_ldapsearch/ldap_search.asmx?wsdl");
+                // Set session variables
+                HttpContext.Session.SetString("fullname", $"{templeInformationTest.givenName} {templeInformationTest.sn}");
+                HttpContext.Session.SetString("usertype", templeInformationTest.eduPersonPrimaryAffiliation);
 
-                using (var client = new LDAP_SearchSoapClient(binding, endpoint))
-                {
-                    var response = await client.SearchAsync(
-                        searchRequestBody.username,
-                        searchRequestBody.password,
-                        searchRequestBody.attribute,
-                        searchRequestBody.value);
-
-                    if (response != null && response.Body != null && response.Body.SearchResult != null && response.Body.SearchResult.Length > 0)
-                    {
-                        templeInformation = response.Body.SearchResult[0];
-                        HttpContext.Session.SetString("fullname", templeInformation.givenName + " " + templeInformation.sn);
-                        HttpContext.Session.SetString("usertype", templeInformation.eduPersonPrimaryAffiliation);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"An error occurred while fetching data {ex.Message}");
-            }
-
-            if (templeInformation != null)
-            {
                 var users = await userService.GetUsers();
-                bool userExists = false;
-                foreach (var user in users)
-                {
-                    if (user.TUID == id)
-                    {
-                        userExists = true;
-                    }
-                }
+                bool userExists = users.Any(user => user.TUID == id);
 
                 if (!userExists)
                 {
                     var newUser = new User
                     {
                         TUID = id,
-                        FirstName = templeInformation.givenName, 
-                        LastName = templeInformation.sn, 
-                        UserType = templeInformation.eduPersonPrimaryAffiliation 
+                        FirstName = templeInformationTest.givenName,
+                        LastName = templeInformationTest.sn,
+                        UserType = templeInformationTest.eduPersonPrimaryAffiliation
                     };
 
-                    bool isAdded = await userService.AddUser(newUser);
+                    await userService.AddUser(newUser);
                 }
 
-                if (templeInformation.eduPersonPrimaryAffiliation == "professor") 
+                // Redirect based on user type
+                if (templeInformationTest.eduPersonPrimaryAffiliation == "professor")
                 {
                     Console.WriteLine("Redirecting to ProfessorHome.");
                     return RedirectToAction("ProfessorHome", "Home");
                 }
-                else if (templeInformation.eduPersonPrimaryAffiliation == "student") 
+                else if (templeInformationTest.eduPersonPrimaryAffiliation == "student")
                 {
                     Console.WriteLine("Redirecting to StudentHome.");
                     return RedirectToAction("StudentHome", "Home");
                 }
             }
+
             return View();
         }
 

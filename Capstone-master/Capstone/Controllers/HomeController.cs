@@ -2,15 +2,23 @@ using Capstone.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using Capstone.Services;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Capstone.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly UserService userService;
+        private readonly TeamService teamService;
+        private readonly TeamUserService teamUserService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(TeamUserService teamUserService, TeamService teamService, UserService userService, ILogger<HomeController> logger)
         {
+            this.teamUserService = teamUserService;
+            this.teamService = teamService;
+            this.userService = userService;
             _logger = logger;
         }
 
@@ -42,22 +50,38 @@ namespace Capstone.Controllers
         }
 
 
-        public IActionResult UserManagement()
+        public async Task<IActionResult> UserManagement(int? userID, int? newTeamID)
         {
-            var users = new List<User>
-            {
-                new User(1, "", "john", "doe", ""),
-                new User(2, "user2@mail.com", "Mike", "smith",""),
-                new User(3, "user3@mail.com", "Antonio", "lopez","")
-            };
-            ViewBag.Teams = new List<string> { "Scrum Reporting", "Team x", "Team y" };
+            var students = await userService.GetStudents();
+            var teams = await teamService.GetTeams();
+            var teamUsers = await teamUserService.GetTeamUsers();
 
-            return View(users);
-          
+            if (userID.HasValue && newTeamID.HasValue)
+            {
+                var currentTeamID = teamUsers.FirstOrDefault(tu => tu.UserID == userID.Value)?.TeamID;
+
+                if (currentTeamID != newTeamID.Value) 
+                {
+                    await teamUserService.ModifyTeamUser(newTeamID.Value, userID.Value);
+                }
+
+            }
+
+            foreach (var student in students)
+            {
+                var currentTeamID = teamUsers.FirstOrDefault(tu => tu.UserID == student.ID)?.TeamID;
+                student.SelectList = new SelectList(teams, "ID", "Name", currentTeamID);
+
+            }
+
+            ViewBag.Teams = teams;
+            ViewBag.TeamUsers = teamUsers;
+            return View(students); 
         }
-        public IActionResult TeamManagement()
+        public async Task<IActionResult> TeamManagement()
         {
-            return View();
+            var teams = await teamService.GetTeams();
+            return View(teams);
         }
 
         public IActionResult ScrumManagement()

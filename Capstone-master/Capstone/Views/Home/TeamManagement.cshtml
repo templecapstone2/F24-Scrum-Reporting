@@ -1,0 +1,72 @@
+﻿@model List<Capstone.Models.Team>
+
+@{
+    Layout = "~/Views/Shared/_TempleScrumHeader.cshtml";
+    var teams = ViewBag.Teams as List<string>;
+}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/css/professorStyling.css">
+
+    <title>Teams Management Page</title>
+</head>
+<body>
+
+    <div class="content-title">
+        <h1>Team Management Page</h1>
+    </div>
+
+    <div class="content-container">
+        <nav class="sidenav">
+            <a asp-controller="Home" asp-action="ProfessorHome">Home</a>
+            <a asp-controller="Home" asp-action="UserManagement">User Management</a>
+            <a asp-controller="Home" asp-action="ViewReports">Scrum View</a>
+            <a asp-controller="Home" asp-action="ScrumView">Scrum Management</a>
+            <a asp-controller="Home" asp-action="TeamManagement">Team Management</a>
+            <a asp-controller="Login" asp-action="Login">Logout</a>
+        </nav>
+        <!-- Teams List -->
+        <div id="usersList">
+            @foreach (var team in Model)
+            {
+                <div class="user-row" data-user-id="@team.ID">
+                        <span class="user-name">@team.Name</span>
+                </div>
+            }
+            <button id="addTeamBtn" class="add-team-button" onclick="showAddTeamForm()">Add Team</button>
+        </div>
+    </div>
+
+    <div id="addTeamModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="hideAddTeamForm()">&times;</span>
+            <h2>Add Team</h2>
+            <input type="text" id="teamName" placeholder="Enter team name" />
+            <div class="modal-buttons">
+                <button onclick="addTeam()">Add</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="overlay" class="overlay" onclick="hideAddTeamForm()"></div>
+
+    <script>
+        function addTeam() {
+            const teamName = document.getElementById('teamName').value;
+            hideAddTeamForm();
+        }
+
+        function showAddTeamForm() {
+            document.getElementById('addTeamModal').style.display = 'block';
+            document.getElementById('overlay').style.display = 'block';
+        }
+
+        function hideAddTeamForm() {
+            document.getElementById('addTeamModal').style.display = 'none';
+            document.getElementById('overlay').style.display = 'none';
+        }
+    </script>
+</body>
+

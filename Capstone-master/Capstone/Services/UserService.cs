@@ -14,16 +14,21 @@ namespace Capstone.Services
             this.httpClient = httpClientFactory.CreateClient();
         }
 
-        public async Task<bool> AddUser(User user)
+        public async Task<User> AddUser(User user)
         {
             try
             {
-                return (await httpClient.PostAsJsonAsync(baseURL, user)).IsSuccessStatusCode;
+                var response = await httpClient.PostAsJsonAsync(baseURL, user);
+                if (response.IsSuccessStatusCode)
+                {
+                    return await response.Content.ReadFromJsonAsync<User>(); // Deserialize to User
+                }
+                return null; // Or handle errors as needed
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error occurred while adding user: {ex.Message}");
-                return false;
+                return null;
             }
         }
 
