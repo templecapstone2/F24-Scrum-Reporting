@@ -76,7 +76,6 @@ html, body {
     flex-direction: row;
     padding: 10px;
     gap: 20px;
-    height: 25rem;
     flex: 1;
 }
 
