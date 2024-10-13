@@ -257,7 +257,7 @@ namespace Capstone.Controllers
             await responseService.ModifyResponse(id, response);
             return RedirectToAction("Scrums", new { name = ScrumName });
         }
-        public async Task<IActionResult> ScrumReport()
+        public async Task<IActionResult> ScrumReport(string name)
         {
             var tuid = HttpContext.Session.GetString("TUID");
             var fullname = HttpContext.Session.GetString("fullname");
