@@ -82,14 +82,18 @@ h1 {
 }
 
 .form-control{
-    width: 100%;
 
 }
 
 .user-row {
     display: flex;
     align-items: center;
-    margin-bottom: 10px;
+    margin-top: 10px;
+    background-color: #D9D9D9;
+    padding: 10px;
+    border-radius: 10px;
+    outline: 1px solid;
+    border-bottom-style: outset;
 }
 
 .user-name {
