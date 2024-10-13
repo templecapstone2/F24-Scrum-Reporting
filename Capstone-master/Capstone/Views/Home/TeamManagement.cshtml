@@ -23,7 +23,7 @@
             <a asp-controller="Home" asp-action="ProfessorHome">Home</a>
             <a asp-controller="Home" asp-action="UserManagement">User Management</a>
             <a asp-controller="Home" asp-action="ViewReports">Scrum View</a>
-            <a asp-controller="Home" asp-action="ScrumView">Scrum Management</a>
+            <a asp-controller="Home" asp-action="ScrumManagement">Scrum Management</a>
             <a asp-controller="Home" asp-action="TeamManagement">Team Management</a>
             <a asp-controller="Login" asp-action="Login">Logout</a>
         </nav>
@@ -32,25 +32,31 @@
             @foreach (var team in Model)
             {
                 <div class="user-row" data-user-id="@team.ID">
-                        <span class="user-name">@team.Name</span>
+                    <span class="user-name">@team.Name</span>
+                    <form action="DeleteTeam" method="post" style="display:inline;">
+                        <input type="hidden" name="id" value="@team.ID" />
+                        <button type="submit" class="delete-button" onclick="return confirm('Are you sure you want to delete this team?');">X</button>
+                    </form>
                 </div>
             }
             <button id="addTeamBtn" class="add-team-button" onclick="showAddTeamForm()">Add Team</button>
         </div>
     </div>
 
-    <div id="addTeamModal" class="modal">
-        <div class="modal-content">
-            <span class="close-button" onclick="hideAddTeamForm()">&times;</span>
-            <h2>Add Team</h2>
-            <input type="text" id="teamName" placeholder="Enter team name" />
+<div id="addTeamModal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <span class="close-button" onclick="hideAddTeamForm()">&times;</span>
+        <h2>Add Team</h2>
+        <form id="addTeamForm" action="TeamManagement" method="post">
+            <input type="text" name="Name" placeholder="Enter team name" required />
             <div class="modal-buttons">
-                <button onclick="addTeam()">Add</button>
+                <button type="submit">Add</button>
             </div>
-        </div>
+        </form>
     </div>
+</div>
 
-    <div id="overlay" class="overlay" onclick="hideAddTeamForm()"></div>
+<div id="overlay" class="overlay" style="display: none;" onclick="hideAddTeamForm()"></div>
 
     <script>
         function addTeam() {

@@ -1,5 +1,4 @@
-﻿@page
-@model Capstone.Models.ScrumReport
+﻿@model List<Capstone.Models.Scrum>
 
 @{
     Layout = "~/Views/Shared/_TempleScrumHeader.cshtml";
@@ -42,24 +41,26 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @*                 @foreach (var item in Model.ScrumItems)
+                    @foreach (var item in Model)
                     {
-                    <tr>
-                    <td>@item.Name</td>
-                    <td>@item.DueDate.ToString("M/d/yyyy")</td>
-                    <td>
-                    @if (item.IsSubmitted)
-                    {
-                    <span>Submitted</span>
+                        <tr>
+                            <td>@item.Name</td>
+                            <td style="@(item.DateDue < DateTime.Now ? "color:red;" : "")">
+                                @item.DateDue.ToString("M/d/yyyy")
+                            </td>
+                            <td>
+                                @if (item.DateDue < DateTime.Now)
+                                {
+                                    <span>Due date has passed</span>
+                                }
+                                else
+                                {
+                                    <a asp-controller="Home" asp-action="Scrums" asp-route-id="@item.ID" asp-route-name="@item.Name">Edit</a>
+                                    <a href="#">Submit</a>
+                                }
+                            </td>
+                        </tr>
                     }
-                    else
-                    {
-                    <a href="#">Edit</a>
-                    < a href = "#" > Submit </ a >
-                    }
-                    </td>
-                    </tr>
-                    } *@
                 </tbody>
             </table>
         </div>

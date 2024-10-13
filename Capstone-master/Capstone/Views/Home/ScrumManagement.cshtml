@@ -23,7 +23,7 @@
             <a asp-controller="Home" asp-action="ProfessorHome">Home</a>
             <a asp-controller="Home" asp-action="UserManagement">User Management</a>
             <a asp-controller="Home" asp-action="ViewReports">Scrum View</a>
-            <a asp-controller="Home" asp-action="ScrumView">Scrum Management</a>
+            <a asp-controller="Home" asp-action="ScrumManagement">Scrum Management</a>
             <a asp-controller="Home" asp-action="TeamManagement">Team Management</a>
             <a asp-controller="Login" asp-action="Login">Logout</a>
         </nav>
@@ -35,16 +35,32 @@
                 <div class="scrum-row" data-scrum-id="@scrum.ID">
                     <form action="ScrumManagement" method="post">
                         <span class="scrum-name">@scrum.Name</span>
-                        <span class="scrum-due-date">Due: @scrum.DateDue.ToString("MM/dd/yyyy")</span>
+                        <span class="scrum-due-date">
+                            Due:
+                            @if (scrum.IsActive)
+                            {
+                                <span>@scrum.DateDue.ToString("MM/dd/yyyy")</span> <!-- Display as label when active -->
+                            }
+                            else
+                            {
+                                <input type="date" id="dateDue" name="DateDue"
+                                       value="@scrum.DateDue.ToString("yyyy-MM-dd")"
+                                       min="@DateTime.Now.ToString("yyyy-MM-dd")" required />
+                            }
+                        </span>
                         <input type="hidden" name="scrumID" value="@scrum.ID" />
+                        <input type="hidden" name="action" value="@(!scrum.IsActive ? "Publish" : "Unpublish")" />
 
                         @* Publish Button *@
                         <button type="submit" class="publish-btn" style="background-color: @(!scrum.IsActive ? "#A41C34" : "#808080");">
-                            @(!scrum.IsActive ? "Publish" : "Published")
+                            @(!scrum.IsActive ? "Publish" : "Unpublish")
                         </button>
+                    </form>
 
-                        @* Remove Scrum Button *@
-                        <button type="button" class="remove-scrum-btn">
+                    @* Remove Scrum Button *@
+                    <form action="DeleteScrum" method="post" style="display:inline;">
+                        <input type="hidden" name="scrumID" value="@scrum.ID" />
+                        <button type="submit" class="remove-scrum-btn" onclick="return confirm('Are you sure you want to delete this scrum?');">
                             &#x2716;
                         </button>
                     </form>
@@ -54,14 +70,13 @@
 
             <!-- Buttons at the Bottom -->
             <div class="bottom-buttons-container">
-                <button type="button" class="bottom-button" id="addScrumBtn">Add Scrum</button>
+                <form id="addScrumForm" action="ScrumManagement" method="post" style="display:inline;">
+                    <input type="hidden" name="action" value="AddScrum" />
+                    <button type="submit" class="bottom-button" id="addScrumBtn">Add Scrum</button>
+                </form>
                 <button type="button" class="bottom-button" id="exportDataBtn">Export Data</button>
                 <button type="button" class="bottom-button" id="newSemesterBtn">New Semester</button>
             </div>
-
         </div>
-
-        
-
     </div>
 </body>

@@ -1,5 +1,4 @@
-﻿@* @page
-@model Capstone.Models.ScrumReport *@
+﻿@model Capstone.Models.Response
 
 @{
     Layout = "~/Views/Shared/_TempleScrumHeader.cshtml";
@@ -27,49 +26,46 @@
         <div class="form-container">
             <h2>Scrum Report Form</h2>
 
-            <form method="post" action="/YourController/SaveReport">
+            <form method="post" action="ModifyResponses">
                 <div class="info-container">
-                    <div class="info-group">
-                        <label for="reportNumber">Scrum Report #</label>
-                        <label type="text" id="reportNumber" name="ReportNumber" @* value="@Model.ReportNumber" *@ readonly />
+                    <h2>Scrum Report Form</h2>
+
+                    <div class="form-group">
+                        <label for="reportNumber">@ViewBag.ScrumName</label>
                     </div>
 
-                    <div class="info-group">
-                        <label for="name">Name: </label>
-                        <label type="text" id="name" name="Name" @* value="@Model.Name" *@ readonly />
+                    <div class="form-group">
+                        <label for="name">Name: @ViewBag.Name</label>
                     </div>
 
-                    <div class="info-group">
-                        <label for="team">Team: </label>
-                        <label type="text" id="team" name="Team" @* value="@Model.Team" *@ readonly />
+                    <div class="form-group">
+                        <label>Team: @ViewBag.CurrentTeamName</label>
                     </div>
 
                     <div class="info-group">
                         <label for="date">Date: </label>
-                        <label type="text" id="date" name="Date" @* value="@Model.Date.ToString("MM/dd/yyyy")" *@ readonly />
+                        <span id="date">@DateTime.Now.ToString("MM/dd/yyyy")</span>
                     </div>
+
+                    <!-- Hidden fields for submission -->
+                    <input type="hidden" name="id" value="@Model.ID" />
+                    <input type="hidden" name="scrumName" value="@ViewBag.ScrumName" />
                 </div>
-                
 
                 <!-- Hard-coded questions -->
                 <div class="form-group">
                     <label for="question1">1. List what you accomplished since the last Scrum. </label>
-                    <textarea id="question1" name="Question1" rows="5" class="form-control"></textarea>
+                    <textarea id="question1" name="QuestionOne" rows="5" class="form-control">@Model.QuestionOne</textarea>
                 </div>
 
                 <div class="form-group">
                     <label for="question2">2. List what you will accomplish for the next Scrum. </label>
-                    <textarea id="question2" name="Question2" rows="5" class="form-control"></textarea>
+                    <textarea id="question2" name="QuestionTwo" rows="5" class="form-control">@Model.QuestionTwo</textarea>
                 </div>
 
                 <div class="form-group">
                     <label for="question3">3. What challenges or problems do you face (if any that need attention)? </label>
-                    <textarea id="question3" name="Question3" rows="5" class="form-control"></textarea>
-                </div>
-
-                <div class="form-group">
-                    <label for="question4">4. Any additional comments. </label>
-                    <textarea id="question4" name="Question4" rows="5" class="form-control"></textarea>
+                    <textarea id="question3" name="QuestionThree" rows="5" class="form-control">@Model.QuestionThree</textarea>
                 </div>
 
                 <!-- Buttons at the bottom -->
