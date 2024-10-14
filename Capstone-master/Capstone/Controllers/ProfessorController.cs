@@ -1,4 +1,4 @@
-using Capstone.Models;
+﻿using Capstone.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -8,16 +8,16 @@ using System.Xml.Linq;
 
 namespace Capstone.Controllers
 {
-    public class HomeController : Controller
+    public class ProfessorController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<ProfessorController> _logger;
         private readonly UserService userService;
         private readonly TeamService teamService;
         private readonly TeamUserService teamUserService;
         private readonly ScrumService scrumService;
         private readonly ResponseService responseService;
 
-        public HomeController(ResponseService responseService, ScrumService scrumService, TeamUserService teamUserService, TeamService teamService, UserService userService, ILogger<HomeController> logger)
+        public ProfessorController(ResponseService responseService, ScrumService scrumService, TeamUserService teamUserService, TeamService teamService, UserService userService, ILogger<ProfessorController> logger)
         {
             this.responseService = responseService;
             this.scrumService = scrumService;
@@ -26,17 +26,10 @@ namespace Capstone.Controllers
             this.userService = userService;
             _logger = logger;
         }
-
         public IActionResult Index()
         {
             return View();
         }
-
-
-        // ---------------------------------------------------------------------------------
-        // Professor Functionality
-        // ---------------------------------------------------------------------------------
-
 
         [HttpGet]
         public async Task<IActionResult> ScrumManagement()
@@ -86,12 +79,12 @@ namespace Capstone.Controllers
 
         private int GetNextScrumNumber()
         {
-            var scrums = scrumService.GetScrums().Result; 
+            var scrums = scrumService.GetScrums().Result;
             return scrums.Count > 0 ? scrums.Max(s => int.Parse(s.Name.Split('#')[1])) + 1 : 1;
         }
 
 
-        public async Task<IActionResult> UserManagement(int? userID, int? newTeamID)
+        public async Task<IActionResult> StudentManagement(int? userID, int? newTeamID)
         {
             var students = await userService.GetStudents();
             var teams = await teamService.GetTeams();
@@ -101,7 +94,7 @@ namespace Capstone.Controllers
             {
                 var currentTeamID = teamUsers.FirstOrDefault(tu => tu.UserID == userID.Value)?.TeamID;
 
-                if (currentTeamID != newTeamID.Value) 
+                if (currentTeamID != newTeamID.Value)
                 {
                     await teamUserService.ModifyTeamUser(newTeamID.Value, userID.Value);
                 }
@@ -117,7 +110,7 @@ namespace Capstone.Controllers
 
             ViewBag.Teams = teams;
             ViewBag.TeamUsers = teamUsers;
-            return View(students); 
+            return View(students);
         }
         public async Task<IActionResult> TeamManagement()
         {
@@ -130,12 +123,12 @@ namespace Capstone.Controllers
         [HttpPost]
         public async Task<IActionResult> TeamManagement(Team team)
         {
-            if (ModelState.IsValid) 
+            if (ModelState.IsValid)
             {
                 try
                 {
-                    await teamService.AddTeam(team); 
-                    return RedirectToAction("TeamManagement"); 
+                    await teamService.AddTeam(team);
+                    return RedirectToAction("TeamManagement");
                 }
                 catch (Exception ex)
                 {
@@ -151,17 +144,17 @@ namespace Capstone.Controllers
         {
             try
             {
-                await teamService.DeleteTeam(id); 
-                return RedirectToAction("TeamManagement"); 
+                await teamService.DeleteTeam(id);
+                return RedirectToAction("TeamManagement");
             }
             catch (Exception ex)
             {
                 ModelState.AddModelError("", "Error deleting team: " + ex.Message);
-                return RedirectToAction("TeamManagement"); 
+                return RedirectToAction("TeamManagement");
             }
         }
 
-        public IActionResult ProfessorHome()
+        public IActionResult Dashboard()
         {
             var tuId = HttpContext.Session.GetString("TUID");
             var usertype = HttpContext.Session.GetString("usertype");
@@ -174,99 +167,9 @@ namespace Capstone.Controllers
             return View();
         }
 
-        public IActionResult ViewReports()
+        public IActionResult AggregateView()
         {
             return View();
-        }
-
-        // ---------------------------------------------------------------------------------
-        // Student Functionality
-        // ---------------------------------------------------------------------------------
-
-        public IActionResult StudentHome()
-        {
-            var tuId = HttpContext.Session.GetString("TUID");
-            var usertype = HttpContext.Session.GetString("usertype");
-            var fullName = HttpContext.Session.GetString("fullname");
-
-            ViewBag.Full_Name = fullName;
-            ViewBag.TU_ID = tuId;
-            ViewBag.User_Type = usertype;
-
-            return View();
-        }
-
-        public async Task<IActionResult> Scrums(string name)
-        {
-            var tuid = HttpContext.Session.GetString("TUID");
-            var students = await userService.GetStudents();
-            var teams = await teamService.GetTeams();
-            var teamUsers = await teamUserService.GetTeamUsers();
-
-            // Get the current user's ID from the session
-
-            var userEntry = students.FirstOrDefault(tu => tu.TUID == tuid);
-            var currentUserId = userEntry.ID;
-
-            var teamUserEntry = teamUsers.FirstOrDefault(tu => tu.UserID == currentUserId);
-            var currentTeamID = teamUserEntry.TeamID;
-
-            // Get the team name based on the current team ID
-            var currentTeamName = currentTeamID != null ? teams.FirstOrDefault(t => t.ID == currentTeamID)?.Name : null;
-
-            var fullname = HttpContext.Session.GetString("fullname");
-            var scrum_name = HttpContext.Session.GetString("ScrumName");
-
-            ViewBag.CurrentTeamName = currentTeamName;
-            ViewBag.Name = fullname;
-            ViewBag.ScrumName = name;
-
-            var scrums = await scrumService.GetScrums(); 
-            var currentScrum = scrums.FirstOrDefault(s => s.Name == name); 
-            var scrumID = currentScrum.ID;
-
-            ViewBag.ScrumID = scrumID;
-
-            var responses = await responseService.GetResponses();
-            var userResponse = responses.FirstOrDefault(r => r.UserID == currentUserId);
-
-            if (userResponse == null)
-            {
-                userResponse = new Response
-                {
-                    QuestionOne = string.Empty,
-                    QuestionTwo = string.Empty,
-                    QuestionThree = string.Empty,
-                    DateSubmitted = DateTime.Now,
-                    ScrumID = scrumID, 
-                    UserID = currentUserId
-                };
-
-                await responseService.AddResponse(userResponse);
-            }
-
-            ViewBag.Responses = responses;
-
-            return View(userResponse);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> ModifyResponses(int id, Response response, string ScrumName)
-        {
-            response.DateSubmitted = DateTime.Now;
-            await responseService.ModifyResponse(id, response);
-            return RedirectToAction("Scrums", new { name = ScrumName });
-        }
-        public async Task<IActionResult> ScrumReport(string name)
-        {
-            var tuid = HttpContext.Session.GetString("TUID");
-            var fullname = HttpContext.Session.GetString("fullname");
-            HttpContext.Session.SetString("TUID", tuid);
-            HttpContext.Session.SetString("fullname", fullname);
-
-            var scrums = await scrumService.GetScrums();
-            var publishedScrums = scrums.Where(scrum => scrum.IsActive).ToList();
-            return View(publishedScrums);
         }
     }
 }

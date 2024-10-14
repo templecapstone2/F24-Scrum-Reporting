@@ -1,85 +1,76 @@
-﻿@model Capstone.Models.Response
+﻿@model List<Capstone.Models.Scrum>
 
 @{
     Layout = "~/Views/Shared/_TempleScrumHeader.cshtml";
+
+    // Teams list passed via ViewBag from the controller
+    var teams = ViewBag.Teams as List<string>;
 }
+
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="~/css/scrumreport.css">
+    <link rel="stylesheet" href="~/css/scrumreport.css"> <!-- Link to your CSS file -->
 
     <title>Temple Scrum</title>
 </head>
 <body>
 
+    <div class="content-tittle">
+        <h1>Scrum Report Page</h1>
+    </div>
+
     <div class="content-container">
 
         <nav class="sidenav">
-            <a asp-controller="Student" asp-action="StudentHome">Dashboard</a> @* Student Home Page *@
-            <a asp-controller="Student" asp-action="ScrumReport">Scrums</a> @* Student Report Management Page *@
+            <a asp-controller="Student" asp-action="Dashboard">Dashboard</a> @* Student Home Page *@
+            <a asp-controller="Student" asp-action="Scrums">Scrums</a> @* Student Report Management Page *@
             <a asp-controller="Login" asp-action="Login">Logout</a>
 
         </nav>
 
-        <div class="form-container">
-            <form method="post" asp-controller="Home" asp-action="ModifyResponses">
-                <div class="info-container">
-                    <h2>Scrum Report Form</h2>
-
-                    <div class="form-group">
-                        <label for="reportNumber">@ViewBag.ScrumName</label>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="name">Name: @ViewBag.Name</label>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Team: @ViewBag.CurrentTeamName</label>
-                    </div>
-
-                    <div class="info-group">
-                        <label for="date">Date: </label>
-                        <span id="date">@DateTime.Now.ToString("MM/dd/yyyy")</span>
-                    </div>
-
-                    <!-- Hidden fields for submission -->
-                    <input type="hidden" name="id" value="@Model.ID" />
-                    <input type="hidden" name="scrumName" value="@ViewBag.ScrumName" />
-                </div>
-
-                <!-- Hard-coded questions -->
-                <div class="form-group">
-                    <label for="question1">1. List what you accomplished since the last Scrum. </label>
-                    <textarea id="question1" name="QuestionOne" rows="5" class="form-control">@Model.QuestionOne</textarea>
-                </div>
-
-                <div class="form-group">
-                    <label for="question2">2. List what you will accomplish for the next Scrum. </label>
-                    <textarea id="question2" name="QuestionTwo" rows="5" class="form-control">@Model.QuestionTwo</textarea>
-                </div>
-
-                <div class="form-group">
-                    <label for="question3">3. What challenges or problems do you face (if any that need attention)? </label>
-                    <textarea id="question3" name="QuestionThree" rows="5" class="form-control">@Model.QuestionThree</textarea>
-                </div>
-
-                <!-- Buttons at the bottom -->
-                <div class="form-buttons">
-                    <button type="button" class="btn btn-secondary" onclick="window.location.href='/Home/ScrumReport'">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Save</button>
-                </div>
-            </form>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Scrum</th>
+                        <th>Due Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Name</td>
+                            <td style="@(item.DateDue < DateTime.Now ? "color:red;" : "")">
+                                @item.DateDue.ToString("M/d/yyyy")
+                            </td>
+                            <td>
+                                @if (item.DateDue < DateTime.Now)
+                                {
+                                    <span>Due date has passed</span>
+                                }
+                                else
+                                {
+                                    <a asp-controller="Student" asp-action="Response" asp-route-id="@item.ID" asp-route-name="@item.Name">Edit</a>
+                                    <a href="#">Submit</a>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
         </div>
-
 
     </div>
 
 </body>
 </html>
+
 
 
 

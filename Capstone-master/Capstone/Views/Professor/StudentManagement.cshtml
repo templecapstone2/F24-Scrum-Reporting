@@ -84,7 +84,7 @@
                     if (user.UserType == "student")
                     {
                         <div class="user-row" data-user-id="@user.ID">
-                            <form action="UserManagement" method="post">
+                            <form action="StudentManagement" method="post">
                                 <span class="user-name">@user.FirstName @user.LastName</span>
                                 @Html.DropDownList("newTeamID", user.SelectList, new { @class = "team-dropdown" })
                                 <input type="hidden" name="userID" value="@user.ID" />
