@@ -8,6 +8,8 @@
     Layout = "~/Views/Shared/_TempleScrumHeader.cshtml";
 }
 
+@model List<Capstone.Models.Response>
+
 
 <head>
     <meta charset="UTF-8">
@@ -69,6 +71,38 @@
                     <!-- Add other team options dynamically here -->
                 </select>
             </div>
+
+            <div class="report-cards">
+                @foreach (var report in Model) // Assuming Reports is a list in the model
+                {
+                    <div class="report-card">
+                        <div class="report-header">
+                            <div class="report-name">@report.</div>
+                            <div class="report-team">@report.</div>
+                            <div class="report-date">Submitted: @report.DateSubmitted.ToShortDateString()</div>
+                        </div>
+                        <div class="report-body">
+                            <div class="report-question">
+                                <label>Question 1:</label>
+                                <div>@report.QuestionOne</div>
+                            </div>
+                            <div class="report-question">
+                                <label>Question 2:</label>
+                                <div>@report.QuestionTwo</div>
+                            </div>
+                            <div class="report-question">
+                                <label>Question 3:</label>
+                                <div>@report.QuestionThree</div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+
+
+
+
         </div>
 
 
@@ -80,91 +114,3 @@
 </body>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-@* <div class="content">
-    <!-- Filters Section -->
-    <div class="d-flex justify-content-between mb-3 filter_container">
-        <div class="form-group">
-            <label for="teamSelect">Team</label>
-            <select class="form-control" id="teamSelect">
-                <option>Scrum Reporting</option>
-                <!-- Add more options as needed -->
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="studentSelect">Student</label>
-            <select class="form-control" id="studentSelect">
-                <option>Select</option>
-                <!-- Add more options as needed -->
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="dateSelect">Select Date</label>
-            <input type="date" class="form-control" id="dateSelect">
-        </div>
-    </div>
-
-    <!-- Cards Section -->
-    <div class="card-container">
-        <div class="card report-card">
-            <div class="card-body">
-                <h5 class="card-title">Jacob Zall</h5>
-                <p class="card-subtitle mb-2 text-muted">Scrum Reporting</p>
-                <p>Q1: I have accomplished creating UI</p>
-                <p>Q2: Implementing UI Code</p>
-                <p>Q3:</p>
-                <p>Q4:</p>
-                <small class="text-muted">Date: 9/7/24 - 9/24/24</small>
-            </div>
-        </div>
-        <div class="card report-card">
-            <div class="card-body">
-                <h5 class="card-title">Hai Nguyen</h5>
-                <p class="card-subtitle mb-2 text-muted">Scrum Reporting</p>
-                <p>Q1: I have accomplished creating UI</p>
-                <p>Q2: Implementing UI Code</p>
-                <p>Q3:</p>
-                <p>Q4:</p>
-                <small class="text-muted">Date: 9/7/24 - 9/24/24</small>
-            </div>
-        </div>
-        <!-- Add more cards as needed -->
-    </div>
-</div> *@
