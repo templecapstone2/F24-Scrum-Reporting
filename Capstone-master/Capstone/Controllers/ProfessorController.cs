@@ -5,6 +5,7 @@ using System.Diagnostics;
 using Capstone.Services;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Xml.Linq;
+using Capstone.ViewModels;
 
 namespace Capstone.Controllers
 {
@@ -112,6 +113,19 @@ namespace Capstone.Controllers
             ViewBag.TeamUsers = teamUsers;
             return View(students);
         }
+
+        public async Task<IActionResult> AggregateView()
+        {
+            List<Response> responses = await responseService.GetResponses();
+            List<Scrum> scrums = await scrumService.GetScrums();
+            List<Team> teams = await teamService.GetTeams();
+            List<User> students = await userService.GetStudents();
+            List<TeamUser> teamUsers = await teamUserService.GetTeamUsers();
+
+            var model = new AggregateViewModel(responses, scrums, teams, students, teamUsers);
+            return View(model);
+        }
+
         public async Task<IActionResult> TeamManagement()
         {
             var teams = await teamService.GetTeams();
