@@ -5,6 +5,7 @@ using System.Diagnostics;
 using Capstone.Services;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Xml.Linq;
+using Capstone.ViewModels;
 
 namespace Capstone.Controllers
 {
@@ -105,7 +106,7 @@ namespace Capstone.Controllers
             await responseService.ModifyResponse(id, response);
             return RedirectToAction("Scrums", new { name = ScrumName });
         }
-        public async Task<IActionResult> Scrums(string name)
+        public async Task<IActionResult> Scrums()
         {
             var tuid = HttpContext.Session.GetString("TUID");
             var fullname = HttpContext.Session.GetString("fullname");
@@ -114,7 +115,20 @@ namespace Capstone.Controllers
 
             var scrums = await scrumService.GetScrums();
             var publishedScrums = scrums.Where(scrum => scrum.IsActive).ToList();
-            return View(publishedScrums);
+
+            List<Response> responses = await responseService.GetResponses();
+            List<Response> studentResponses = new List<Response>();
+            int loggedInUserID = 1234; //how do I get the actual one?
+            foreach (Response response in responses)
+            {
+                if (response.UserID == loggedInUserID)
+                {
+                    studentResponses.Add(response);
+                }
+            }
+
+            StudentScrumModel studentScrumModel = new StudentScrumModel(publishedScrums, studentResponses);
+            return View(studentScrumModel);
         }
     }
 }

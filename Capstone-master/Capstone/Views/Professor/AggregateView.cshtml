@@ -37,8 +37,8 @@
         <div class="reports-container">
             <div class="team-filter">
                 <label for="filterTeam">Team:</label>
-                <select id="filterTeam" class="form-control" onchange="filterUsersByTeam()">
-                    <option value="all">All Teams</option>
+                <select id="filterTeam" class="form-control" onchange="filterResponses()">
+                    <option value="">All Teams</option>
                     @foreach (var team in Model.Teams)
                     {
                         <option value="@team.ID">@team.Name</option>
@@ -47,8 +47,8 @@
             </div>
             <div class="team-filter">
                 <label for="filterStudent">Student:</label>
-                <select id="filterStudent" class="form-control" onchange="filterUsersByStudent()">
-                    <option value="all">All Students</option>
+                <select id="filterStudent" class="form-control" onchange="filterResponses()">
+                    <option value="">All Students</option>
                     @foreach (var student in Model.Students)
                     {
                         <option value="@student.ID">@($"{student.FirstName} {student.LastName}")</option>
@@ -58,14 +58,13 @@
             <div class="team-filter">
                 <label for="filterDateFrom">To:</label>
                 <input type="date" id="filterDateFrom" name="fromDate"
-                       min="@DateTime.Now.ToString("yyyy-MM-dd")"
-                       onchange="filterByDateFrom()" class="form-control" />
+                       onchange="filterResponses(); updateStudentDropdown()" class="form-control" />
             </div>
             <div class="team-filter">
                 <label for="filterDateTo">To:</label>
                 <input type="date" id="filterDateTo" name="toDate"
                        min="@DateTime.Now.ToString("yyyy-MM-dd")"
-                       onchange="filterByDateTo()" class="form-control" />
+                       onchange="filterResponses()" class="form-control" />
             </div>
         </div>
 
@@ -130,10 +129,66 @@
                 </div>
             }
         </div>
-
-
-
     </div>
+
+    <script>
+        const students = @Html.Raw(Json.Serialize(Model.Students));
+        const teamUsers = @Html.Raw(Json.Serialize(Model.TeamUsers));
+
+        function filterResponses() {
+            const selectedTeam = document.getElementById('filterTeam').value;
+            const selectedStudent = document.getElementById('filterStudent').value;
+            const selectedDateFrom = document.getElementById('filterDateFrom').value;
+            const selectedDateTo = document.getElementById('filterDateTo').value;
+            const responseCards = document.querySelectorAll('.response-card');
+
+            responseCards.forEach(function (card) {
+                const responseStudentName = card.querySelector('.response-name').textContent;
+                const responseTeam = card.querySelector('.response-team').textContent;
+                const responseDateSubmitted = card.querySelector('.response-date').textContent;
+
+                const matchesTeam = !selectedTeam || selectedTeam === responseTeam;
+                const matchesStudent = !selectedStudent || selectedStudent === responseStudentName;
+                const matchesFromDate = !selectedDateFrom || selectedDateFrom <= responseDateSubmitted;
+                const matchesToDate = !selectedDateTo || selectedDateTo >= responseDateSubmitted;
+
+                if (matchesTeam && matchesStudent && matchesFromDate && matchesToDate) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        function updateStudentDropdown() {
+            const selectedTeam = document.getElementById('filterTeam').value;
+            const studentDropdown = document.getElementById('filterStudent');
+
+            studentDropdown.innerHTML = '<option value="">All Students</option>';
+
+            if (selectedTeam === "") {
+                students.forEach(function (student) {
+                    const option = document.createElement('option');
+                    option.value = student.ID;
+                    option.textContent = `${student.FirstName} ${student.LastName}`;
+                    studentDropdown.appendChild(option);
+                });
+            }
+            else {
+                teamUsers.forEach(function (teamUser) {
+                    if (teamUser.TeamID === parseInt(selectedTeam)) {
+                        const student = students.find(s => s.ID === teamUser.UserID);
+                        if (student) {
+                            const option = document.createElement('option');
+                            option.value = student.ID;
+                            option.textContent = `${student.FirstName} ${student.LastName}`;
+                            studentDropdown.appendChild(option);
+                        }
+                    }
+                });
+            }
+        }
+    </script>
 
 </body>
 

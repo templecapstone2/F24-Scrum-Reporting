@@ -3,8 +3,9 @@
     "",
     "\\Capstone-master",
     "\\Capstone-master\\Capstone",
-    "\\Capstone-master\\Capstone\\Services"
+    "\\Capstone-master\\Capstone\\Views",
+    "\\Capstone-master\\Capstone\\Views\\Professor"
   ],
-  "SelectedNode": "\\Capstone-master\\Capstone\\Services\\TeamService.cs",
+  "SelectedNode": "\\Capstone-master\\Capstone\\Views\\Professor\\AggregateView.cshtml",
   "PreviewInSolutionExplorer": false
 }
