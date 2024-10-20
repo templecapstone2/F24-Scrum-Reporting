@@ -1,11 +1,7 @@
 {
   "ExpandedNodes": [
-    "",
-    "\\Capstone-master",
-    "\\Capstone-master\\Capstone",
-    "\\Capstone-master\\Capstone\\Views",
-    "\\Capstone-master\\Capstone\\Views\\Professor"
+    ""
   ],
-  "SelectedNode": "\\Capstone-master\\Capstone\\Views\\Professor\\AggregateView.cshtml",
+  "SelectedNode": "\\Capstone.sln",
   "PreviewInSolutionExplorer": false
 }

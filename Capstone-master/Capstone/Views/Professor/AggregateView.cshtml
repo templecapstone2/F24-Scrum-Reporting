@@ -37,7 +37,7 @@
         <div class="reports-container">
             <div class="team-filter">
                 <label for="filterTeam">Team:</label>
-                <select id="filterTeam" class="form-control" onchange="filterResponses()">
+                <select id="filterTeam" class="form-control" onchange="filterResponses(); updateStudentDropdown()">
                     <option value="">All Teams</option>
                     @foreach (var team in Model.Teams)
                     {
@@ -56,14 +56,15 @@
                 </select>
             </div>
             <div class="team-filter">
-                <label for="filterDateFrom">To:</label>
+                <label for="filterDateFrom">From:</label>
                 <input type="date" id="filterDateFrom" name="fromDate"
-                       onchange="filterResponses(); updateStudentDropdown()" class="form-control" />
+                       max="@DateTime.Now.ToString("yyyy-MM-dd")"
+                       onchange="filterResponses()" class="form-control" />
             </div>
             <div class="team-filter">
                 <label for="filterDateTo">To:</label>
                 <input type="date" id="filterDateTo" name="toDate"
-                       min="@DateTime.Now.ToString("yyyy-MM-dd")"
+                       max="@DateTime.Now.ToString("yyyy-MM-dd")"
                        onchange="filterResponses()" class="form-control" />
             </div>
         </div>
@@ -97,14 +98,20 @@
                     {
                         foreach (var t in Model.Teams)
                         {
-                            team = t;
-                            break;
+                            if (t.ID == teamUser.TeamID)
+                            {
+                                team = t;
+                                break;
+                            }
                         }
+                        break;
                     }
-                    break;
                 }
 
-                <div class="response-card">
+                <div class="response-card"
+                     data-student-name="@($"{student.FirstName} {student.LastName}")"
+                     data-team-name="@team.Name"
+                     data-date-submitted="@response.DateSubmitted">
                     <div class="response-header">
                         <div class="response-name">Student: @(student.FirstName + " " + student.LastName)</div>
                         <div class="response-team">Team: @(team.Name)</div>
@@ -132,23 +139,25 @@
     </div>
 
     <script>
-        const students = @Html.Raw(Json.Serialize(Model.Students));
-        const teamUsers = @Html.Raw(Json.Serialize(Model.TeamUsers));
+        const students = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Students));
+        const teamUsers = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.TeamUsers));
 
         function filterResponses() {
-            const selectedTeam = document.getElementById('filterTeam').value;
-            const selectedStudent = document.getElementById('filterStudent').value;
-            const selectedDateFrom = document.getElementById('filterDateFrom').value;
-            const selectedDateTo = document.getElementById('filterDateTo').value;
+            const selectedTeam = document.getElementById('filterTeam').selectedOptions[0].textContent.trim();
+            const selectedStudent = document.getElementById('filterStudent').selectedOptions[0].textContent.trim();
+            const selectedDateFrom = document.getElementById('filterDateFrom').value ?
+                new Date(document.getElementById('filterDateFrom').value) : null;
+            const selectedDateTo = document.getElementById('filterDateTo').value ?
+                new Date(document.getElementById('filterDateTo').value) : null;
             const responseCards = document.querySelectorAll('.response-card');
 
             responseCards.forEach(function (card) {
-                const responseStudentName = card.querySelector('.response-name').textContent;
-                const responseTeam = card.querySelector('.response-team').textContent;
-                const responseDateSubmitted = card.querySelector('.response-date').textContent;
+                const responseStudent = card.getAttribute('data-student-name').trim();
+                const responseTeam = card.getAttribute('data-team-name').trim();
+                const responseDateSubmitted = new Date(card.getAttribute('data-date-submitted').trim());
 
-                const matchesTeam = !selectedTeam || selectedTeam === responseTeam;
-                const matchesStudent = !selectedStudent || selectedStudent === responseStudentName;
+                const matchesTeam = (selectedTeam === "All Teams") || (responseTeam === selectedTeam);
+                const matchesStudent = (selectedStudent === "All Students") || (responseStudent === selectedStudent);
                 const matchesFromDate = !selectedDateFrom || selectedDateFrom <= responseDateSubmitted;
                 const matchesToDate = !selectedDateTo || selectedDateTo >= responseDateSubmitted;
 
@@ -163,7 +172,6 @@
         function updateStudentDropdown() {
             const selectedTeam = document.getElementById('filterTeam').value;
             const studentDropdown = document.getElementById('filterStudent');
-
             studentDropdown.innerHTML = '<option value="">All Students</option>';
 
             if (selectedTeam === "") {
