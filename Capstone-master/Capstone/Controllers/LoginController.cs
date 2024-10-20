@@ -5,16 +5,8 @@ namespace Capstone.Controllers
     public class LoginController : Controller
     {
 
-        public IActionResult Login(string UserType)
+        public IActionResult Login()
         {
-            if (UserType == "Professor")
-            {
-                return RedirectToAction("ProfessorHome", "Home");
-            }
-            else if (UserType == "Student")
-            {
-                return RedirectToAction("StudentHome", "Home");
-            }
             return View();
         }
     }
