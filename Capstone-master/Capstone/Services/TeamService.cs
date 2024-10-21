@@ -5,7 +5,7 @@ namespace Capstone.Services
     public class TeamService
     { 
         //string baseURL; // published url
-        string baseURL = "http://localhost:5009/api/Team"; // test url
+        string baseURL = "http://localhost:5051/api/Team"; // test url
         private readonly HttpClient httpClient;
 
 

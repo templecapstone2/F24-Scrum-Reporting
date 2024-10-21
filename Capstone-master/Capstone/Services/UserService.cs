@@ -5,7 +5,7 @@ namespace Capstone.Services
     public class UserService
     {
         //string baseURL; // published url
-        string baseURL = "http://localhost:5009/api/User"; // test url
+        string baseURL = "http://localhost:5051/api/User"; // test url
         private readonly HttpClient httpClient;
 
 

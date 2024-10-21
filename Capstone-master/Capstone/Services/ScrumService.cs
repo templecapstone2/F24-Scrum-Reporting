@@ -5,7 +5,7 @@ namespace Capstone.Services
     public class ScrumService
     {
         //string baseURL; // published url
-        string baseURL = "http://localhost:5009/api/Scrum"; // test url
+        string baseURL = "http://localhost:5051/api/Scrum"; // test url
         private readonly HttpClient httpClient;
 
 
