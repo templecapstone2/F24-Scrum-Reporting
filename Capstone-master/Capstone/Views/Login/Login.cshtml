@@ -19,24 +19,14 @@
             </div>
         </nav>
     </header>
-        <div class="login-box">
-        <form asp-action="Login" method="post">
-            <h2>Login</h2>
-            <label for="ddlUserType">User Type</label>
-            <br />
-            <select class="dropdown" id="ddlUserType" name="UserType">
-                <option value="Professor">Professor</option>
-            </select>
+    <div class="login-box">
+        <h2>Login</h2>
+        <form method="post">
             <div class="login-btn">
-                <button type="submit" value="Login" name="btnSubmit" style="font-size: 18px;">Log In</button>
+                <button type="submit" id="btnSSO" style="font-size: 18px;">Secure Login</button>
             </div>
         </form>
-            <form method="post">
-                <div class="login-btn">
-                    <button type="submit" id="btnSSO" style="font-size: 18px;">Secure Login</button>
-                </div>
-            </form>
-        </div>
+    </div>
     <script>
         const routePrefix = "@(routePrefix)";
         document.getElementById("btnSSO").addEventListener("click", function (e) {
