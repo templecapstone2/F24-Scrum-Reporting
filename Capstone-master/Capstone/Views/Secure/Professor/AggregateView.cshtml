@@ -35,107 +35,120 @@
         </nav>
 
         <div class="reports-container">
-            <div class="team-filter">
-                <label for="filterTeam">Team:</label>
-                <select id="filterTeam" class="form-control" onchange="filterResponses(); updateStudentDropdown()">
-                    <option value="">All Teams</option>
-                    @foreach (var team in Model.Teams)
-                    {
-                        <option value="@team.ID">@team.Name</option>
-                    }
-                </select>
-            </div>
-            <div class="team-filter">
-                <label for="filterStudent">Student:</label>
-                <select id="filterStudent" class="form-control" onchange="filterResponses()">
-                    <option value="">All Students</option>
-                    @foreach (var student in Model.Students)
-                    {
-                        <option value="@student.ID">@($"{student.FirstName} {student.LastName}")</option>
-                    }
-                </select>
-            </div>
-            <div class="team-filter">
-                <label for="filterDateFrom">From:</label>
-                <input type="date" id="filterDateFrom" name="fromDate"
-                       max="@DateTime.Now.ToString("yyyy-MM-dd")"
-                       onchange="filterResponses()" class="form-control" />
-            </div>
-            <div class="team-filter">
-                <label for="filterDateTo">To:</label>
-                <input type="date" id="filterDateTo" name="toDate"
-                       max="@DateTime.Now.ToString("yyyy-MM-dd")"
-                       onchange="filterResponses()" class="form-control" />
-            </div>
-        </div>
-
-        <div class="response-cards">
-            @foreach (var response in Model.Responses)
-            {
-                User student = null;
-                Team team = null;
-                Scrum scrum = null;
-
-                foreach (var s in Model.Students)
-                {
-                    if (s.ID == response.UserID) {
-                        student = s;
-                        break;
-                    }
-                }
-
-                foreach (var s in Model.Scrums)
-                {
-                    if (s.ID == response.ScrumID)
-                    {
-                        scrum = s;
-                    }
-                }
-
-                foreach (TeamUser teamUser in Model.TeamUsers)
-                {
-                    if (teamUser.UserID == response.UserID)
-                    {
-                        foreach (var t in Model.Teams)
+            <div class="filters">
+                <div class="team-filter">
+                    <label for="filterTeam">Team:</label>
+                    <select id="filterTeam" class="form-control" onchange="filterResponses(); updateStudentDropdown()">
+                        <option value="">All Teams</option>
+                        @foreach (var team in Model.Teams)
                         {
-                            if (t.ID == teamUser.TeamID)
-                            {
-                                team = t;
-                                break;
-                            }
+                            <option value="@team.ID">@team.Name</option>
                         }
-                        break;
-                    }
-                }
-
-                <div class="response-card"
-                     data-student-name="@($"{student.FirstName} {student.LastName}")"
-                     data-team-name="@team.Name"
-                     data-date-submitted="@response.DateSubmitted">
-                    <div class="response-header">
-                        <div class="response-name">Student: @(student.FirstName + " " + student.LastName)</div>
-                        <div class="response-team">Team: @(team.Name)</div>
-                        <div class="response-scrum-id">Scrum: @scrum.Name</div>
-                        <div class="response-due-date">Due Date: @scrum.DateDue</div>
-                        <div class="response-date">Submitted: @response.DateSubmitted</div>
-                    </div>
-                    <div class="response-body">
-                        <div class="response-question">
-                            <label>Question 1:</label>
-                            <div>@response.QuestionOne</div>
-                        </div>
-                        <div class="response-question">
-                            <label>Question 2:</label>
-                            <div>@response.QuestionTwo</div>
-                        </div>
-                        <div class="response-question">
-                            <label>Question 3:</label>
-                            <div>@response.QuestionThree</div>
-                        </div>
-                    </div>
+                    </select>
                 </div>
-            }
+                <div class="team-filter">
+                    <label for="filterStudent">Student:</label>
+                    <select id="filterStudent" class="form-control" onchange="filterResponses()">
+                        <option value="">All Students</option>
+                        @foreach (var student in Model.Students)
+                        {
+                            <option value="@student.ID">@($"{student.FirstName} {student.LastName}")</option>
+                        }
+                    </select>
+                </div>
+                <div class="team-filter">
+                    <label for="filterDateFrom">From:</label>
+                    <input type="date" id="filterDateFrom" name="fromDate"
+                           max="@DateTime.Now.ToString("yyyy-MM-dd")"
+                           onchange="filterResponses()" class="form-control" />
+                </div>
+                <div class="team-filter">
+                    <label for="filterDateTo">To:</label>
+                    <input type="date" id="filterDateTo" name="toDate"
+                           max="@DateTime.Now.ToString("yyyy-MM-dd")"
+                           onchange="filterResponses()" class="form-control" />
+                </div>
+            </div>
+            
+
+
+
+
+
+            <div class="report-cards">
+                @foreach (var response in Model.Responses)
+                {
+                    User student = null;
+                    Team team = null;
+                    Scrum scrum = null;
+
+                    foreach (var s in Model.Students)
+                    {
+                        if (s.ID == response.UserID)
+                        {
+                            student = s;
+                            break;
+                        }
+                    }
+
+                    foreach (var s in Model.Scrums)
+                    {
+                        if (s.ID == response.ScrumID)
+                        {
+                            scrum = s;
+                        }
+                    }
+
+                    foreach (TeamUser teamUser in Model.TeamUsers)
+                    {
+                        if (teamUser.UserID == response.UserID)
+                        {
+                            foreach (var t in Model.Teams)
+                            {
+                                if (t.ID == teamUser.TeamID)
+                                {
+                                    team = t;
+                                    break;
+                                }
+                            }
+                            break;
+                        }
+                    }
+
+                    <div class="report-card"
+                         data-student-name="@($"{student.FirstName} {student.LastName}")"
+                         data-team-name="@team.Name"
+                         data-date-submitted="@response.DateSubmitted">
+                        <div class="response-header">
+                            <div class="response-name">Student: @(student.FirstName + " " + student.LastName)</div>
+                            <div class="response-team">Team: @(team.Name)</div>
+                            <div class="response-scrum-id">Scrum: @scrum.Name</div>
+                            <div class="response-due-date">Due Date: @scrum.DateDue</div>
+                            <div class="response-date">Submitted: @response.DateSubmitted</div>
+                        </div>
+                        <div class="response-body">
+                            <div class="response-question">
+                                <label>Question 1:</label>
+                                <div>@response.QuestionOne</div>
+                            </div>
+                            <div class="response-question">
+                                <label>Question 2:</label>
+                                <div>@response.QuestionTwo</div>
+                            </div>
+                            <div class="response-question">
+                                <label>Question 3:</label>
+                                <div>@response.QuestionThree</div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+
+
         </div>
+
+        
     </div>
 
     <script>
