@@ -6,6 +6,7 @@ using Capstone.Services;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Xml.Linq;
 using Capstone.ViewModels;
+using System.Text.Json;
 
 namespace Capstone.Controllers
 {
@@ -116,18 +117,27 @@ namespace Capstone.Controllers
             var fullname = HttpContext.Session.GetString("fullname");
             HttpContext.Session.SetString("TUID", tuid);
             HttpContext.Session.SetString("fullname", fullname);
+            var userJson = HttpContext.Session.GetString("currentUser");
+
+            User loggedInUser = null;
+            if (!string.IsNullOrEmpty(userJson))
+            {
+                loggedInUser = JsonSerializer.Deserialize<User>(userJson);
+            }
 
             var scrums = await scrumService.GetScrums();
             var publishedScrums = scrums.Where(scrum => scrum.IsActive).ToList();
 
             List<Response> responses = await responseService.GetResponses();
             List<Response> studentResponses = new List<Response>();
-            int loggedInUserID = 1234; //how do I get the actual one?
-            foreach (Response response in responses)
+            if (loggedInUser != null) 
             {
-                if (response.UserID == loggedInUserID)
+                foreach (Response response in responses)
                 {
-                    studentResponses.Add(response);
+                    if (response.UserID == loggedInUser.ID) 
+                    {
+                        studentResponses.Add(response);
+                    }
                 }
             }
 
