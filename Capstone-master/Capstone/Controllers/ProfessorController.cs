@@ -72,7 +72,7 @@ namespace Capstone.Controllers
             return RedirectToAction("ScrumManagement");
         }
 
-        [HttpPost]
+        [HttpPost("DeleteScrum")]
         public IActionResult DeleteScrum(int scrumID)
         {
             var success = scrumService.DeleteScrum(scrumID);
@@ -159,7 +159,7 @@ namespace Capstone.Controllers
             return View("~/Views/Secure/Professor/TeamManagement.cshtml", existingTeams);
         }
 
-        [HttpPost]
+        [HttpPost("DeleteTeam")]
         public async Task<IActionResult> DeleteTeam(int id)
         {
             try
