@@ -5,7 +5,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using ServiceReference1;
-using System.ServiceModel; 
+using System.ServiceModel;
+using System.Text.Json;
 
 namespace Capstone.Controllers
 {
@@ -37,10 +38,10 @@ namespace Capstone.Controllers
             //}
 
             // For Publish Testing
-            var id = GetShibbolethHeaderAttributes();
+            //var id = GetShibbolethHeaderAttributes();
 
             // For Local Testing
-            //var id = "915905753";
+            var id = "915905753";
 
             ViewData["tuid"] = id;
             HttpContext.Session.SetString("TUID", id);
@@ -85,13 +86,14 @@ namespace Capstone.Controllers
 
             if (templeInformation != null)
             {
-                var users = await userService.GetUsers();
+                List<User> users = await userService.GetUsers();
                 bool userExists = false;
-                foreach (var user in users)
+                foreach (User user in users)
                 {
                     if (user.TUID == id)
                     {
-                        //set user as session user
+                        var userJson = JsonSerializer.Serialize(user);
+                        HttpContext.Session.SetString("currentUser", userJson);
                         userExists = true;
                     }
                 }
