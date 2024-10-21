@@ -9,6 +9,7 @@ using Capstone.ViewModels;
 
 namespace Capstone.Controllers
 {
+    [Route("Secure/[controller]")]
     public class StudentController : Controller
     {
         private readonly ILogger<StudentController> _logger;
@@ -32,6 +33,7 @@ namespace Capstone.Controllers
             return View();
         }
 
+        [HttpGet("Dashboard")]
         public IActionResult Dashboard()
         {
             var tuId = HttpContext.Session.GetString("TUID");
@@ -42,9 +44,9 @@ namespace Capstone.Controllers
             ViewBag.TU_ID = tuId;
             ViewBag.User_Type = usertype;
 
-            return View();
+            return View("~/Views/Secure/Student/Dashboard.cshtml");
         }
-
+        [HttpGet("Response")]
         public async Task<IActionResult> Response(string name)
         {
             var tuid = HttpContext.Session.GetString("TUID");
@@ -96,7 +98,7 @@ namespace Capstone.Controllers
 
             ViewBag.Responses = responses;
 
-            return View(userResponse);
+            return View("~/Views/Secure/Student/Response.cshtml", userResponse);
         }
 
         [HttpPost]
@@ -106,6 +108,8 @@ namespace Capstone.Controllers
             await responseService.ModifyResponse(id, response);
             return RedirectToAction("Scrums", new { name = ScrumName });
         }
+
+        [HttpGet("Scrums")]
         public async Task<IActionResult> Scrums()
         {
             var tuid = HttpContext.Session.GetString("TUID");
@@ -128,7 +132,7 @@ namespace Capstone.Controllers
             }
 
             StudentScrumModel studentScrumModel = new StudentScrumModel(publishedScrums, studentResponses);
-            return View(studentScrumModel);
+            return View("~/Views/Secure/Student/Scrums.cshtml", studentScrumModel);
         }
     }
 }

@@ -3,8 +3,8 @@
 namespace Capstone.Services
 {
     public class TeamService
-    { 
-        //string baseURL; // published url
+    {
+        //string baseURL = "https://np-stem.temple.edu/cis4396-f05/api/Team"; // published url
         string baseURL = "http://localhost:5051/api/Team"; // test url
         private readonly HttpClient httpClient;
 

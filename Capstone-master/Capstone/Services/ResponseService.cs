@@ -3,8 +3,8 @@
 namespace Capstone.Services
 {
     public class ResponseService
-    { 
-        //string baseURL; // published url
+    {
+        //string baseURL = "https://np-stem.temple.edu/cis4396-f05/api/Response"; // published url
         string baseURL = "http://localhost:5051/api/Response"; // test URL
         private readonly HttpClient httpClient;
 

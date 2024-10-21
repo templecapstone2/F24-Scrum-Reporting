@@ -4,7 +4,7 @@ namespace Capstone.Services
 {
     public class UserService
     {
-        //string baseURL; // published url
+        //string baseURL = "https://np-stem.temple.edu/cis4396-f05/api/User"; // published url
         string baseURL = "http://localhost:5051/api/User"; // test url
         private readonly HttpClient httpClient;
 

@@ -9,6 +9,7 @@ using Capstone.ViewModels;
 
 namespace Capstone.Controllers
 {
+    [Route("Secure/[controller]")]
     public class ProfessorController : Controller
     {
         private readonly ILogger<ProfessorController> _logger;
@@ -32,11 +33,11 @@ namespace Capstone.Controllers
             return View();
         }
 
-        [HttpGet]
+        [HttpGet("ScrumManagement")]
         public async Task<IActionResult> ScrumManagement()
         {
             var scrums = await scrumService.GetScrums();
-            return View(scrums);
+            return View("~/Views/Secure/Professor/ScrumManagement.cshtml", scrums);
         }
 
         [HttpPost]
@@ -84,7 +85,7 @@ namespace Capstone.Controllers
             return scrums.Count > 0 ? scrums.Max(s => int.Parse(s.Name.Split('#')[1])) + 1 : 1;
         }
 
-
+        [HttpGet("StudentManagement")]
         public async Task<IActionResult> StudentManagement(int? userID, int? newTeamID)
         {
             var students = await userService.GetStudents();
@@ -99,21 +100,21 @@ namespace Capstone.Controllers
                 {
                     await teamUserService.ModifyTeamUser(newTeamID.Value, userID.Value);
                 }
-
             }
 
+            // Prepare SelectList for each student
             foreach (var student in students)
             {
                 var currentTeamID = teamUsers.FirstOrDefault(tu => tu.UserID == student.ID)?.TeamID;
                 student.SelectList = new SelectList(teams, "ID", "Name", currentTeamID);
-
             }
 
             ViewBag.Teams = teams;
             ViewBag.TeamUsers = teamUsers;
-            return View(students);
+            return View("~/Views/Secure/Professor/StudentManagement.cshtml", students);
         }
 
+        [HttpGet("AggragateView")]
         public async Task<IActionResult> AggregateView()
         {
             List<Response> responses = await responseService.GetResponses();
@@ -123,14 +124,15 @@ namespace Capstone.Controllers
             List<TeamUser> teamUsers = await teamUserService.GetTeamUsers();
 
             var model = new AggregateViewModel(responses, scrums, teams, students, teamUsers);
-            return View(model);
+            return View("~/Views/Secure/Professor/AggregateView.cshtml", model);
         }
 
+        [HttpGet("TeamManagement")]
         public async Task<IActionResult> TeamManagement()
         {
             var teams = await teamService.GetTeams();
             var teamsToDisplay = teams.Skip(1).ToList();
-            return View(teamsToDisplay);
+            return View("~/Views/Secure/Professor/TeamManagement.cshtml", teamsToDisplay);
         }
 
 
@@ -150,7 +152,7 @@ namespace Capstone.Controllers
                 }
             }
             var existingTeams = await teamService.GetTeams();
-            return View(existingTeams);
+            return View("~/Views/Secure/Professor/TeamManagement.cshtml", existingTeams);
         }
 
         [HttpPost]
@@ -168,6 +170,7 @@ namespace Capstone.Controllers
             }
         }
 
+        [HttpGet("Dashboard")]
         public IActionResult Dashboard()
         {
             var tuId = HttpContext.Session.GetString("TUID");
@@ -178,7 +181,7 @@ namespace Capstone.Controllers
             ViewBag.TU_ID = tuId;
             ViewBag.User_Type = usertype;
 
-            return View();
+            return View("~/Views/Secure/Professor/Dashboard.cshtml");
         }
     }
 }
