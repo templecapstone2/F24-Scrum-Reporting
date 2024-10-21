@@ -5,7 +5,7 @@ using Capstone.Models;
 using System.Diagnostics;
 using System.Text.Json.Serialization;
 
-namespace DataAPI.Controllers
+namespace Capstone.API
 {
     [Route("api/[controller]")]
     public class TeamUserController : Controller

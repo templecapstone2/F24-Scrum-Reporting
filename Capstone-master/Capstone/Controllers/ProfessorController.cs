@@ -40,7 +40,7 @@ namespace Capstone.Controllers
             return View("~/Views/Secure/Professor/ScrumManagement.cshtml", scrums);
         }
 
-        [HttpPost]
+        [HttpPost("ScrumManagement")]
         public async Task<IActionResult> ScrumManagement(string action, DateTime? DateDue, int scrumID)
         {
             if (action == "AddScrum")
@@ -92,16 +92,6 @@ namespace Capstone.Controllers
             var teams = await teamService.GetTeams();
             var teamUsers = await teamUserService.GetTeamUsers();
 
-            if (userID.HasValue && newTeamID.HasValue)
-            {
-                var currentTeamID = teamUsers.FirstOrDefault(tu => tu.UserID == userID.Value)?.TeamID;
-
-                if (currentTeamID != newTeamID.Value)
-                {
-                    await teamUserService.ModifyTeamUser(newTeamID.Value, userID.Value);
-                }
-            }
-
             // Prepare SelectList for each student
             foreach (var student in students)
             {
@@ -112,6 +102,20 @@ namespace Capstone.Controllers
             ViewBag.Teams = teams;
             ViewBag.TeamUsers = teamUsers;
             return View("~/Views/Secure/Professor/StudentManagement.cshtml", students);
+        }
+
+        [HttpPost("StudentManagement")]
+        public async Task<IActionResult> StudentManagementPost(int userID, int newTeamID)
+        {
+            var currentTeamID = (await teamUserService.GetTeamUsers()).FirstOrDefault(tu => tu.UserID == userID)?.TeamID;
+
+            if (currentTeamID != newTeamID)
+            {
+                await teamUserService.ModifyTeamUser(newTeamID, userID);
+            }
+
+            // Redirect to the GET method after processing the POST
+            return RedirectToAction("StudentManagement", new { userID });
         }
 
         [HttpGet("AggragateView")]
@@ -136,7 +140,7 @@ namespace Capstone.Controllers
         }
 
 
-        [HttpPost]
+        [HttpPost("TeamManagement")]
         public async Task<IActionResult> TeamManagement(Team team)
         {
             if (ModelState.IsValid)

@@ -4,7 +4,7 @@ using System.Data.SqlClient;
 using Capstone.Models;
 using System.Diagnostics;
 
-namespace DataAPI.Controllers
+namespace Capstone.API
 {
     [Route("api/[controller]")]
     public class LoginController : Controller

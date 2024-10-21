@@ -29,167 +29,167 @@ namespace Capstone.Controllers
         //--------------------------------------------------------------------
         //--------------------------------------------------------------------
 
-        public async Task<IActionResult> Index()
-        {
-            //if (!User.Identity.IsAuthenticated)
-            //{
-            //    // Redirect to the Shibboleth login page
-            //    return RedirectToAction("Login", "Login"); 
-            //}
-
-            // For Publish Testing
-            //var id = GetShibbolethHeaderAttributes();
-
-            // For Local Testing
-            var id = "915905753";
-
-            ViewData["tuid"] = id;
-            HttpContext.Session.SetString("TUID", id);
-
-
-            // Create the request object for the search
-            var searchRequestBody = new SearchRequestBody
-            {
-                username = configuration["LDAPSettings:Username"],
-                password = configuration["LDAPSettings:Password"],
-                attribute = configuration["LDAPSettings:Attribute"],
-                value = id
-            };
-
-            TempleLDAPEntry templeInformation = null;
-
-            try
-            {
-                var binding = new BasicHttpBinding(BasicHttpSecurityMode.Transport);
-                var endpoint = new EndpointAddress("https://preprod-wsw.temple.edu/ws_ldapsearch/ldap_search.asmx?wsdl");
-
-                using (var client = new LDAP_SearchSoapClient(binding, endpoint))
-                {
-                    var response = await client.SearchAsync(
-                        searchRequestBody.username,
-                        searchRequestBody.password,
-                        searchRequestBody.attribute,
-                        searchRequestBody.value);
-
-                    if (response != null && response.Body != null && response.Body.SearchResult != null && response.Body.SearchResult.Length > 0)
-                    {
-                        templeInformation = response.Body.SearchResult[0];
-                        HttpContext.Session.SetString("fullname", templeInformation.givenName + " " + templeInformation.sn);
-                        HttpContext.Session.SetString("usertype", templeInformation.eduPersonPrimaryAffiliation);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"An error occurred while fetching data {ex.Message}");
-            }
-
-            if (templeInformation != null)
-            {
-                List<User> users = await userService.GetUsers();
-                bool userExists = false;
-                foreach (User user in users)
-                {
-                    if (user.TUID == id)
-                    {
-                        var userJson = JsonSerializer.Serialize(user);
-                        HttpContext.Session.SetString("currentUser", userJson);
-                        userExists = true;
-                    }
-                }
-
-                if (!userExists)
-                {
-                    var newUser = new User
-                    {
-                        TUID = id,
-                        FirstName = templeInformation.givenName,
-                        LastName = templeInformation.sn,
-                        UserType = templeInformation.eduPersonPrimaryAffiliation
-                    };
-
-                    var addedUser = await userService.AddUser(newUser);
-                    if (addedUser != null && addedUser.ID > 0)
-                    {
-                        int unassignedTeamID = 1;
-                        bool teamUserAdded = await teamUserService.AddTeamUser(unassignedTeamID, addedUser.ID);
-
-                        if (!teamUserAdded)
-                        {
-                            Console.WriteLine("Failed to add user to unassigned team.");
-                        }
-                    }
-                }
-
-                if (templeInformation.eduPersonPrimaryAffiliation == "professor")
-                {
-                    Console.WriteLine("Redirecting to ProfessorHome.");
-                    return RedirectToAction("Dashboard", "Professor");
-                }
-                else if (templeInformation.eduPersonPrimaryAffiliation == "student")
-                {
-                    Console.WriteLine("Redirecting to StudentHome.");
-                    return RedirectToAction("Dashboard", "Student");
-                }
-            }
-            return View();
-        }
-
-
-        // --------------------------------------------------------------------
-        // --------------------------------------------------------------------
-        //               *** TESTING FOR PROFESSOR ROLE ***
-        // --------------------------------------------------------------------
-        // --------------------------------------------------------------------
         //public async Task<IActionResult> Index()
         //{
-        //    string id = "123456789";
+        //    //if (!User.Identity.IsAuthenticated)
+        //    //{
+        //    //    // Redirect to the Shibboleth login page
+        //    //    return RedirectToAction("Login", "Login"); 
+        //    //}
+
+        //    // For Publish Testing
+        //    //var id = GetShibbolethHeaderAttributes();
+
+        //    // For Local Testing
+        //    var id = "915905753";
+
+        //    ViewData["tuid"] = id;
         //    HttpContext.Session.SetString("TUID", id);
 
-        //    TempleLDAPEntry templeInformationTest = new TempleLDAPEntry
+
+        //    // Create the request object for the search
+        //    var searchRequestBody = new SearchRequestBody
         //    {
-        //        givenName = "Anthony",
-        //        sn = "Briglia",
-        //        eduPersonPrimaryAffiliation = "professor"
+        //        username = configuration["LDAPSettings:Username"],
+        //        password = configuration["LDAPSettings:Password"],
+        //        attribute = configuration["LDAPSettings:Attribute"],
+        //        value = id
         //    };
 
-        //    if (templeInformationTest != null)
-        //    {
-        //        // Set session variables
-        //        HttpContext.Session.SetString("fullname", $"{templeInformationTest.givenName} {templeInformationTest.sn}");
-        //        HttpContext.Session.SetString("usertype", templeInformationTest.eduPersonPrimaryAffiliation);
+        //    TempleLDAPEntry templeInformation = null;
 
-        //        var users = await userService.GetUsers();
-        //        bool userExists = users.Any(user => user.TUID == id);
+        //    try
+        //    {
+        //        var binding = new BasicHttpBinding(BasicHttpSecurityMode.Transport);
+        //        var endpoint = new EndpointAddress("https://preprod-wsw.temple.edu/ws_ldapsearch/ldap_search.asmx?wsdl");
+
+        //        using (var client = new LDAP_SearchSoapClient(binding, endpoint))
+        //        {
+        //            var response = await client.SearchAsync(
+        //                searchRequestBody.username,
+        //                searchRequestBody.password,
+        //                searchRequestBody.attribute,
+        //                searchRequestBody.value);
+
+        //            if (response != null && response.Body != null && response.Body.SearchResult != null && response.Body.SearchResult.Length > 0)
+        //            {
+        //                templeInformation = response.Body.SearchResult[0];
+        //                HttpContext.Session.SetString("fullname", templeInformation.givenName + " " + templeInformation.sn);
+        //                HttpContext.Session.SetString("usertype", templeInformation.eduPersonPrimaryAffiliation);
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine($"An error occurred while fetching data {ex.Message}");
+        //    }
+
+        //    if (templeInformation != null)
+        //    {
+        //        List<User> users = await userService.GetUsers();
+        //        bool userExists = false;
+        //        foreach (User user in users)
+        //        {
+        //            if (user.TUID == id)
+        //            {
+        //                var userJson = JsonSerializer.Serialize(user);
+        //                HttpContext.Session.SetString("currentUser", userJson);
+        //                userExists = true;
+        //            }
+        //        }
 
         //        if (!userExists)
         //        {
         //            var newUser = new User
         //            {
         //                TUID = id,
-        //                FirstName = templeInformationTest.givenName,
-        //                LastName = templeInformationTest.sn,
-        //                UserType = templeInformationTest.eduPersonPrimaryAffiliation
+        //                FirstName = templeInformation.givenName,
+        //                LastName = templeInformation.sn,
+        //                UserType = templeInformation.eduPersonPrimaryAffiliation
         //            };
 
-        //            await userService.AddUser(newUser);
+        //            var addedUser = await userService.AddUser(newUser);
+        //            if (addedUser != null && addedUser.ID > 0)
+        //            {
+        //                int unassignedTeamID = 1;
+        //                bool teamUserAdded = await teamUserService.AddTeamUser(unassignedTeamID, addedUser.ID);
+
+        //                if (!teamUserAdded)
+        //                {
+        //                    Console.WriteLine("Failed to add user to unassigned team.");
+        //                }
+        //            }
         //        }
 
-        //        // Redirect based on user type
-        //        if (templeInformationTest.eduPersonPrimaryAffiliation == "professor")
+        //        if (templeInformation.eduPersonPrimaryAffiliation == "professor")
         //        {
         //            Console.WriteLine("Redirecting to ProfessorHome.");
         //            return RedirectToAction("Dashboard", "Professor");
         //        }
-        //        else if (templeInformationTest.eduPersonPrimaryAffiliation == "student")
+        //        else if (templeInformation.eduPersonPrimaryAffiliation == "student")
         //        {
         //            Console.WriteLine("Redirecting to StudentHome.");
         //            return RedirectToAction("Dashboard", "Student");
         //        }
         //    }
-
         //    return View();
         //}
+
+
+        // --------------------------------------------------------------------
+        // --------------------------------------------------------------------
+        //               *** TESTING FOR PROFESSOR ROLE ***
+        // --------------------------------------------------------------------
+        //--------------------------------------------------------------------
+        public async Task<IActionResult> Index()
+        {
+            string id = "123456789";
+            HttpContext.Session.SetString("TUID", id);
+
+            TempleLDAPEntry templeInformationTest = new TempleLDAPEntry
+            {
+                givenName = "Anthony",
+                sn = "Briglia",
+                eduPersonPrimaryAffiliation = "professor"
+            };
+
+            if (templeInformationTest != null)
+            {
+                // Set session variables
+                HttpContext.Session.SetString("fullname", $"{templeInformationTest.givenName} {templeInformationTest.sn}");
+                HttpContext.Session.SetString("usertype", templeInformationTest.eduPersonPrimaryAffiliation);
+
+                var users = await userService.GetUsers();
+                bool userExists = users.Any(user => user.TUID == id);
+
+                if (!userExists)
+                {
+                    var newUser = new User
+                    {
+                        TUID = id,
+                        FirstName = templeInformationTest.givenName,
+                        LastName = templeInformationTest.sn,
+                        UserType = templeInformationTest.eduPersonPrimaryAffiliation
+                    };
+
+                    await userService.AddUser(newUser);
+                }
+
+                // Redirect based on user type
+                if (templeInformationTest.eduPersonPrimaryAffiliation == "professor")
+                {
+                    Console.WriteLine("Redirecting to ProfessorHome.");
+                    return RedirectToAction("Dashboard", "Professor");
+                }
+                else if (templeInformationTest.eduPersonPrimaryAffiliation == "student")
+                {
+                    Console.WriteLine("Redirecting to StudentHome.");
+                    return RedirectToAction("Dashboard", "Student");
+                }
+            }
+
+            return View();
+        }
 
         protected string GetShibbolethHeaderAttributes()
         {
