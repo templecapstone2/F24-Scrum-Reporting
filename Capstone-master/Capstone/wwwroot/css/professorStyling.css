@@ -313,38 +313,38 @@ h1 {
 }
 
 /* Header Section (Name, Team, Date) */
-.report-header {
-    text-align: center;
+.response-header {
+    align-self: center;
     padding-bottom: 15px;
     border-bottom: 1px solid #ccc;
 }
 
-.report-name, .report-team, .report-date {
+.response-name, .response-team, .response-date, .response-scrum-id, .response-due-date {
     font-size: 18px;
     margin: 5px 0;
 }
 
 /* Body Section (Questions and Responses) */
-.report-body {
+.response-body {
     display: flex;
     flex-direction: column;
     padding-top: 15px;
 }
 
-.report-question {
+.response-question {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     margin-bottom: 10px;
 }
 
-    .report-question label {
+    .response-question label {
         font-weight: bold;
         color: #C8102E; /* Temple Red */
         margin-bottom: 5px;
     }
 
-    .report-question div {
+    .response-question div {
         font-size: 16px;
         padding-left: 5px;
     }
