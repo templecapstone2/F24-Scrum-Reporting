@@ -122,14 +122,17 @@
 
                         <div class="response-header">
                             <div style="text-align: left">
-                                <div class="response-name">Student: <span style="font-weight: bold">@(student.FirstName + " " + student.LastName)</span></div> 
-                                <div class="response-team">Team: <span style="font-weight: bold">@(team.Name)</span></div> 
-                                <div class="response-scrum-id">Scrum: <span style="font-weight: bold">@scrum.Name</span></div> 
-                                <div class="response-due-date">Due Date: <span style="font-weight: bold">@scrum.DateDue</span></div> 
+                                <div class="response-name">Student: <span style="font-weight: bold">@(student.FirstName + " " + student.LastName)</span></div>
+                                <div class="response-team">Team: <span style="font-weight: bold">@(team.Name)</span></div>
+                                <div class="response-scrum-id">Scrum: <span style="font-weight: bold">@scrum.Name</span></div>
+                                <div class="response-due-date">Due Date: <span style="font-weight: bold">@scrum.DateDue</span></div>
                                 <div class="response-date">Submitted: <span style="font-weight: bold">@response.DateSubmitted</span></div>
                             </div>
+
+                            <button class="details-btn" onclick="toggleDetails(this)">Details</button>
                         </div>
-                        <div class="response-body">
+
+                        <div class="response-body" style="display: none">
                             <div class="response-question">
                                 <label>Question 1:</label>
                                 <div>@response.QuestionOne</div>
@@ -146,7 +149,6 @@
                     </div>
                 }
             </div>
-
 
 
         </div>
@@ -212,6 +214,33 @@
                 });
             }
         }
+
+        function toggleDetails(button) {
+            // Get the closest report card
+            const reportCard = button.closest('.report-card');
+
+            // Find the response body within the clicked report card
+            const responseBody = reportCard.querySelector('.response-body');
+
+            // Check if the response body is currently displayed
+            const isVisible = responseBody.style.display === 'block';
+
+            // Hide all response bodies
+            const allResponseBodies = document.querySelectorAll('.response-body');
+            allResponseBodies.forEach(body => {
+                body.style.display = 'none'; // Hide all
+            });
+
+            // If it was not visible, show the clicked one
+            if (!isVisible) {
+                responseBody.style.display = 'block'; // Show the details for the clicked card
+            }
+        }
+
+
+
+
+
     </script>
 
 </body>
