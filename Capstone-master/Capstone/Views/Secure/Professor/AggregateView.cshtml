@@ -69,7 +69,7 @@
                            onchange="filterResponses()" class="form-control" />
                 </div>
             </div>
-            
+
 
 
 
@@ -119,14 +119,20 @@
                          data-student-name="@($"{student.FirstName} {student.LastName}")"
                          data-team-name="@team.Name"
                          data-date-submitted="@response.DateSubmitted">
+
                         <div class="response-header">
-                            <div class="response-name">Student: @(student.FirstName + " " + student.LastName)</div>
-                            <div class="response-team">Team: @(team.Name)</div>
-                            <div class="response-scrum-id">Scrum: @scrum.Name</div>
-                            <div class="response-due-date">Due Date: @scrum.DateDue</div>
-                            <div class="response-date">Submitted: @response.DateSubmitted</div>
+                            <div style="text-align: left">
+                                <div class="response-name">Student: <span style="font-weight: bold">@(student.FirstName + " " + student.LastName)</span></div>
+                                <div class="response-team">Team: <span style="font-weight: bold">@(team.Name)</span></div>
+                                <div class="response-scrum-id">Scrum: <span style="font-weight: bold">@scrum.Name</span></div>
+                                <div class="response-due-date">Due Date: <span style="font-weight: bold">@scrum.DateDue</span></div>
+                                <div class="response-date">Submitted: <span style="font-weight: bold">@response.DateSubmitted</span></div>
+                            </div>
+
+                            <button class="details-btn" onclick="toggleDetails(this)">Details</button>
                         </div>
-                        <div class="response-body">
+
+                        <div class="response-body" style="display: none">
                             <div class="response-question">
                                 <label>Question 1:</label>
                                 <div>@response.QuestionOne</div>
@@ -145,10 +151,9 @@
             </div>
 
 
-
         </div>
 
-        
+
     </div>
 
     <script>
@@ -209,96 +214,34 @@
                 });
             }
         }
+
+        function toggleDetails(button) {
+            // Get the closest report card
+            const reportCard = button.closest('.report-card');
+
+            // Find the response body within the clicked report card
+            const responseBody = reportCard.querySelector('.response-body');
+
+            // Check if the response body is currently displayed
+            const isVisible = responseBody.style.display === 'block';
+
+            // Hide all response bodies
+            const allResponseBodies = document.querySelectorAll('.response-body');
+            allResponseBodies.forEach(body => {
+                body.style.display = 'none'; // Hide all
+            });
+
+            // If it was not visible, show the clicked one
+            if (!isVisible) {
+                responseBody.style.display = 'block'; // Show the details for the clicked card
+            }
+        }
+
+
+
+
+
     </script>
 
 </body>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-@* <div class="content">
-    <!-- Filters Section -->
-    <div class="d-flex justify-content-between mb-3 filter_container">
-        <div class="form-group">
-            <label for="teamSelect">Team</label>
-            <select class="form-control" id="teamSelect">
-                <option>Scrum Reporting</option>
-                <!-- Add more options as needed -->
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="studentSelect">Student</label>
-            <select class="form-control" id="studentSelect">
-                <option>Select</option>
-                <!-- Add more options as needed -->
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="dateSelect">Select Date</label>
-            <input type="date" class="form-control" id="dateSelect">
-        </div>
-    </div>
-
-    <!-- Cards Section -->
-    <div class="card-container">
-        <div class="card report-card">
-            <div class="card-body">
-                <h5 class="card-title">Jacob Zall</h5>
-                <p class="card-subtitle mb-2 text-muted">Scrum Reporting</p>
-                <p>Q1: I have accomplished creating UI</p>
-                <p>Q2: Implementing UI Code</p>
-                <p>Q3:</p>
-                <p>Q4:</p>
-                <small class="text-muted">Date: 9/7/24 - 9/24/24</small>
-            </div>
-        </div>
-        <div class="card report-card">
-            <div class="card-body">
-                <h5 class="card-title">Hai Nguyen</h5>
-                <p class="card-subtitle mb-2 text-muted">Scrum Reporting</p>
-                <p>Q1: I have accomplished creating UI</p>
-                <p>Q2: Implementing UI Code</p>
-                <p>Q3:</p>
-                <p>Q4:</p>
-                <small class="text-muted">Date: 9/7/24 - 9/24/24</small>
-            </div>
-        </div>
-        <!-- Add more cards as needed -->
-    </div>
-</div> *@

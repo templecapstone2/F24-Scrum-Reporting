@@ -17,6 +17,7 @@ html, body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    height: fit-content;
 }
 
     .sidenav a {
@@ -49,6 +50,7 @@ html, body {
     padding: 10px;
     display: flex;
     gap: 20px;
+    height: 75vh;
 }
 
 
@@ -303,48 +305,47 @@ h1 {
     background-color: #f5f5f5;
     border: 1px solid #ccc;
     border-radius: 10px;
-    padding: 15px;
-    width: 45%; /* Each card takes up 45% width of the container */
-    min-height: 200px;
+    padding: 10px;
     box-shadow: rgba(0, 0, 0, 0.15) 0px 4px 8px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+
+
+
 }
 
 /* Header Section (Name, Team, Date) */
-.report-header {
-    text-align: center;
+.response-header {
+    align-self: center;
     padding-bottom: 15px;
     border-bottom: 1px solid #ccc;
 }
 
-.report-name, .report-team, .report-date {
+.response-name, .response-team, .response-date, .response-scrum-id, .response-due-date {
     font-size: 18px;
     margin: 5px 0;
 }
 
 /* Body Section (Questions and Responses) */
-.report-body {
-    display: flex;
-    flex-direction: column;
+.response-body {
     padding-top: 15px;
 }
 
-.report-question {
+.response-question {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     margin-bottom: 10px;
 }
 
-    .report-question label {
+    .response-question label {
         font-weight: bold;
         color: #C8102E; /* Temple Red */
         margin-bottom: 5px;
     }
 
-    .report-question div {
+    .response-question div {
         font-size: 16px;
         padding-left: 5px;
     }
