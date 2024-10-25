@@ -2,9 +2,6 @@
 
 @{
     Layout = "~/Views/Shared/_TempleScrumHeader.cshtml";
-
-    // Teams list passed via ViewBag from the controller
-    var teams = ViewBag.Teams as List<string>;
 }
 
 
@@ -42,11 +39,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var scrum in Model.Scrums)
+                    @foreach (Scrum scrum in Model.Scrums)
                     {
                         // Check if response exists for this scrum
                         Response userResponse = null;
-                        foreach (var response in Model.Responses)
+                        foreach (Response response in Model.Responses)
                         {
                             if (response.ScrumID == scrum.ID)
                             {

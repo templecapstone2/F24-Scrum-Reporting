@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Xml.Linq;
 using Capstone.ViewModels;
 using System.Text.Json;
+using Capstone.API;
 
 namespace Capstone.Controllers
 {
@@ -47,94 +48,23 @@ namespace Capstone.Controllers
 
             return View("~/Views/Secure/Student/Dashboard.cshtml");
         }
-        [HttpGet("Response")]
-        public async Task<IActionResult> Response(string name)
-        {
-            var tuid = HttpContext.Session.GetString("TUID");
-            var students = await userService.GetStudents();
-            var teams = await teamService.GetTeams();
-            var teamUsers = await teamUserService.GetTeamUsers();
-
-            // Get the current user's ID from the session
-
-            var userEntry = students.FirstOrDefault(tu => tu.TUID == tuid);
-            var currentUserId = userEntry.ID;
-
-            var teamUserEntry = teamUsers.FirstOrDefault(tu => tu.UserID == currentUserId);
-            var currentTeamID = teamUserEntry.TeamID;
-
-            // Get the team name based on the current team ID
-            var currentTeamName = currentTeamID != null ? teams.FirstOrDefault(t => t.ID == currentTeamID)?.Name : null;
-
-            var fullname = HttpContext.Session.GetString("fullname");
-            var scrum_name = HttpContext.Session.GetString("ScrumName");
-
-            ViewBag.CurrentTeamName = currentTeamName;
-            ViewBag.Name = fullname;
-            ViewBag.ScrumName = name;
-
-            var scrums = await scrumService.GetScrums();
-            var currentScrum = scrums.FirstOrDefault(s => s.Name == name);
-            var scrumID = currentScrum.ID;
-
-            ViewBag.ScrumID = scrumID;
-
-            var responses = await responseService.GetResponses();
-            var userResponse = responses.FirstOrDefault(r => r.UserID == currentUserId);
-
-            if (userResponse == null)
-            {
-                userResponse = new Response
-                {
-                    QuestionOne = string.Empty,
-                    QuestionTwo = string.Empty,
-                    QuestionThree = string.Empty,
-                    DateSubmitted = DateTime.Now,
-                    ScrumID = scrumID,
-                    UserID = currentUserId
-                };
-
-                await responseService.AddResponse(userResponse);
-            }
-
-            ViewBag.Responses = responses;
-
-            return View("~/Views/Secure/Student/Response.cshtml", userResponse);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> ModifyResponses(int id, Response response, string ScrumName)
-        {
-            response.DateSubmitted = DateTime.Now;
-            await responseService.ModifyResponse(id, response);
-            return RedirectToAction("Scrums", new { name = ScrumName });
-        }
 
         [HttpGet("Scrums")]
         public async Task<IActionResult> Scrums()
         {
-            var tuid = HttpContext.Session.GetString("TUID");
-            var fullname = HttpContext.Session.GetString("fullname");
-            HttpContext.Session.SetString("TUID", tuid);
-            HttpContext.Session.SetString("fullname", fullname);
             var userJson = HttpContext.Session.GetString("currentUser");
-
-            User loggedInUser = null;
-            if (!string.IsNullOrEmpty(userJson))
-            {
-                loggedInUser = JsonSerializer.Deserialize<User>(userJson);
-            }
+            User loggedInUser = JsonSerializer.Deserialize<User>(userJson);
 
             var scrums = await scrumService.GetScrums();
             var publishedScrums = scrums.Where(scrum => scrum.IsActive).ToList();
 
             List<Response> responses = await responseService.GetResponses();
             List<Response> studentResponses = new List<Response>();
-            if (loggedInUser != null) 
+            if (loggedInUser != null)
             {
                 foreach (Response response in responses)
                 {
-                    if (response.UserID == loggedInUser.ID) 
+                    if (response.UserID == loggedInUser.ID)
                     {
                         studentResponses.Add(response);
                     }
@@ -143,6 +73,61 @@ namespace Capstone.Controllers
 
             StudentScrumModel studentScrumModel = new StudentScrumModel(publishedScrums, studentResponses);
             return View("~/Views/Secure/Student/Scrums.cshtml", studentScrumModel);
+        }
+
+        [HttpGet("Response")]
+        public async Task<IActionResult> Response(int scrumID, int? responseID)
+        {
+            var userJson = HttpContext.Session.GetString("currentUser");
+            User loggedInUser = JsonSerializer.Deserialize<User>(userJson);
+            //its OK to get all and iterate through them rather than writing GetObjectByID methods bc the dataset will always be small due to end-of-semester deletions
+            var scrums = await scrumService.GetScrums();
+            var teamUsers = await teamUserService.GetTeamUsers();
+            var teams = await teamService.GetTeams();
+            var responses = await responseService.GetResponses();
+
+            Scrum scrum = scrums.FirstOrDefault(s => s.ID == scrumID);
+            TeamUser teamUser = teamUsers.FirstOrDefault(tu => tu.UserID == loggedInUser.ID);
+            Team team = teamUser != null ? teams.FirstOrDefault(t => t.ID == teamUser.TeamID) : null;
+            Response response = responseID != null ? responses.FirstOrDefault(r => r.ID == responseID.Value) : new Response
+            {
+                ScrumID = scrumID,
+                UserID = loggedInUser.ID,
+                ID = 0
+            };
+
+            // Check for null values and handle accordingly
+            if (scrum == null)
+            {
+                return NotFound("Scrum not found.");
+            }
+            if (responseID.HasValue && response == null)
+            {
+                return NotFound("Response not found.");
+            }
+
+            ResponseModel responseModel = new ResponseModel(scrum, loggedInUser, team, response);
+            return View("~/Views/Secure/Student/Response.cshtml", responseModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddResponse(Response response, int responseID)
+        {
+            var userJson = HttpContext.Session.GetString("currentUser");
+            User loggedInUser = JsonSerializer.Deserialize<User>(userJson);
+            int id = loggedInUser.ID;
+            response.DateSubmitted = DateTime.Now;
+
+            if (responseID == 0)
+            {
+                await responseService.AddResponse(response);
+            }
+            else
+            {
+                await responseService.ModifyResponse(id, response);
+            }
+
+            return RedirectToAction("Scrums");
         }
     }
 }
