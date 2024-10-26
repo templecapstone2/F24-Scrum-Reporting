@@ -62,7 +62,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="wwwroot\css\professorStyling.css">
+    <Content Update="wwwroot\css\pages-professor.css">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>

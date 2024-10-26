@@ -350,9 +350,37 @@ h1 {
         padding-left: 5px;
     }
 
-/* Responsive Design */
+
+
+
+
+
+/* All Responsive Design ****************************************************************/
+/* Feel free to add to this but ultimately this is the layout*/
 @media (max-width: 768px) {
+
+    /*Aggregate View Page*/
     .report-card {
         width: 100%; /* On small screens, each card takes up full width */
     }
+
+
+
+
+    /*Scrum Management Page*/
+
+
+
+
+
+
+    /*Submit Response Page*/
+
+
+
+
+
+
+
+
 }
