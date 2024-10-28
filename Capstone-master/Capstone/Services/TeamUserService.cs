@@ -5,7 +5,7 @@ namespace Capstone.Services
     public class TeamUserService
     {
         //string baseURL = "https://np-stem.temple.edu/cis4396-f05/api/TeamUser"; // published url
-        string baseURL = "http://localhost:5051/api/TeamUser"; // test url
+        string baseURL = "http://localhost:5050/api/TeamUser"; // test url
         private readonly HttpClient httpClient;
 
 
@@ -53,11 +53,11 @@ namespace Capstone.Services
             }
         }
 
-        public async Task<bool> DeleteTeamUser(int teamID, int userID)
+        public async Task<bool> DeleteTeamUser(int userID)
         {
             try
             {
-                return (await httpClient.DeleteAsync($"{baseURL}/{teamID}/{userID}")).IsSuccessStatusCode;
+                return (await httpClient.DeleteAsync($"{baseURL}/{userID}")).IsSuccessStatusCode;
             }
             catch (Exception ex)
             {

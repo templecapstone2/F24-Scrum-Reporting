@@ -123,24 +123,23 @@ namespace Capstone.API
             }
         }
 
-        [HttpDelete("{teamID:int}/{userID:int}")]
-        public IActionResult DeleteTeamUser(int teamID, int userID)
+        [HttpDelete("{userID:int}")]
+        public IActionResult DeleteTeamUser(int userID)
         {
             try
             {
                 sqlCommand = new SqlCommand();
                 sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
                 sqlCommand.CommandText = "DeleteTeamUser";
-                sqlCommand.Parameters.AddWithValue("@team_id", teamID);
                 sqlCommand.Parameters.AddWithValue("@user_id", userID);
 
                 if (dbConnect.DoUpdateUsingCmdObj(sqlCommand) == 1)
                 {
-                    return Ok("Team_User association deleted for team ID " + teamID + " and user ID " + userID);
+                    return Ok(userID);
                 }
                 else
                 {
-                    return NotFound("No Team_User association found for team ID " + teamID + " and user ID " + userID);
+                    return NotFound(userID);
                 }
             }
             catch (Exception ex)

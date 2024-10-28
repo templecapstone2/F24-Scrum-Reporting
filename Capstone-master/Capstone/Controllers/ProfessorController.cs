@@ -6,6 +6,7 @@ using Capstone.Services;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Xml.Linq;
 using Capstone.ViewModels;
+using System.Collections.Generic;
 
 namespace Capstone.Controllers
 {
@@ -86,32 +87,39 @@ namespace Capstone.Controllers
         }
 
         [HttpGet("StudentManagement")]
-        public async Task<IActionResult> StudentManagement(int? userID, int? newTeamID)
+        public async Task<IActionResult> StudentManagement()
         {
-            var students = await userService.GetStudents();
-            var teams = await teamService.GetTeams();
-            var teamUsers = await teamUserService.GetTeamUsers();
+            List<User> students = await userService.GetStudents();
+            List<Team> teams = await teamService.GetTeams();
+            List<TeamUser> teamUsers = await teamUserService.GetTeamUsers();
 
-            // Prepare SelectList for each student
-            foreach (var student in students)
-            {
-                var currentTeamID = teamUsers.FirstOrDefault(tu => tu.UserID == student.ID)?.TeamID;
-                student.SelectList = new SelectList(teams, "ID", "Name", currentTeamID);
-            }
-
-            ViewBag.Teams = teams;
-            ViewBag.TeamUsers = teamUsers;
-            return View("~/Views/Secure/Professor/StudentManagement.cshtml", students);
+            var model = new StudentManagementModel(students, teams, teamUsers);
+            return View("~/Views/Secure/Professor/StudentManagement.cshtml", model);
         }
 
         [HttpPost("StudentManagement")]
-        public async Task<IActionResult> StudentManagementPost(int userID, int newTeamID)
+        public async Task<IActionResult> StudentManagementPost(int userID, int? newTeamID)
         {
-            var currentTeamID = (await teamUserService.GetTeamUsers()).FirstOrDefault(tu => tu.UserID == userID)?.TeamID;
+            // Get the current team association for the user
+            var currentTeamUser = (await teamUserService.GetTeamUsers()).FirstOrDefault(tu => tu.UserID == userID);
 
-            if (currentTeamID != newTeamID)
+            if (newTeamID == null) // Check if set to "Unassigned"
             {
-                await teamUserService.ModifyTeamUser(newTeamID, userID);
+                if (currentTeamUser != null)
+                {
+                    // Delete if set to unassigned
+                    await teamUserService.DeleteTeamUser(userID);
+                }
+            }
+            else if (currentTeamUser != null && currentTeamUser.TeamID != newTeamID)
+            {
+                // Modify TeamUser based on dropdown newTeamID
+                await teamUserService.ModifyTeamUser(newTeamID.Value, userID);
+            }
+            else if (currentTeamUser == null)
+            {
+                // Create a new association if user does not have one
+                await teamUserService.AddTeamUser(newTeamID.Value, userID);
             }
 
             // Redirect to the GET method after processing the POST
@@ -135,8 +143,7 @@ namespace Capstone.Controllers
         public async Task<IActionResult> TeamManagement()
         {
             var teams = await teamService.GetTeams();
-            var teamsToDisplay = teams.Skip(1).ToList();
-            return View("~/Views/Secure/Professor/TeamManagement.cshtml", teamsToDisplay);
+            return View("~/Views/Secure/Professor/TeamManagement.cshtml", teams);
         }
 
 

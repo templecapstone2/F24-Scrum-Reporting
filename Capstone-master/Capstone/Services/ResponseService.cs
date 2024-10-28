@@ -5,7 +5,7 @@ namespace Capstone.Services
     public class ResponseService
     {
         //string baseURL = "https://np-stem.temple.edu/cis4396-f05/api/Response"; // published url
-        string baseURL = "http://localhost:5051/api/Response"; // test URL
+        string baseURL = "http://localhost:5050/api/Response"; // test URL
         private readonly HttpClient httpClient;
 
 

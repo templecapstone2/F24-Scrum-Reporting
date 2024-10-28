@@ -35,10 +35,10 @@ namespace Capstone.Controllers
             //var id = GetShibbolethHeaderAttributes();
 
             // For Professor Testing
-            var id = "916524704";
+            //var id = "916524704";
 
             // For Student Testing
-            //var id = "915905753";
+            var id = "915905753";
 
             ViewData["tuid"] = id;
             HttpContext.Session.SetString("TUID", id);
@@ -106,16 +106,6 @@ namespace Capstone.Controllers
                     };
 
                     var addedUser = await userService.AddUser(newUser);
-                    if (addedUser != null && addedUser.ID > 0)
-                    {
-                        int unassignedTeamID = 1;
-                        bool teamUserAdded = await teamUserService.AddTeamUser(unassignedTeamID, addedUser.ID);
-
-                        if (!teamUserAdded)
-                        {
-                            Console.WriteLine("Failed to add user to unassigned team.");
-                        }
-                    }
                 }
 
                 if (templeInformation.eduPersonAffiliation.Contains("instructor"))

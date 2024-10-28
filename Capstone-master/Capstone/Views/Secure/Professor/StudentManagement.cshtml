@@ -1,4 +1,4 @@
-﻿@model List<Capstone.Models.User>
+﻿@model Capstone.ViewModels.StudentManagementModel
 
 @{
     Layout = "~/Views/Shared/_TempleScrumHeader.cshtml";
@@ -30,21 +30,30 @@
             <label for="teamFilter">Teams:</label>
             <select id="teamFilter" class="form-control" onchange="filterUsersByTeam()">
                 <option value="all">ALL</option>
-                @foreach (var team in ViewBag.Teams)
+                <option value="">Unassigned</option>
+                @foreach (Team team in Model.Teams)
                 {
                     <option value="@team.ID">@team.Name</option>
                 }
             </select>
 
             <div id="usersList" class="users-container">
-                @foreach (var user in Model)
+                @foreach (User user in Model.Students)
                 {
                     if (user.UserType == "student")
                     {
                         <div class="user-row" data-user-id="@user.ID">
                             <form action="StudentManagement" method="post">
                                 <span class="user-name">@user.FirstName @user.LastName</span>
-                                @Html.DropDownList("newTeamID", user.SelectList, new { @class = "team-dropdown" })
+                                <select name="newTeamID" class="team-dropdown">
+                                    <option value="">Unassigned</option>
+                                    @foreach (Team team in Model.Teams)
+                                    {
+                                        var isSelected = Model.TeamUsers.Any(tu => tu.UserID == user.ID && tu.TeamID == team.ID);
+                                        var option = $"<option value='{team.ID}' {(isSelected ? "selected" : "")}>{team.Name}</option>";
+                                        @Html.Raw(option)
+                                    }
+                                </select>
                                 <input type="hidden" name="userID" value="@user.ID" />
                                 <button type="submit" class="change-team-btn">Change Team</button>
                             </form>
