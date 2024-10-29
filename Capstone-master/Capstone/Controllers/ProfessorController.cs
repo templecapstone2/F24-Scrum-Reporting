@@ -181,6 +181,31 @@ namespace Capstone.Controllers
             }
         }
 
+        [HttpPost("DeleteAllTeams")]
+        public async Task<IActionResult> DeleteAllTeams()
+        {
+            try
+            {
+                bool success = await teamService.DeleteAllTeams();
+                if (success)
+                {
+                    TempData["Message"] = "All teams deleted successfully.";
+                }
+                else
+                {
+                    TempData["ErrorMessage"] = "Some teams could not be deleted.";
+                }
+
+                return RedirectToAction("TeamManagement");
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", "Error deleting all teams: " + ex.Message);
+                return RedirectToAction("TeamManagement");
+            }
+        }
+
+
         [HttpGet("Dashboard")]
         public IActionResult Dashboard()
         {

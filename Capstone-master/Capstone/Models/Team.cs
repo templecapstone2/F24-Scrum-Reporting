@@ -4,7 +4,7 @@ namespace Capstone.Models
 {
     public class Team
     {
-        private int id;
+        public int id;
         private string name;
 
         public Team() { }

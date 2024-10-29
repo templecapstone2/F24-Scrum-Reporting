@@ -52,5 +52,33 @@ namespace Capstone.Services
                 return false;
             }
         }
+
+        public async Task<bool> DeleteAllTeams()
+        {
+            try
+            {
+                // Retrieve all teams first
+                var teams = await GetTeams();
+                bool allDeleted = true; // Flag to track deletion success for all teams
+
+                // Loop through each team and delete them
+                foreach (var team in teams)
+                {
+                    bool success = await DeleteTeam(team.id);
+                    if (!success)
+                    {
+                        Console.WriteLine($"Failed to delete team with ID: {team.id}");
+                        allDeleted = false; // If any deletion fails, set the flag to false
+                    }
+                }
+
+                return allDeleted; // Return true if all deletions succeeded,
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error occurred while deleting all teams: {ex.Message}");
+                return false; // error
+            }
+        }
     }
 }
