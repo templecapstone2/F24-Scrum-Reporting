@@ -15,13 +15,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="~/css/pages-professor.css">
 
-    <title>View Reports Page</title>
+    <title>View Responses</title>
 
 </head>
 <body>
 
     <div class="content-title">
-        <h1>View Reports Page</h1>
+        <h1>View Response</h1>
     </div>
 
     <div class="content-container">
@@ -34,7 +34,7 @@
             <a asp-controller="Login" asp-action="Login">Logout</a>
         </nav>
 
-        <div class="reports-container">
+        <div class="response-container">
             <div class="filters">
                 <div class="team-filter">
                     <label for="filterTeam">Team:</label>
@@ -75,7 +75,7 @@
 
 
 
-            <div class="report-cards">
+            <div class="response-cards">
                 @foreach (var response in Model.Responses)
                 {
                     User student = null;
@@ -115,7 +115,7 @@
                         }
                     }
 
-                    <div class="report-card"
+                    <div class="response-card"
                          data-student-name="@($"{student.FirstName} {student.LastName}")"
                          data-team-name="@team.Name"
                          data-date-submitted="@response.DateSubmitted">
@@ -216,11 +216,11 @@
         }
 
         function toggleDetails(button) {
-            // Get the closest report card
-            const reportCard = button.closest('.report-card');
+            // Get the closest response card
+            const responseCard = button.closest('.response-card');
 
-            // Find the response body within the clicked report card
-            const responseBody = reportCard.querySelector('.response-body');
+            // Find the response body within the clicked response card
+            const responseBody = responseCard.querySelector('.response-body');
 
             // Check if the response body is currently displayed
             const isVisible = responseBody.style.display === 'block';

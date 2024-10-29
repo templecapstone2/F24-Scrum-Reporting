@@ -76,7 +76,7 @@ h1 {
     display: flex;
 }
 
-.reports-container {
+.response-container {
     display: flex;
     gap: 1.5rem;
     flex-direction: column;
@@ -290,10 +290,10 @@ h1 {
 
 
 
-/* Report Cards Layout */
+/* Response Cards Layout */
 
 
-.report-cards {
+.response-cards {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -301,7 +301,7 @@ h1 {
     margin-top: 20px;
 }
 
-.report-card {
+.response-card {
     background-color: #f5f5f5;
     border: 1px solid #ccc;
     border-radius: 10px;
@@ -360,7 +360,7 @@ h1 {
 @media (max-width: 768px) {
 
     /*Aggregate View Page*/
-    .report-card {
+    .response-card {
         width: 100%; /* On small screens, each card takes up full width */
     }
 

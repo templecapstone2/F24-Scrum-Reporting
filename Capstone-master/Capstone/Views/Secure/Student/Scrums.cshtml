@@ -42,12 +42,12 @@
                     @foreach (Scrum scrum in Model.Scrums)
                     {
                         // Check if response exists for this scrum
-                        Response userResponse = null;
+                        int responseID = 0;
                         foreach (Response response in Model.Responses)
                         {
                             if (response.ScrumID == scrum.ID)
                             {
-                                userResponse = response;
+                                responseID = response.ID;
                                 break;
                             }
                         }
@@ -59,30 +59,26 @@
                             <td>@scrum.Name</td>
                             <td style="@dueDateColor">@scrum.DateDue.ToString("M/d/yyyy")</td>
                             <td>
-                                @if (userResponse == null)
+                                @if (responseID == 0)
                                 {
                                     // No response submitted yet
                                     if (isPastDue)
                                     {
                                         // Past due and no response
-                                        <button class="btn btn-primary">
-                                            <a asp-controller="Student" asp-action="Response"
-                                               asp-route-id="@scrum.ID" asp-route-name="@scrum.Name"
-                                               style="color:white; text-decoration:none;">
-                                                Respond
-                                            </a>
-                                        </button>
+                                        <a asp-controller="Student" asp-action="Response"
+                                           asp-route-id="@scrum.ID" asp-route-responseid="@responseID"
+                                           class="btn btn-primary" style="color:white; text-decoration:none;">
+                                            Respond
+                                        </a>
                                     }
                                     else
                                     {
                                     // Not past due and no response
-                                        <button class="btn btn-primary">
                                             <a asp-controller="Student" asp-action="Response"
-                                               asp-route-id="@scrum.ID" asp-route-name="@scrum.Name"
-                                               style="color:white; text-decoration:none;">
-                                                Respond
+                                           asp-route-id="@scrum.ID" asp-route-responseid="@responseID"
+                                               class="btn btn-primary" style="color:white; text-decoration:none;">
+                                               Respond
                                             </a>
-                                        </button>
                                     }
                                 }
                                 else
@@ -98,13 +94,11 @@
                                     else
                                     {
                                         // Response submitted and before the due date
-                                        <button class="btn btn-primary">
                                             <a asp-controller="Student" asp-action="Response"
-                                               asp-route-id="@scrum.ID" asp-route-name="@scrum.Name"
-                                               style="color:white; text-decoration:none;">
+                                           asp-route-id="@scrum.ID" asp-route-responseid="@responseID"
+                                                class="btn btn-primary" style="color:white; text-decoration:none;">
                                                 Edit Response
                                             </a>
-                                        </button>
                                     }
                                 }
                             </td>

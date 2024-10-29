@@ -76,7 +76,7 @@ namespace Capstone.Controllers
         }
 
         [HttpGet("Response")]
-        public async Task<IActionResult> Response(int scrumID, int? responseID)
+        public async Task<IActionResult> Response(int Id, int responseID)
         {
             var userJson = HttpContext.Session.GetString("currentUser");
             User loggedInUser = JsonSerializer.Deserialize<User>(userJson);
@@ -86,24 +86,18 @@ namespace Capstone.Controllers
             var teams = await teamService.GetTeams();
             var responses = await responseService.GetResponses();
 
-            Scrum scrum = scrums.FirstOrDefault(s => s.ID == scrumID);
+            Scrum scrum = scrums.FirstOrDefault(s => s.ID == Id);
             TeamUser teamUser = teamUsers.FirstOrDefault(tu => tu.UserID == loggedInUser.ID);
             Team team = teamUser != null ? teams.FirstOrDefault(t => t.ID == teamUser.TeamID) : null;
-            Response response = responseID != null ? responses.FirstOrDefault(r => r.ID == responseID.Value) : new Response
+            Response response = responses.FirstOrDefault(r => r.ID == responseID);
+            if (response == null)
             {
-                ScrumID = scrumID,
-                UserID = loggedInUser.ID,
-                ID = 0
-            };
-
-            // Check for null values and handle accordingly
-            if (scrum == null)
-            {
-                return NotFound("Scrum not found.");
-            }
-            if (responseID.HasValue && response == null)
-            {
-                return NotFound("Response not found.");
+                response = new Response
+                {
+                    ScrumID = Id,
+                    UserID = loggedInUser.ID,
+                    ID = 0
+                };
             }
 
             ResponseModel responseModel = new ResponseModel(scrum, loggedInUser, team, response);
@@ -111,20 +105,17 @@ namespace Capstone.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddResponse(Response response, int responseID)
+        public async Task<IActionResult> AddResponse(Response response)
         {
-            var userJson = HttpContext.Session.GetString("currentUser");
-            User loggedInUser = JsonSerializer.Deserialize<User>(userJson);
-            int id = loggedInUser.ID;
             response.DateSubmitted = DateTime.Now;
 
-            if (responseID == 0)
+            if (response.ID == 0)
             {
                 await responseService.AddResponse(response);
             }
             else
             {
-                await responseService.ModifyResponse(id, response);
+                await responseService.ModifyResponse(response.ID, response);
             }
 
             return RedirectToAction("Scrums");
