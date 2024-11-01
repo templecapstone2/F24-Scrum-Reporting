@@ -25,13 +25,15 @@ html, body {
 .sidenav {
     width: 300px;
     height: 400px;
-    background-color: #D9D9D9;
+    background: linear-gradient(135deg, #D9D9D9 0%, #B0B0B0 100%);
     padding: 10px;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border: 1px solid #A0A0A0;
 }
 
     .sidenav a {
@@ -61,14 +63,15 @@ html, body {
         }
 
 .content-container {
-    padding: 10px;
     display: flex;
-    gap: 20px;
+    gap: 50px;
+    width: 100%;
+    justify-content: center;
 }
 
 
 .content-title {
-    margin-top: 10px;
+    margin: 15px;
 }
 
 h1 {
@@ -95,9 +98,34 @@ h1 {
 
 .filters {
     display: flex;
-    gap: 1.5rem;
-    justify-content: center;
+    gap: .2rem; 
+    justify-content: center; 
+    background: linear-gradient(135deg, #D9D9D9 0%, #B0B0B0 100%); 
+    border-radius: 10px; 
+    width: 100%; 
+    padding: .5rem; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+    border: 1px solid #A0A0A0;
+    
 }
+
+    .filters input,
+    .filters select,
+    .filters button { 
+        border: 1px solid #A0A0A0; 
+        border-radius: 5px; 
+        font-size: 1rem; 
+        transition: border-color 0.3s ease; /* Smooth transition for interactions */
+    }
+
+        .filters input:focus,
+        .filters select:focus,
+        .filters button:hover { /* Styles for focus and hover states */
+            border-color: #007BFF; /* Change border color on focus/hover */
+            outline: none; /* Remove default outline */
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Add shadow on focus/hover */
+        }
+
 
 .form-control {
 }
@@ -306,10 +334,11 @@ h1 {
 
 .response-cards {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     justify-content: center;
     gap: 20px;
     height: 100%;
+    align-self: center;
 }
 
 .response-card {
@@ -377,53 +406,31 @@ h1 {
 
 
 
+
+
+
 /* All Responsive Design ****************************************************************/
 /* Feel free to add to this but ultimately this is the layout*/
-@media (max-width: 768px) {
-
-    /*All views aka nav bar responsive*/
-
-
-
-    .hamburger-menu {
-        display: block;
-    }
-
-
-
-    /*Aggregate View Page*/
-
-
-
-
-
-    /*Scrum Management Page*/
-
-
-
-
-
-
-    /*Submit Response Page*/
-
-
-
-
-
-
-
-
-}
-
 
 
 /*Iphone View */
-@media (max-width: 480px) {
+@media (max-width: 580px) {
+
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    /*All views aka nav bar responsive*/
+
     /* Stack layout for smaller screens */
     .content-container {
         flex-direction: column;
-        padding: 5px;
         text-align-last: center;
+        gap: 10px;
+    }
+
+    .hamburger-menu {
+        display: block;
     }
 
     /* Reduce the width of the sidenav and make links smaller */
@@ -446,25 +453,34 @@ h1 {
             font-size: 18px;
         }
 
-    /* Make response cards full-width */
-    .response-container{
+        .sidenav.active {
+            display: flex;
+        }
+
+    /*Aggregate View Page*/
+    .response-container {
         width: 100%;
+        align-items: center;
     }
 
     .response-cards {
         grid-template-columns: 1fr;
-        align-self: center;
     }
 
     .response-card {
-        width: 100%;
+        width: 380px;
+        margin: .2rem;
     }
 
-    /* Adjust filters layout */
+    .response-body{
+        text-align: left;
+    }
+
     .filters {
         flex-direction: column;
         gap: 0.5rem;
         align-items: flex-start;
+        width: 80%;
     }
 
     .team-filter {
@@ -472,11 +488,25 @@ h1 {
         font-size: 16px;
     }
 
-    /* Adjust button sizes */
     .details-btn,
     .bottom-button {
         font-size: 14px;
         padding: 8px;
     }
-}
 
+
+
+    /*Scrum Management Page*/
+
+
+
+
+
+
+
+    /*Submit Response Page*/
+
+
+
+
+}

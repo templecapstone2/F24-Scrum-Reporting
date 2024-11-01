@@ -28,9 +28,10 @@
 
     <div class="content-container">
 
-        <button class="hamburger-menu" onclick="toggleNav()">☰</button>
+        <button class="hamburger-menu" onclick="toggleNav()" aria-label="Open navigation menu">☰</button>
 
-        <nav class="sidenav">
+
+        <nav class="sidenav" id="navLinks">
             <a asp-controller="Professor" asp-action="Dashboard">Dashboard</a>
             <a asp-controller="Professor" asp-action="StudentManagement">Student Management</a>
             <a asp-controller="Professor" asp-action="AggregateView">Aggregate View</a>
@@ -245,11 +246,7 @@
 
         function toggleNav() {
             const navLinks = document.getElementById('navLinks');
-            if (navLinks.style.display === "block") {
-                navLinks.style.display = "none";
-            } else {
-                navLinks.style.display = "block";
-            }
+            navLinks.classList.toggle('active');
         }
 
 
