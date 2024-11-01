@@ -8,6 +8,20 @@ html, body {
     font-family: 'Sitka Heading', sans-serif;
 }
 
+
+/* Style for the hamburger icon */
+.hamburger-menu {
+    font-size: 30px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: none;
+    color: #A41E35;
+    margin: 10px;
+}
+
+
+
 .sidenav {
     width: 300px;
     height: 400px;
@@ -72,12 +86,6 @@ h1 {
 
 .scrums-container {
     display: flex;
-}
-
-.response-container {
-    display: flex;
-    gap: 1.5rem;
-    flex-direction: column;
 }
 
 
@@ -289,6 +297,12 @@ h1 {
 
 /* Response Cards Layout */
 
+.response-container {
+    display: flex;
+    gap: 1.5rem;
+    flex-direction: column;
+}
+
 
 .response-cards {
     display: grid;
@@ -367,11 +381,18 @@ h1 {
 /* Feel free to add to this but ultimately this is the layout*/
 @media (max-width: 768px) {
 
+    /*All views aka nav bar responsive*/
+
+
+
+    .hamburger-menu {
+        display: block;
+    }
+
+
+
     /*Aggregate View Page*/
 
-    .card-container {
-        grid-template-columns: repeat(1, 1fr); /* Change to 1 column on smaller screens */
-    }
 
 
 
@@ -393,3 +414,69 @@ h1 {
 
 
 }
+
+
+
+/*Iphone View */
+@media (max-width: 480px) {
+    /* Stack layout for smaller screens */
+    .content-container {
+        flex-direction: column;
+        padding: 5px;
+        text-align-last: center;
+    }
+
+    /* Reduce the width of the sidenav and make links smaller */
+    .sidenav {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 250px;
+        background-color: #D9D9D9;
+        padding-top: 60px;
+        transition: 0.3s;
+    }
+
+        .sidenav a {
+            text-align: left;
+            padding: 15px;
+            display: block;
+            font-size: 18px;
+        }
+
+    /* Make response cards full-width */
+    .response-container{
+        width: 100%;
+    }
+
+    .response-cards {
+        grid-template-columns: 1fr;
+        align-self: center;
+    }
+
+    .response-card {
+        width: 100%;
+    }
+
+    /* Adjust filters layout */
+    .filters {
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: flex-start;
+    }
+
+    .team-filter {
+        width: 100%;
+        font-size: 16px;
+    }
+
+    /* Adjust button sizes */
+    .details-btn,
+    .bottom-button {
+        font-size: 14px;
+        padding: 8px;
+    }
+}
+

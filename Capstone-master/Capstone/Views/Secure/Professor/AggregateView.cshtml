@@ -24,7 +24,12 @@
         <h1>View Response</h1>
     </div>
 
+    
+
     <div class="content-container">
+
+        <button class="hamburger-menu" onclick="toggleNav()">☰</button>
+
         <nav class="sidenav">
             <a asp-controller="Professor" asp-action="Dashboard">Dashboard</a>
             <a asp-controller="Professor" asp-action="StudentManagement">Student Management</a>
@@ -238,6 +243,14 @@
         }
 
 
+        function toggleNav() {
+            const navLinks = document.getElementById('navLinks');
+            if (navLinks.style.display === "block") {
+                navLinks.style.display = "none";
+            } else {
+                navLinks.style.display = "block";
+            }
+        }
 
 
 
