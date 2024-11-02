@@ -19,7 +19,10 @@
     </div>
 
     <div class="content-container">
-        <nav class="sidenav">
+
+        <button class="hamburger-menu" onclick="toggleNav()" aria-label="Open navigation menu">☰</button>
+
+        <nav class="sidenav" id="navLinks">
             <a asp-controller="Professor" asp-action="Dashboard">Dashboard</a>
             <a asp-controller="Professor" asp-action="StudentManagement">Student Management</a>
             <a asp-controller="Professor" asp-action="AggregateView">Aggregate View</a>
@@ -43,20 +46,20 @@
         </div>
     </div>
 
-<div id="addTeamModal" class="modal" style="display: none;">
-    <div class="modal-content">
-        <span class="close-button" onclick="hideAddTeamForm()">&times;</span>
-        <h2>Add Team</h2>
-        <form id="addTeamForm" action="TeamManagement" method="post">
-            <input type="text" name="Name" placeholder="Enter team name" required />
-            <div class="modal-buttons">
-                <button type="submit">Add</button>
-            </div>
-        </form>
+    <div id="addTeamModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close-button" onclick="hideAddTeamForm()">&times;</span>
+            <h2>Add Team</h2>
+            <form id="addTeamForm" action="TeamManagement" method="post">
+                <input type="text" name="Name" placeholder="Enter team name" required />
+                <div class="modal-buttons">
+                    <button type="submit">Add</button>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
 
-<div id="overlay" class="overlay" style="display: none;" onclick="hideAddTeamForm()"></div>
+    <div id="overlay" class="overlay" style="display: none;" onclick="hideAddTeamForm()"></div>
 
     <script>
         function addTeam() {
@@ -73,6 +76,14 @@
             document.getElementById('addTeamModal').style.display = 'none';
             document.getElementById('overlay').style.display = 'none';
         }
+
+
+
+        function toggleNav() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+
     </script>
 </body>
 

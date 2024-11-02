@@ -19,7 +19,10 @@
     </div>
 
     <div class="content-container">
-        <nav class="sidenav">
+
+        <button class="hamburger-menu" onclick="toggleNav()" aria-label="Open navigation menu">☰</button>
+
+        <nav class="sidenav" id="navLinks">
             <a asp-controller="Professor" asp-action="Dashboard">Dashboard</a>
             <a asp-controller="Professor" asp-action="StudentManagement">Student Management</a>
             <a asp-controller="Professor" asp-action="AggregateView">Aggregate View</a>
@@ -81,4 +84,16 @@
             </div>
         </div>
     </div>
+
+
+    <script>
+
+        function toggleNav() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+
+    </script>
+
+
 </body>
