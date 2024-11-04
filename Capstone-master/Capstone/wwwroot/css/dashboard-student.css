@@ -15,15 +15,6 @@ html, body {
     min-height: 100vh;
 }
 
-.headerbg {
-    background-image: url('/images/headerbg.jpg');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover; 
-    height: 47vh; 
-
-}
-
 .logo {
     position: absolute; 
     top: 0;
