@@ -30,18 +30,19 @@
                 <input type="hidden" name="ScrumID" value="@Model.Response.ScrumID" />
                 <input type="hidden" name="UserID" value="@Model.Response.UserID" />
 
-                <div class="info-container">
-                    <h2>Scrum Report Form</h2>
+                <h2>Scrum Report Form</h2>
 
-                    <div class="form-group">
+                <div class="info-container">
+                    
+                    <div class="info-group">
                         <label for="reportNumber">@Model.Scrum.Name</label>
                     </div>
 
-                    <div class="form-group">
+                    <div class="info-group">
                         <label for="name">Name: @($"{Model.Student.FirstName} {Model.Student.LastName}")</label>
                     </div>
 
-                    <div class="form-group">
+                    <div class="info-group">
                         <label>Team: @Model.Team.Name</label>
                     </div>
 
@@ -69,8 +70,8 @@
 
                 <!-- Buttons at the bottom -->
                 <div class="form-buttons">
-                    <button type="button" class="btn btn-secondary" onclick="location.href='@Url.Action("Scrums", "Student")'">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="button" class="btn-cancel" onclick="location.href='@Url.Action("Scrums", "Student")'">Cancel</button>
+                    <button type="submit" class="btn-save">Save</button>
                 </div>
             </form>
         </div>

@@ -184,7 +184,6 @@ h2 {
 
 .form-group {
     margin-bottom: 20px;
-
 }
 
     .form-group label {
@@ -194,11 +193,11 @@ h2 {
     }
 
     .form-group textarea, .form-group input {
-        width: 90%;
-        padding: 10px;
+        width: 95%;
         border: 1px solid #ccc;
         border-radius: 5px;
         resize: none;
+        padding: 5px;
     }
 
 .form-buttons {
@@ -206,21 +205,49 @@ h2 {
     gap: 50px;
     display: flex;
     justify-content: center;
-
 }
 
-    .form-buttons .btn {
-        width: 100px;
-        height: 50px;
-        border-radius: 10px;
-        color: white;
-        background: #BF6070;
-    }
-        .form-buttons .btn:hover {
-            background: #A41C34;
-        }
 
-.info-group{
+.btn-cancel {
+    color: white;
+    background: #BF6070; /*Light Temple Red***************/
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
+}
+
+
+.btn-cancel:hover {
+    background: #C8102E; /* Bright Temple Red************/
+    /* temple red #A41E35*/
+}
+
+
+.btn-save {
+    color: white;
+    background: #BF6070; /*Light Temple Red***************/
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-save:hover {
+    background: #C8102E; /* Bright Temple Red************/
+}
+
+
+
+.info-group {
     display: flex;
     margin-bottom: 1rem;
     font-size: 1.2rem;
@@ -228,7 +255,11 @@ h2 {
 
 
 .info-container {
-
+    margin-bottom: 20px;
+    border: 2px solid #A41E35;
+    padding: 10px;
+    border-radius: 10px;
+    width: auto;
 }
 
 
@@ -257,6 +288,7 @@ h2 {
         flex-direction: column;
         text-align-last: center;
         gap: 10px;
+        padding: 20px;
     }
 
     .hamburger-menu {
@@ -291,9 +323,29 @@ h2 {
         }
 
 
-        /*Scrums Page Repsonsive*/
+    /*Scrums Page Repsonsive*/
 
 
+
+
+
+
+
+
+
+    /*Submit Response Page Repsonsive*/
+
+    .form-container {
+        width: 100%;
+        padding: 5px;
+    }
+
+    .form-group {
+        margin-bottom: 10px;
+    }
+
+    .form-buttons {
+        margin: 10px;
+    }
 
 }
-
