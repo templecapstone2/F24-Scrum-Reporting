@@ -24,6 +24,8 @@ html, body {
 
 
 
+
+/*Styling For NAV BAR ******************************************************/
 .sidenav {
     width: 300px;
     height: 400px;
@@ -64,6 +66,7 @@ html, body {
             font-weight: bold;
         }
 
+
 .content-container {
     display: flex;
     gap: 50px;
@@ -86,53 +89,18 @@ h1 {
 
 
 
-.users-container {
-    display: flex;
-}
+/*Styling For Team Management Page******************************************************/
 
 .scrums-container {
     display: flex;
 }
 
 
-.team-filter {
-    font-size: 20px;
-}
-
-.filters {
-    display: flex;
-    gap: .2rem;
-    justify-content: center;
-    background: linear-gradient(135deg, #D9D9D9 0%, #B0B0B0 100%);
-    border-radius: 10px;
-    width: 100%;
-    padding: .5rem;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    border: 1px solid #A0A0A0;
-}
-
-    .filters input,
-    .filters select,
-    .filters button {
-        border: 1px solid #A0A0A0;
-        border-radius: 5px;
-        font-size: 1rem;
-        transition: border-color 0.3s ease; /* Smooth transition for interactions */
-    }
-
-        .filters input:focus,
-        .filters select:focus,
-        .filters button:hover { /* Styles for focus and hover states */
-            border-color: #007BFF; /* Change border color on focus/hover */
-            outline: none; /* Remove default outline */
-            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Add shadow on focus/hover */
-        }
-
 
 .form-control {
 }
 
-.user-row {
+.team-row {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -161,7 +129,7 @@ h1 {
 
 
 
-.user-name {
+.team-name {
     width: 150px;
 }
 
@@ -170,17 +138,6 @@ h1 {
     margin-right: 10px;
 }
 
-.change-team-btn {
-    background-color: #A41C34;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-}
-
-    .change-team-btn:hover {
-        background-color: #880f27;
-    }
 
 .add-team-container {
     justify-content: center;
@@ -292,7 +249,7 @@ h1 {
 
 
 
-/**********Styling for scrums List ***************************************************/
+/*Styling For Scrums Management Page******************************************************/
 
 .scrums-container {
     display: flex;
@@ -373,6 +330,49 @@ h1 {
 
 
 
+
+
+/*Styling For Aggregate View Page******************************************************/
+
+/*filters */
+.team-filter {
+    font-size: 20px;
+}
+
+.filters {
+    display: flex;
+    gap: .2rem;
+    justify-content: center;
+    background: linear-gradient(135deg, #D9D9D9 0%, #B0B0B0 100%);
+    border-radius: 10px;
+    width: 100%;
+    padding: .5rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border: 1px solid #A0A0A0;
+}
+
+    .filters input,
+    .filters select,
+    .filters button {
+        border: 1px solid #A0A0A0;
+        border-radius: 5px;
+        font-size: 1rem;
+        transition: border-color 0.3s ease;
+    }
+
+        .filters input:focus,
+        .filters select:focus,
+        .filters button:hover {
+            border-color: #007BFF;
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+
+
+
+
+
+
 /* Response Cards Layout */
 
 .response-container {
@@ -416,7 +416,7 @@ h1 {
     margin: 5px 0;
 }
 
-/* Body Section (Questions and Responses) */
+
 .response-body {
     padding-top: 15px;
 }
@@ -457,10 +457,51 @@ h1 {
 
 
 
-/*Team Management Page************************/
+/*Styling For Student Management Page******************************************************/
+
+.students-container {
+    display: flex;
+    gap: 1.5rem;
+    flex-direction: column;
+}
+
+.users-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.user-row {
+    display: flex;
+    justify-content: flex-end;
+    background-color: #D9D9D9;
+    padding: 10px;
+    border-radius: 10px;
+    outline: 1px solid;
+    border-bottom-style: outset;
+}
+
+.user-name{
+    width: 100%;
 
 
+}
 
+
+.change-team-btn {
+    padding: 5px 10px;
+    background-color: #C8102E;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 10px;
+    transition: background-color 0.2s;
+}
+
+    .change-team-btn:hover {
+        background-color: #9E0D24 /*darker temple red*/;
+    }
 
 
 
@@ -540,6 +581,7 @@ h1 {
         gap: 0.5rem;
         align-items: flex-start;
         width: 60%;
+        align-self: center;
     }
 
     .team-filter {
@@ -570,7 +612,50 @@ h1 {
 
     /*Student Management Page*/
 
+    .user-row{
+        text-align: center;
+
+    }
+
+    .users-container {
+        grid-template-columns: repeat(1, 1fr);
+        width: 400px;
+        align-self: center;
+    }
+
+}
+
+
+
+/*tablet? View */
+@media (max-width: 1300px) {
+
+
+    /*Student Management Page*/
+
+    .user-row {
+        text-align: center;
+    }
+
+    
+
+    /*Aggregate View Page*/
+
+
+
+
+
+    /*Scrums Management Page*/
+
+
+
+
+    /*Team Management Page*/
+
 
 
 
 }
+
+
+

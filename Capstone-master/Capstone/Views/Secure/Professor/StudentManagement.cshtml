@@ -29,17 +29,20 @@
             <a asp-controller="Login" asp-action="Login">Logout</a>
         </nav>
 
-        <div class="team-filter">
-            <label for="teamFilter">Teams:</label>
-            <select id="teamFilter" class="form-control" onchange="filterUsersByTeam()">
-                <option value="all">ALL</option>
-                <option value="">Unassigned</option>
-                @foreach (Team team in Model.Teams)
-                {
-                    <option value="@team.ID">@team.Name</option>
-                }
-            </select>
-
+        <div class="students-container">
+            <div class="filters">
+                <div class="team-filter">
+                    <label for="teamFilter">Teams:</label>
+                    <select id="teamFilter" class="form-control" onchange="filterUsersByTeam()">
+                        <option value="all">ALL</option>
+                        <option value="">Unassigned</option>
+                        @foreach (Team team in Model.Teams)
+                        {
+                            <option value="@team.ID">@team.Name</option>
+                        }
+                    </select>
+                </div>
+            </div>
             <div id="usersList" class="users-container">
                 @foreach (User user in Model.Students)
                 {
