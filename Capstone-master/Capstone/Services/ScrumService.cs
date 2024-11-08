@@ -65,5 +65,34 @@ namespace Capstone.Services
                 return false;
             }
         }
+
+        public async Task<bool> DeleteAllScrums()
+        {
+            try
+            {
+                var scrums = await GetScrums(); // Retrieve the list of scrums
+                bool allDeleted = true;
+
+                foreach (var Scrum in scrums)
+                {
+                    // Delete each scrum individually
+                    bool deleted = await DeleteScrum(Scrum.id);
+                    if (!deleted)
+                    {
+                        allDeleted = false; // If any deletion fails, set the flag to false
+                        Console.WriteLine($"Failed to delete scrum with ID: {Scrum.id}");
+                    }
+                }
+
+                return allDeleted; // Return true only if all scrums were successfully deleted
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error occurred while deleting all scrums: {ex.Message}");
+                return false;
+            }
+        }
+
+
     }
 }
