@@ -55,24 +55,37 @@ namespace Capstone.Controllers
             var userJson = HttpContext.Session.GetString("currentUser");
             User loggedInUser = JsonSerializer.Deserialize<User>(userJson);
 
-            var scrums = await scrumService.GetScrums();
-            var publishedScrums = scrums.Where(scrum => scrum.IsActive).ToList();
+            var teamUser = (await teamUserService.GetTeamUsers()).FirstOrDefault(tu => tu.UserID == loggedInUser.ID);
+            bool isAssignedToTeam = teamUser != null;
 
-            List<Response> responses = await responseService.GetResponses();
-            List<Response> studentResponses = new List<Response>();
-            if (loggedInUser != null)
+            if (isAssignedToTeam)
             {
-                foreach (Response response in responses)
+                var scrums = await scrumService.GetScrums();
+                var publishedScrums = scrums.Where(scrum => scrum.IsActive).ToList();
+
+                List<Response> responses = await responseService.GetResponses();
+                List<Response> studentResponses = new List<Response>();
+
+                if (loggedInUser != null)
                 {
-                    if (response.UserID == loggedInUser.ID)
+                    foreach (Response response in responses)
                     {
-                        studentResponses.Add(response);
+                        if (response.UserID == loggedInUser.ID)
+                        {
+                            studentResponses.Add(response);
+                        }
                     }
                 }
-            }
 
-            StudentScrumModel studentScrumModel = new StudentScrumModel(publishedScrums, studentResponses);
-            return View("~/Views/Secure/Student/Scrums.cshtml", studentScrumModel);
+
+                StudentScrumModel studentScrumModel = new StudentScrumModel(publishedScrums, studentResponses);
+                return View("~/Views/Secure/Student/Scrums.cshtml", studentScrumModel);
+            }
+            else
+            {
+                ViewData["ErrorMessage"] = "You are not currently assigned to a team. Please contact your professor for further assistance.";
+                return View("~/Views/Secure/Student/Scrums.cshtml");
+            }
         }
 
         [HttpGet("Response")]
