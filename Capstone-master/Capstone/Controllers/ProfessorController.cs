@@ -169,16 +169,17 @@ namespace Capstone.Controllers
         [HttpPost("DeleteTeam")]
         public async Task<IActionResult> DeleteTeam(int id)
         {
-            try
+            bool isDeleted = await teamService.DeleteTeam(id); // Capture the result
+
+            if (isDeleted)
             {
-                await teamService.DeleteTeam(id);
-                return RedirectToAction("TeamManagement");
+                TempData["SuccessMessage"] = "Team deleted successfully!";
             }
-            catch (Exception ex)
+            else
             {
-                ModelState.AddModelError("", "Error deleting team: " + ex.Message);
-                return RedirectToAction("TeamManagement");
+                TempData["ErrorMessage"] = "You cannot delete a team that has users assigned to it!";
             }
+            return RedirectToAction("TeamManagement");
         }
 
         [HttpPost("DeleteAllTeams")]
