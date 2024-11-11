@@ -4,89 +4,87 @@
     Layout = "~/Views/Shared/_TempleScrumHeader.cshtml";
 }
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="~/css/pages-student.css">
+    <link rel="stylesheet" href="~/css/pages-student.css"> <!-- Link to your CSS file -->
+
     <title>Temple Scrum</title>
 </head>
 <body>
 
-    <div class="content-title">
+    <div class="content-tittle">
         <h1>Scrum Report Page</h1>
     </div>
 
     <div class="content-container">
+
         <button class="hamburger-menu" onclick="toggleNav()" aria-label="Open navigation menu">☰</button>
 
         <nav class="sidenav" id="navLinks">
-            <a asp-controller="Student" asp-action="Dashboard">Dashboard</a>
-            <a asp-controller="Student" asp-action="Scrums">Scrums</a>
+            <a asp-controller="Student" asp-action="Dashboard">Dashboard</a> @* Student Home Page *@
+            <a asp-controller="Student" asp-action="Scrums">Scrums</a> @* Student Report Management Page *@
             <a asp-controller="Login" asp-action="Login">Logout</a>
+
         </nav>
 
-        <!-- Display the error message if it exists -->
-        @if (ViewData["ErrorMessage"] != null)
-        {
-            <div class="error-message">
-                <p style="color: red;">@ViewData["ErrorMessage"]</p>
-            </div>
-        }
-        else
-        {
-            <div class="scrums-container">
-                @foreach (var scrum in Model.Scrums)
+        <div class="scrums-container">
+            @foreach (var scrum in Model.Scrums)
+            {
+                // Check if response exists for this scrum
+                int responseID = 0;
+                foreach (var response in Model.Responses)
                 {
-                    // Check if a response exists for this scrum
-                    int responseID = 0;
-                    foreach (var response in Model.Responses)
+                    if (response.ScrumID == scrum.ID)
                     {
-                        if (response.ScrumID == scrum.ID)
-                        {
-                            responseID = response.ID;
-                            break;
-                        }
+                        responseID = response.ID;
+                        break;
                     }
+                }
 
-                    // Determine the due date color
-                    bool isPastDue = scrum.DateDue < DateTime.Now;
-                    string dueDateColor = isPastDue ? "color:red;" : "color:black;";
+                // Determine the due date color
+                bool isPastDue = scrum.DateDue < DateTime.Now;
+                string dueDateColor = isPastDue ? "color:red;" : "color:black;";
 
-                    <div class="scrum-card">
-                        <div class="scrum-info">
-                            <h3>@scrum.Name</h3>
-                            <p style="@dueDateColor">Due Date: @scrum.DateDue.ToString("M/d/yyyy")</p>
-                        </div>
-                        <div class="scrum-action">
-                            @if (responseID == 0)
+                <div class="scrum-card">
+                    <div class="scrum-info">
+                        <h3>@scrum.Name</h3>
+                        <p style="@dueDateColor">Due Date: @scrum.DateDue.ToString("M/d/yyyy")</p>
+                    </div>
+                    <div class="scrum-action">
+                        @if (responseID == 0)
+                        {
+
+                            <a asp-controller="Student" asp-action="Response" asp-route-id="@scrum.ID" asp-route-responseid="@responseID" class="respond-btn">
+                                Respond
+                            </a>
+                        }
+                        else
+                        {
+                            if (isPastDue)
                             {
-                                <a asp-controller="Student" asp-action="Response" asp-route-id="@scrum.ID" asp-route-responseid="@responseID" class="respond-btn">
-                                    Respond
-                                </a>
+                                <button class="btn-secondary" disabled>Overdue</button>
                             }
                             else
                             {
-                                if (isPastDue)
-                                {
-                                    <button class="btn-secondary" disabled>Overdue</button>
-                                }
-                                else
-                                {
-                                    <a asp-controller="Student" asp-action="Response" asp-route-id="@scrum.ID" asp-route-responseid="@responseID" class="edit-btn">
-                                        Edit Response
-                                    </a>
-                                }
+                                <a asp-controller="Student" asp-action="Response" asp-route-id="@scrum.ID" asp-route-responseid="@responseID" class="edit-btn">
+                                    Edit Response
+                                </a>
                             }
-                        </div>
+                        }
                     </div>
-                }
-            </div>
-        }
+                </div>
+            }
+        </div>
+
+
     </div>
 
     <script>
+
         function toggleNav() {
             const navLinks = document.getElementById('navLinks');
             navLinks.classList.toggle('active');

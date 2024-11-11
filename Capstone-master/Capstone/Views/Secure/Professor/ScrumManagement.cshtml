@@ -8,18 +8,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="~/css/pages-professor.css">
-
     <title>Scrum Management Page</title>
 </head>
 
 <body>
-
     <div class="content-title">
         <h1>Scrum Management Page</h1>
     </div>
 
     <div class="content-container">
-
         <button class="hamburger-menu" onclick="toggleNav()" aria-label="Open navigation menu">☰</button>
 
         <nav class="sidenav" id="navLinks">
@@ -46,9 +43,10 @@
                             }
                             else
                             {
-                                <input type="date" id="dateDue" name="DateDue"
+                                <input type="date" id="dateDue_@scrum.ID" name="DateDue"
                                        value="@scrum.DateDue.ToString("yyyy-MM-dd")"
-                                       min="@DateTime.Now.ToString("yyyy-MM-dd")" required />
+                                       min="@DateTime.Now.ToString("yyyy-MM-dd")" required
+                                       onchange="validateDueDate(@scrum.ID)" />
                             }
                         </span>
                         <input type="hidden" name="scrumID" value="@scrum.ID" />
@@ -70,7 +68,6 @@
                 </div>
             }
 
-
             <!-- Buttons at the Bottom -->
             <div class="bottom-buttons-container">
                 <form id="addScrumForm" action="ScrumManagement" method="post" style="display:inline;">
@@ -85,15 +82,21 @@
         </div>
     </div>
 
-
     <script>
-
         function toggleNav() {
             const navLinks = document.getElementById('navLinks');
             navLinks.classList.toggle('active');
         }
 
+        function validateDueDate(scrumID) {
+            const dueDateInput = document.getElementById(`dateDue_${scrumID}`);
+            const dueDate = new Date(dueDateInput.value);
+            const today = new Date();
+
+            if (dueDate < today) {
+                alert('The due date must be today or a future date.');
+                dueDateInput.value = ''; // Clear the input if invalid
+            }
+        }
     </script>
-
-
 </body>

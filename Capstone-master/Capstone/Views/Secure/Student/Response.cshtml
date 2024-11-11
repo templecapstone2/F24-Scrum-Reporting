@@ -10,7 +10,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="~/css/pages-student.css">
-
     <title>Temple Scrum</title>
 </head>
 <body>
@@ -21,11 +20,10 @@
             <a asp-controller="Student" asp-action="Dashboard">Dashboard</a> @* Student Home Page *@
             <a asp-controller="Student" asp-action="Scrums">Scrums</a> @* Student Report Management Page *@
             <a asp-controller="Login" asp-action="Login">Logout</a>
-
         </nav>
 
         <div class="form-container">
-            <form method="post" asp-controller="Student" asp-action="AddResponse">
+            <form method="post" asp-controller="Student" asp-action="AddResponse" onsubmit="return validateForm()">
                 <input type="hidden" name="ID" value="@Model.Response.ID" />
                 <input type="hidden" name="ScrumID" value="@Model.Response.ScrumID" />
                 <input type="hidden" name="UserID" value="@Model.Response.UserID" />
@@ -33,7 +31,6 @@
                 <h2>Scrum Report Form</h2>
 
                 <div class="info-container">
-                    
                     <div class="info-group">
                         <label for="reportNumber">@Model.Scrum.Name</label>
                     </div>
@@ -48,24 +45,24 @@
 
                     <div class="info-group">
                         <label for="date">Due Date: </label>
-                        <span id="date">@Model.Scrum.DateDue</span>
+                        <span id="date">@Model.Scrum.DateDue.ToString("MM/dd/yyyy")</span>
                     </div>
                 </div>
 
-                <!-- Hard-coded questions -->
+                <!-- Hard-coded questions with validation -->
                 <div class="form-group">
-                    <label for="question1">1. List what you accomplished since the last Scrum. </label>
-                    <textarea id="question1" name="QuestionOne" rows="5" class="form-control">@Model.Response.QuestionOne</textarea>
+                    <label for="question1">1. List what you accomplished since the last Scrum.</label>
+                    <textarea id="question1" name="QuestionOne" rows="5" class="form-control" required minlength="10">@Model.Response.QuestionOne</textarea>
                 </div>
 
                 <div class="form-group">
-                    <label for="question2">2. List what you will accomplish for the next Scrum. </label>
-                    <textarea id="question2" name="QuestionTwo" rows="5" class="form-control">@Model.Response.QuestionTwo</textarea>
+                    <label for="question2">2. List what you will accomplish for the next Scrum.</label>
+                    <textarea id="question2" name="QuestionTwo" rows="5" class="form-control" required minlength="10">@Model.Response.QuestionTwo</textarea>
                 </div>
 
                 <div class="form-group">
-                    <label for="question3">3. What challenges or problems do you face (if any that need attention)? </label>
-                    <textarea id="question3" name="QuestionThree" rows="5" class="form-control">@Model.Response.QuestionThree</textarea>
+                    <label for="question3">3. What challenges or problems do you face (if any that need attention)?</label>
+                    <textarea id="question3" name="QuestionThree" rows="5" class="form-control" required minlength="10">@Model.Response.QuestionThree</textarea>
                 </div>
 
                 <!-- Buttons at the bottom -->
@@ -75,9 +72,21 @@
                 </div>
             </form>
         </div>
-
-
     </div>
+
+    <script>
+        function validateForm() {
+            const question1 = document.getElementById('question1').value.trim();
+            const question2 = document.getElementById('question2').value.trim();
+            const question3 = document.getElementById('question3').value.trim();
+
+            if (question1.length < 10 || question2.length < 10 || question3.length < 10) {
+                alert("Please provide a more detailed response (at least 10 characters) for each question.");
+                return false;
+            }
+            return true;
+        }
+    </script>
 
 </body>
 </html>
