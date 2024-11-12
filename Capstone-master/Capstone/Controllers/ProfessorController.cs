@@ -185,18 +185,22 @@ namespace Capstone.Controllers
         [HttpPost("NukeDatabase")]
         public async Task<IActionResult> NukeDatabase()
         {
-            //try
-            //{
-            //    await teamUserService.DeleteTeamUsers();
-            //    await teamService.DeleteTeams();
-            //    await responseService.DeleteResponses();
-            //    await scrumService.DeleteScrums();
-            //    await userService.DeleteStudents();
-            //}
-            //catch (Exception ex)
-            //{
-            //    ModelState.AddModelError("", "Error deleting: " + ex.Message);
-            //}
+            try
+            {
+                await teamUserService.DeleteTeamUsers();
+                await teamService.DeleteTeams();
+                await responseService.DeleteResponses();
+                await scrumService.DeleteScrums();
+                await userService.DeleteStudents();
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = "An error occurred while starting a new semester. Please try again.";
+
+                return RedirectToAction("ScrumManagement");
+
+            }
+            TempData["SuccessMessage"] = "The database was successfully cleared for the new semester.";
             return RedirectToAction("Dashboard");
         }
 

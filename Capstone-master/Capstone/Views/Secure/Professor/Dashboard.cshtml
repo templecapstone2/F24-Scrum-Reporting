@@ -39,6 +39,13 @@
                 <a asp-controller="Login" asp-action="Login">Logout</a>
             </nav>
 
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <div class="alert alert-success">
+                    @TempData["SuccessMessage"]
+                </div>
+            }
+
             <div class="content-container">
                 <h1>Welcome Back @ViewBag.full_name!</h1>
                 <h2>SCRUM Reporting</h2>
