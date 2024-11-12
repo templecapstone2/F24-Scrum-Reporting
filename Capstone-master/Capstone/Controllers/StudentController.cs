@@ -38,13 +38,8 @@ namespace Capstone.Controllers
         [HttpGet("Dashboard")]
         public IActionResult Dashboard()
         {
-            var tuId = HttpContext.Session.GetString("TUID");
-            var usertype = HttpContext.Session.GetString("usertype");
             var fullName = HttpContext.Session.GetString("fullname");
-
             ViewBag.Full_Name = fullName;
-            ViewBag.TU_ID = tuId;
-            ViewBag.User_Type = usertype;
 
             return View("~/Views/Secure/Student/Dashboard.cshtml");
         }

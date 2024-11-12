@@ -121,5 +121,29 @@ namespace Capstone.API
                 return StatusCode(500, "Internal server error: " + ex.Message);
             }
         }
+
+        [HttpDelete]
+        public IActionResult DeleteTeams()
+        {
+            try
+            {
+                sqlCommand = new SqlCommand();
+                sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                sqlCommand.CommandText = "DeleteTeams";
+
+                if (dbConnect.DoUpdateUsingCmdObj(sqlCommand) > 0)
+                {
+                    return Ok("All Teams deleted successfully");
+                }
+                else
+                {
+                    return NoContent();
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal server error: " + ex.Message);
+            }
+        }
     }
 }

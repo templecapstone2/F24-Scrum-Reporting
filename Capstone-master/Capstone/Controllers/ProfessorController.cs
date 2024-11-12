@@ -182,41 +182,30 @@ namespace Capstone.Controllers
             return RedirectToAction("TeamManagement");
         }
 
-        [HttpPost("DeleteAllTeams")]
-        public async Task<IActionResult> DeleteAllTeams()
+        [HttpPost("NukeDatabase")]
+        public async Task<IActionResult> NukeDatabase()
         {
-            try
-            {
-                bool success = await teamService.DeleteAllTeams();
-                if (success)
-                {
-                    TempData["Message"] = "All teams deleted successfully.";
-                }
-                else
-                {
-                    TempData["ErrorMessage"] = "Some teams could not be deleted.";
-                }
-
-                return RedirectToAction("TeamManagement");
-            }
-            catch (Exception ex)
-            {
-                ModelState.AddModelError("", "Error deleting all teams: " + ex.Message);
-                return RedirectToAction("TeamManagement");
-            }
+            //try
+            //{
+            //    await teamUserService.DeleteTeamUsers();
+            //    await teamService.DeleteTeams();
+            //    await responseService.DeleteResponses();
+            //    await scrumService.DeleteScrums();
+            //    await userService.DeleteStudents();
+            //}
+            //catch (Exception ex)
+            //{
+            //    ModelState.AddModelError("", "Error deleting: " + ex.Message);
+            //}
+            return RedirectToAction("Dashboard");
         }
 
 
         [HttpGet("Dashboard")]
         public IActionResult Dashboard()
         {
-            var tuId = HttpContext.Session.GetString("TUID");
-            var usertype = HttpContext.Session.GetString("usertype");
             var fullName = HttpContext.Session.GetString("fullname");
-
             ViewBag.Full_Name = fullName;
-            ViewBag.TU_ID = tuId;
-            ViewBag.User_Type = usertype;
 
             return View("~/Views/Secure/Professor/Dashboard.cshtml");
         }

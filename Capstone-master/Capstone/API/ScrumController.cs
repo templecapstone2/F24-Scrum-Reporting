@@ -156,5 +156,29 @@ namespace Capstone.API
                 return StatusCode(500, "Internal server error: " + ex.Message);
             }
         }
+
+        [HttpDelete]
+        public IActionResult DeleteScrums()
+        {
+            try
+            {
+                sqlCommand = new SqlCommand();
+                sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                sqlCommand.CommandText = "DeleteScrums";
+
+                if (dbConnect.DoUpdateUsingCmdObj(sqlCommand) > 0)
+                {
+                    return Ok("All Scrums deleted successfully");
+                }
+                else
+                {
+                    return NoContent();
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal server error: " + ex.Message);
+            }
+        }
     }
 }
