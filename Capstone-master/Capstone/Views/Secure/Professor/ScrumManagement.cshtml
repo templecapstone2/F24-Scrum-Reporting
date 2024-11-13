@@ -81,7 +81,9 @@
                     <input type="hidden" name="action" value="AddScrum" />
                     <button type="submit" class="bottom-button" id="addScrumBtn">Add Scrum</button>
                 </form>
-                <button type="button" class="bottom-button" id="exportDataBtn">Export Data</button>
+                <form action="ExportData" >
+                    <button type="button" class="bottom-button" id="exportDataBtn">Export Data</button>
+                </form>
                 <form action="NukeDatabase" method="post" style="display:inline;" onsubmit="return confirm('Are you sure you want to start a new semester? This will delete all data from current semester!');">
                     <button type="submit" class="bottom-button" id="newSemesterBtn">New Semester</button>
                 </form>
