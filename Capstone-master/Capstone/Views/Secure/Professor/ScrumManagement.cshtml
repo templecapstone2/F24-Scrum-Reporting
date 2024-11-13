@@ -81,8 +81,8 @@
                     <input type="hidden" name="action" value="AddScrum" />
                     <button type="submit" class="bottom-button" id="addScrumBtn">Add Scrum</button>
                 </form>
-                <form action="ExportData" >
-                    <button type="button" class="bottom-button" id="exportDataBtn">Export Data</button>
+                <form action="ExportData" method="get" style="display:inline;">
+                    <button type="button" class="bottom-button" id="exportDataBtn" onclick="openExportModal()">Export Data</button>
                 </form>
                 <form action="NukeDatabase" method="post" style="display:inline;" onsubmit="return confirm('Are you sure you want to start a new semester? This will delete all data from current semester!');">
                     <button type="submit" class="bottom-button" id="newSemesterBtn">New Semester</button>
@@ -107,5 +107,58 @@
                 dueDateInput.value = ''; // Clear the input if invalid
             }
         }
+
+        function openExportModal() {
+            document.getElementById('exportModal').style.display = 'block';
+        }
+
+        function closeExportModal() {
+            document.getElementById('exportModal').style.display = 'none';
+        }
+
+        function validateExportData() {
+            const year = document.getElementById('year').value;
+            const semester = document.getElementById('semester').value;
+            const courseNumber = document.getElementById('courseNumber').value;
+            const sectionNumber = document.getElementById('sectionNumber').value;
+
+            if (!year || !semester || !courseNumber || !sectionNumber) {
+                alert("All fields are required!");
+                return false;
+            }
+
+            return true;
+        }
+
+        <div id="exportModal" class="modal">
+            <div class="modal-content">
+                <h2>Enter Course Information for Export</h2>
+                <form id="exportDataForm" method="post" onsubmit="return validateExportData();">
+                    <div>
+                        <label for="year">Year:</label>
+                        <input type="number" id="year" name="year" required />
+                    </div>
+                    <div>
+                        <label for="semester">Semester:</label>
+                        <select id="semester" name="semester" required>
+                            <option value="Spring">Spring</option>
+                            <option value="Fall">Fall</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="courseNumber">Course Number:</label>
+                        <input type="text" id="courseNumber" name="courseNumber" required />
+                    </div>
+                    <div>
+                        <label for="sectionNumber">Section Number:</label>
+                        <input type="text" id="sectionNumber" name="sectionNumber" required />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit">Generate CSV</button>
+                        <button type="button" onclick="closeExportModal()">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </script>
 </body>

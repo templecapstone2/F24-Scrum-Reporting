@@ -32,7 +32,7 @@ namespace Capstone.Services
                 foreach (var property in properties)
                 {
                     string value = property.GetValue(item)?.ToString() ?? "";  // Use empty string for null values
-                    value = value.Contains(",") ? $"\"{value.Replace("\"", "\"\"")}\"" : value;
+                    value = value.Contains(",") ? $"\"{value.Replace("\"", "\"\"")}\"" : value; // Escape commas and quotes
                     sb.Append(value + ",");
                 }
                 sb.Remove(sb.Length - 1, 1);

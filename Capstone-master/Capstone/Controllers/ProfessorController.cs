@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Xml.Linq;
 using Capstone.ViewModels;
 using System.Collections.Generic;
+using System.Text;
 
 namespace Capstone.Controllers
 {
@@ -19,14 +20,16 @@ namespace Capstone.Controllers
         private readonly TeamUserService teamUserService;
         private readonly ScrumService scrumService;
         private readonly ResponseService responseService;
+        private readonly ExportService exportService;
 
-        public ProfessorController(ResponseService responseService, ScrumService scrumService, TeamUserService teamUserService, TeamService teamService, UserService userService, ILogger<ProfessorController> logger)
+        public ProfessorController(ResponseService responseService, ScrumService scrumService, TeamUserService teamUserService, TeamService teamService, UserService userService, ExportService exportService, ILogger<ProfessorController> logger)
         {
             this.responseService = responseService;
             this.scrumService = scrumService;
             this.teamUserService = teamUserService;
             this.teamService = teamService;
             this.userService = userService;
+            this.exportService = exportService;
             _logger = logger;
         }
         public IActionResult Index()
@@ -204,8 +207,42 @@ namespace Capstone.Controllers
             return RedirectToAction("Dashboard");
         }
 
+        [HttpGet("ExportData")]
+        public async Task<IActionResult> ExportData()
+        {
+            try
+            {
+                StringBuilder sb = new StringBuilder();
+                Dictionary<string, string> csvDict = new Dictionary<string, string>();
 
+                List<User> students = await userService.GetStudents();
+                List<Team> teams = await teamService.GetTeams();
+                List<TeamUser> teamUsers = await teamUserService.GetTeamUsers();
+                List<Scrum> scrums = await scrumService.GetScrums();
+                List<Response> responses = await responseService.GetResponses();
 
+                csvDict.Add("Student", exportService.GenerateCSV(students));
+                csvDict.Add("Team", exportService.GenerateCSV(teams));
+                csvDict.Add("Team_User", exportService.GenerateCSV(teamUsers));
+                csvDict.Add("Scrum", exportService.GenerateCSV(scrums));
+                csvDict.Add("Response", exportService.GenerateCSV(responses));
+
+                foreach (KeyValuePair<string, string> kvp in csvDict)
+                {
+                    sb.AppendLine(kvp.Key);
+                    sb.AppendLine(kvp.Value);
+                    sb.AppendLine();
+                }
+
+                var fileBytes = Encoding.UTF8.GetBytes(sb.ToString());
+                return File(fileBytes, "text/csv", "export.csv");
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = "An error occurred while exporting the data. Please try again later.";
+                return RedirectToAction("ScrumManagement");
+            }
+        }
 
         [HttpGet("Dashboard")]
         public IActionResult Dashboard()
