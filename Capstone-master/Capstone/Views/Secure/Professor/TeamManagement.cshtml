@@ -29,18 +29,7 @@
             <a asp-controller="Login" asp-action="Login">Logout</a>
         </nav>
 
-        @if (TempData["SuccessMessage"] != null)
-        {
-            <div class="alert alert-success">
-                @TempData["SuccessMessage"]
-            </div>
-        }
-        @if (TempData["ErrorMessage"] != null)
-        {
-            <div class="alert alert-error">
-                @TempData["ErrorMessage"]
-            </div>
-        }
+        
 
         <!-- Teams List -->
         <div class="teamsList" id="teamsList">
@@ -54,6 +43,20 @@
                     </form>
                 </div>
             }
+
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <div class="alert alert-success">
+                    @TempData["SuccessMessage"]
+                </div>
+            }
+            @if (TempData["ErrorMessage"] != null)
+            {
+                <div class="alert alert-error">
+                    @TempData["ErrorMessage"]
+                </div>
+            }
+
             <button id="addTeamBtn" class="add-team-button" onclick="showAddTeamForm()">Add Team</button>
         </div>
     </div>

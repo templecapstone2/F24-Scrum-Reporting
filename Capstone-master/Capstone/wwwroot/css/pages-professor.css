@@ -67,9 +67,10 @@ html, body {
         }
 
 
+
 .content-container {
     display: flex;
-    gap: 50px;
+    gap: 100px;
     width: auto;
     justify-content: center;
     padding: 20px;
@@ -260,6 +261,7 @@ h1 {
 .scrum-row {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     margin-top: 10px;
     background-color: #D9D9D9;
     padding: 10px;
@@ -274,17 +276,22 @@ h1 {
 
 .scrum-due-date {
     margin-left: 10px;
+    margin-right: 5px;
     font-weight: bold;
 }
 
 .publish-btn {
-    background-color: #A41C34;
+    padding: 5px 10px;
+    background-color: #C8102E;
     color: white;
     border: none;
-    padding: 5px 10px;
+    border-radius: 5px;
     cursor: pointer;
-    margin-left: 10px;
+    transition: background-color 0.2s;
 }
+    .publish-btn:hover {
+        background-color: #9E0D24 /*darker temple red*/;
+    }
 
     .publish-btn.published {
         background-color: #808080; /* Grey after publish */
@@ -505,15 +512,12 @@ h1 {
 
 /* Styling for alert messages for error handling */
 .alert {
-    padding: 10px;
     margin-bottom: 15px;
     border-radius: 5px;
-    font-size: 1rem;
+    font-size: 1.2rem;
     text-align: center;
-    width: 100%;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
+    height: 50px;
+    align-content: center;
 }
 
 .alert-success {
