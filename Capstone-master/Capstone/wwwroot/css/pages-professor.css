@@ -67,6 +67,7 @@ html, body {
         }
 
 
+
 .content-container {
     display: flex;
     gap: 100px;
@@ -511,15 +512,12 @@ h1 {
 
 /* Styling for alert messages for error handling */
 .alert {
-    padding: 10px;
     margin-bottom: 15px;
     border-radius: 5px;
-    font-size: 1rem;
+    font-size: 1.2rem;
     text-align: center;
-    width: 100%;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
+    height: 50px;
+    align-content: center;
 }
 
 .alert-success {
