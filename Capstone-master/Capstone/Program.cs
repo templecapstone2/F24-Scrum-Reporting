@@ -15,6 +15,7 @@ builder.Services.AddScoped<ScrumService>();
 builder.Services.AddScoped<TeamUserService>();
 builder.Services.AddScoped<TeamService>();
 builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<ExportService>();
 builder.Services.AddScoped<DBConnect>();
 
 // Add services to the container.

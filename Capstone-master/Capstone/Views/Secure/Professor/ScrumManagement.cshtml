@@ -81,14 +81,39 @@
                     <input type="hidden" name="action" value="AddScrum" />
                     <button type="submit" class="bottom-button" id="addScrumBtn">Add Scrum</button>
                 </form>
-                <form action="ExportData" method="get" style="display:inline;">
-                    <button type="button" class="bottom-button" id="exportDataBtn" onclick="openExportModal()">Export Data</button>
-                </form>
+                <button type="button" class="bottom-button" id="exportDataBtn" onclick="openExportModal()">Export Data</button>
                 <form action="NukeDatabase" method="post" style="display:inline;" onsubmit="return confirm('Are you sure you want to start a new semester? This will delete all data from current semester!');">
                     <button type="submit" class="bottom-button" id="newSemesterBtn">New Semester</button>
                 </form>
             </div>
         </div>
+    </div>
+
+    <div id="exportModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <h4>Enter Export Details</h4>
+            <form id="exportDataForm" method="post" action="/Secure/Professor/ExportData" onsubmit="return validateExportData();">
+                <label for="year">Year:</label>
+                <input type="text" id="year" name="year" required pattern="^\d{4}$" title="Please enter a 4-digit year">
+                <label for="semester">Semester:</label>
+                <select id="semester" name="semester" required>
+                    <option value="Spring">Spring</option>
+                    <option value="Fall">Fall</option>
+                </select>
+                <label for="courseNumber">Course Number:</label>
+                <input type="number" id="courseNumber" name="courseNumber" required min="0000" max="9999" title="Please enter a 4-digit course number">
+                <label for="sectionNumber">Section Number:</label>
+                <input type="number" id="sectionNumber" name="sectionNumber" required min="000" max="999" title="Please enter a 3-digit section number">
+                <label for="department">Department:</label>
+                <input type="text" id="department" name="department" required pattern="^[A-Z]{3,4}$" title="Department must be 3 to 4 uppercase letters" oninput="this.value = this.value.toUpperCase();">
+                <input type="hidden" id="fileName" name="fileName" />
+                <div class="modal-buttons">
+                    <button type="submit">Generate CSV</button>
+                </div>
+            </form>
+        </div>
+
+        <button onclick="closeExportModal()">Close</button>
     </div>
 
     <script>
@@ -114,6 +139,13 @@
 
         function closeExportModal() {
             document.getElementById('exportModal').style.display = 'none';
+        }
+
+        window.onclick = function (event) {
+            const modal = document.getElementById('exportModal');
+            if (event.target === modal) {
+                closeExportModal();
+            }
         }
 
         function validateExportData() {
@@ -143,37 +175,11 @@
                 return false;
             }
 
+            const fileName = `${year}-${semester}-${department}${courseNumber}-${sectionNumber}.csv`;
+            document.getElementById('fileName').value = fileName;
+
             return true;
         }
-
-        <div id="exportModal" class="modal" style="display: none;">
-            <h4>Enter Export Details</h4>
-            <form id="exportDataForm" method="post" onsubmit="return validateExportData();">
-                <label for="year">Year:</label>
-                <input type="text" id="year" name="year" required pattern="^\d{4}$" title="Please enter a 4-digit year">
-
-                <label for="semester">Semester:</label>
-                <select id="semester" name="semester" required>
-                    <option value="Spring">Spring</option>
-                    <option value="Fall">Fall</option>
-                </select>
-
-                <label for="courseNumber">Course Number:</label>
-                <!-- Restrict to 4 digits -->
-                <input type="number" id="courseNumber" name="courseNumber" required min="1000" max="9999" title="Please enter a 4-digit course number">
-
-                <label for="sectionNumber">Section Number:</label>
-                <!-- Restrict to 3 digits -->
-                <input type="number" id="sectionNumber" name="sectionNumber" required min="100" max="999" title="Please enter a 3-digit section number">
-
-                <label for="department">Department:</label>
-                <!-- Restrict to only uppercase letters and limit length -->
-                <input type="text" id="department" name="department" required pattern="^[A-Z]{3,4}$" title="Department must be 3 to 4 uppercase letters" oninput="this.value = this.value.toUpperCase();">
-
-                <button type="submit">Generate CSV</button>
-            </form>
-            <button onclick="closeModal()">Close</button>
-        </div>
-
     </script>
+
 </body>

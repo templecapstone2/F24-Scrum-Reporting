@@ -207,8 +207,8 @@ namespace Capstone.Controllers
             return RedirectToAction("Dashboard");
         }
 
-        [HttpGet("ExportData")]
-        public async Task<IActionResult> ExportData()
+        [HttpPost("ExportData")]
+        public async Task<IActionResult> ExportData(string fileName)
         {
             try
             {
@@ -235,7 +235,7 @@ namespace Capstone.Controllers
                 }
 
                 var fileBytes = Encoding.UTF8.GetBytes(sb.ToString());
-                return File(fileBytes, "text/csv", "export.csv");
+                return File(fileBytes, "text/csv", fileName);
             }
             catch (Exception ex)
             {

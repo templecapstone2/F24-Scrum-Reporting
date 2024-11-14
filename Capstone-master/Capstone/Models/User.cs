@@ -10,7 +10,6 @@ namespace Capstone.Models
         private string firstName;
         private string lastName;
         private string userType;
-        public SelectList SelectList { get; set; }
 
         public User() { }
 
