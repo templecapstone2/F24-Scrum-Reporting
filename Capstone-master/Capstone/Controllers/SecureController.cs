@@ -38,7 +38,7 @@ namespace Capstone.Controllers
             var id = "916524704";
 
             // For Student Testing
-            //var id = "915927331";
+            //var id = "915812681";
 
             ViewData["tuid"] = id;
             HttpContext.Session.SetString("TUID", id);

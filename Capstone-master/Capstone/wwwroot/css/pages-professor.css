@@ -440,6 +440,8 @@ h1 {
     .response-question div {
         font-size: 16px;
         padding-left: 5px;
+        width: 100%;
+        overflow-wrap: break-word;
     }
 
 .details-btn {
