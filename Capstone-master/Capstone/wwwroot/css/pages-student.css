@@ -208,27 +208,7 @@ h2 {
 
 .btn-cancel {
     color: white;
-    background: #BF6070; /*Light Temple Red***************/
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
-}
-
-
-.btn-cancel:hover {
-    background: #C8102E; /* Bright Temple Red************/
-    /* temple red #A41E35*/
-}
-
-
-.btn-save {
-    color: white;
-    background: #BF6070; /*Light Temple Red***************/
+    background: #C8102E; /*Light Temple Red***************/
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
@@ -239,9 +219,23 @@ h2 {
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.btn-save:hover {
-    background: #C8102E; /* Bright Temple Red************/
+
+
+
+.btn-save {
+    color: white;
+    background: #C8102E; /* Light Temple Red***************/
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
+
+
 
 
 
