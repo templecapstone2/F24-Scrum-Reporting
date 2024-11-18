@@ -52,7 +52,9 @@ namespace Capstone.Controllers
                 var newScrum = new Scrum
                 {
                     Name = $"Scrum #{GetNextScrumNumber()}",
-                    DateDue = DateDue ?? DateTime.Now,
+                    DateDue = DateDue.HasValue
+                                ? DateDue.Value.Date.AddHours(23).AddMinutes(59).AddSeconds(59).AddMilliseconds(999)
+                                : DateTime.Now.Date.AddHours(23).AddMinutes(59).AddSeconds(59).AddMilliseconds(999),
                     IsActive = false
                 };
 
@@ -67,7 +69,7 @@ namespace Capstone.Controllers
                 if (scrum != null)
                 {
                     scrum.IsActive = !scrum.IsActive;
-                    scrum.DateDue = DateDue.HasValue ? DateDue.Value : scrum.DateDue;
+                    scrum.DateDue = DateDue.HasValue ? DateDue.Value.AddSeconds(59) : scrum.DateDue;
 
                     await scrumService.ModifyScrum(scrumID, scrum);
                 }
@@ -129,7 +131,7 @@ namespace Capstone.Controllers
             return RedirectToAction("StudentManagement", new { userID });
         }
 
-        [HttpGet("AggregateView")]
+        [HttpGet("AggragateView")]
         public async Task<IActionResult> AggregateView()
         {
             List<Response> responses = await responseService.GetResponses();
@@ -138,15 +140,14 @@ namespace Capstone.Controllers
             List<User> students = await userService.GetStudents();
             List<TeamUser> teamUsers = await teamUserService.GetTeamUsers();
 
-            AggregateViewModel model = new AggregateViewModel(responses, scrums, teams, students, teamUsers);
-            model.Responses = model.sortResponses(responses);
+            var model = new AggregateViewModel(responses, scrums, teams, students, teamUsers);
             return View("~/Views/Secure/Professor/AggregateView.cshtml", model);
         }
 
         [HttpGet("TeamManagement")]
         public async Task<IActionResult> TeamManagement()
         {
-            List<Team> teams = await teamService.GetTeams();
+            var teams = await teamService.GetTeams();
             return View("~/Views/Secure/Professor/TeamManagement.cshtml", teams);
         }
 
@@ -214,8 +215,6 @@ namespace Capstone.Controllers
             try
             {
                 StringBuilder sb = new StringBuilder();
-                sb.AppendLine(fileName);
-                sb.AppendLine();
                 Dictionary<string, string> csvDict = new Dictionary<string, string>();
 
                 List<User> students = await userService.GetStudents();
@@ -234,6 +233,7 @@ namespace Capstone.Controllers
                 {
                     sb.AppendLine(kvp.Key);
                     sb.AppendLine(kvp.Value);
+                    sb.AppendLine();
                 }
 
                 var fileBytes = Encoding.UTF8.GetBytes(sb.ToString());

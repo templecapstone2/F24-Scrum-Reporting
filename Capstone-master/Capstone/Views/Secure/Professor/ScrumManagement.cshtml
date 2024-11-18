@@ -46,13 +46,13 @@
                             Due:
                             @if (scrum.IsActive)
                             {
-                                <span>@scrum.DateDue.ToString("MM/dd/yyyy")</span> <!-- Display as label when active -->
+                                <span>@scrum.DateDue.ToString("MM/dd/yyyy HH:mm:ss")</span> <!-- Display as label when active -->
                             }
                             else
                             {
-                                <input type="date" id="dateDue_@scrum.ID" name="DateDue"
-                                       value="@scrum.DateDue.ToString("yyyy-MM-dd")"
-                                       min="@DateTime.Now.ToString("yyyy-MM-dd")" required
+                                <input type="datetime-local" id="dateDue_@scrum.ID" name="DateDue"
+                                       value="@scrum.DateDue.ToString("yyyy-MM-ddTHH:mm")"
+                                       min="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" required
                                        onchange="validateDueDate(@scrum.ID)" />
                             }
                         </span>
@@ -94,18 +94,18 @@
             <h4>Enter Export Details</h4>
             <form id="exportDataForm" method="post" action="/Secure/Professor/ExportData" onsubmit="return validateExportData();">
                 <label for="year">Year:</label>
-                <input type="text" id="year" name="year" required pattern="^\d{4}$" maxlength="4" title="Please enter a 4-digit year">
+                <input type="text" id="year" name="year" required pattern="^\d{4}$" title="Please enter a 4-digit year">
                 <label for="semester">Semester:</label>
                 <select id="semester" name="semester" required>
                     <option value="Spring">Spring</option>
                     <option value="Fall">Fall</option>
                 </select>
                 <label for="courseNumber">Course Number:</label>
-                <input type="number" id="courseNumber" name="courseNumber" required min="0000" max="9999" maxlength="4" title="Please enter a 4-digit course number">
+                <input type="number" id="courseNumber" name="courseNumber" required min="0000" max="9999" title="Please enter a 4-digit course number">
                 <label for="sectionNumber">Section Number:</label>
-                <input type="number" id="sectionNumber" name="sectionNumber" required min="000" max="999" maxlength="3" title="Please enter a 3-digit section number">
+                <input type="number" id="sectionNumber" name="sectionNumber" required min="000" max="999" title="Please enter a 3-digit section number">
                 <label for="department">Department:</label>
-                <input type="text" id="department" name="department" required pattern="^[A-Z]{3,4}$" maxlength="4" title="Department must be 3 to 4 uppercase letters" oninput="this.value = this.value.toUpperCase();">
+                <input type="text" id="department" name="department" required pattern="^[A-Z]{3,4}$" title="Department must be 3 to 4 uppercase letters" oninput="this.value = this.value.toUpperCase();">
                 <input type="hidden" id="fileName" name="fileName" />
                 <div class="modal-buttons">
                     <button type="submit">Generate CSV</button>
@@ -128,7 +128,7 @@
             const today = new Date();
 
             if (dueDate < today) {
-                alert('The due date must be today or a future date.');
+                alert('The due date cannot be in the past!');
                 dueDateInput.value = ''; // Clear the input if invalid
             }
         }
