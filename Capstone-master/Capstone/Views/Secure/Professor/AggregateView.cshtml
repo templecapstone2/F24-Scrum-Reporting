@@ -231,18 +231,11 @@
             // Find the response body within the clicked response card
             const responseBody = responseCard.querySelector('.response-body');
 
-            // Check if the response body is currently displayed
-            const isVisible = responseBody.style.display === 'block';
-
-            // Hide all response bodies
-            const allResponseBodies = document.querySelectorAll('.response-body');
-            allResponseBodies.forEach(body => {
-                body.style.display = 'none'; // Hide all
-            });
-
-            // If it was not visible, show the clicked one
-            if (!isVisible) {
-                responseBody.style.display = 'block'; // Show the details for the clicked card
+            // Toggle the visibility of the response body
+            if (responseBody.style.display === 'block') {
+                responseBody.style.display = 'none'; // Hide if already visible
+            } else {
+                responseBody.style.display = 'block'; // Show if hidden
             }
         }
 
