@@ -38,7 +38,7 @@ namespace Capstone.Controllers
             var id = "916524704";
 
             // For Student Testing
-            //var id = "915905753";
+            //var id = "915927331";
 
             ViewData["tuid"] = id;
             HttpContext.Session.SetString("TUID", id);
@@ -105,7 +105,9 @@ namespace Capstone.Controllers
                         UserType = GetUserType(templeInformation.eduPersonAffiliation)
                     };
 
-                    var addedUser = await userService.AddUser(newUser);
+                    var userJson = JsonSerializer.Serialize(newUser);
+                    HttpContext.Session.SetString("currentUser", userJson);
+                    await userService.AddUser(newUser);
                 }
 
                 if (templeInformation.eduPersonAffiliation.Contains("instructor"))
