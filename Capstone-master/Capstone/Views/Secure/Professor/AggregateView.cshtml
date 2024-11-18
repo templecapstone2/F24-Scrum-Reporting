@@ -173,9 +173,9 @@
             const selectedTeam = document.getElementById('filterTeam').selectedOptions[0].textContent.trim();
             const selectedStudent = document.getElementById('filterStudent').selectedOptions[0].textContent.trim();
             const selectedDateFrom = document.getElementById('filterDateFrom').value ?
-                new Date(document.getElementById('filterDateFrom').value) : null;
+                new Date(document.getElementById('filterDateFrom').value + 'T00:00:00') : null;
             const selectedDateTo = document.getElementById('filterDateTo').value ?
-                new Date(document.getElementById('filterDateTo').value) : null;
+                new Date(document.getElementById('filterDateTo').value + 'T23:59:59') : null;
             const responseCards = document.querySelectorAll('.response-card');
 
             responseCards.forEach(function (card) {
