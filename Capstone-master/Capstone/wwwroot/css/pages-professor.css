@@ -111,6 +111,7 @@ h1 {
     outline: 1px solid;
     border-bottom-style: outset;
     margin-bottom: 15px;
+    width: 60%;
 }
 
 .delete-button {
@@ -131,7 +132,7 @@ h1 {
 
 
 .team-name {
-    width: 150px;
+    text-align: left;
 }
 
 .team-dropdown {
@@ -236,17 +237,8 @@ h1 {
 .teamsList {
     width: 50%;
     text-align: center;
+    justify-items: center;
 }
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -256,6 +248,7 @@ h1 {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    width: 50%;
 }
 
 .scrum-row {
@@ -268,6 +261,8 @@ h1 {
     border-radius: 10px;
     outline: 1px solid;
     border-bottom-style: outset;
+    align-self: center;
+    width: 60%;
 }
 
 .scrum-name {
@@ -386,6 +381,7 @@ h1 {
     display: flex;
     gap: 1.5rem;
     flex-direction: column;
+    width: 50%;
 }
 
 
@@ -470,28 +466,28 @@ h1 {
     display: flex;
     gap: 1.5rem;
     flex-direction: column;
+    width: 50%;
 }
 
 .users-container {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
 }
 
 .user-row {
-    display: flex;
-    justify-content: flex-end;
+    display: grid;
     background-color: #D9D9D9;
     padding: 10px;
     border-radius: 10px;
     outline: 1px solid;
     border-bottom-style: outset;
+    grid-template-columns: repeat(1, 1fr);
+    text-align: center;
 }
 
 .user-name{
     width: 100%;
-
-
 }
 
 
@@ -625,13 +621,25 @@ h1 {
         padding: 8px;
     }
 
+    /*Scrum Management Page*/
 
+    .scrums-container {
+        width: auto;
+    }
+
+    .scrum-row {
+       width: auto;
+    }
 
     /*Team Management Page*/
 
     .teamsList {
         width: 90%;
         align-self: center;
+    }
+
+    .team-name {
+        text-align: left;
     }
 
     .modal-content {
@@ -645,6 +653,10 @@ h1 {
     .user-row{
         text-align: center;
 
+    }
+
+    .students-container {
+        width: auto;
     }
 
     .users-container {
