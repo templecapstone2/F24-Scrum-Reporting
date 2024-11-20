@@ -76,7 +76,6 @@
     </div>
 
     <div id="overlay" class="overlay" style="display: none;" onclick="hideAddTeamForm()"></div>
-
     <script>
         const existingTeams = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(teams));
 
@@ -117,4 +116,9 @@
             navLinks.classList.toggle('active');
         }
     </script>
+    <footer class="footer">
+        <div class="container">
+            &copy; 2024 Temple SCRUM. All rights reserved.
+        </div>
+    </footer>
 </body>

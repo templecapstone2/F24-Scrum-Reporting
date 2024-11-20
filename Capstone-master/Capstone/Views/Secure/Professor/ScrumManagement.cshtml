@@ -60,7 +60,7 @@
                         <input type="hidden" name="action" value="@(!scrum.IsActive ? "Publish" : "Unpublish")" />
 
                         @* Publish Button *@
-                        <button type="submit" class="publish-btn" style="background-color: @(!scrum.IsActive ? "#C8102E" : "#808080");">
+                        <button type="submit" class="publish-btn" style="background-color: @(!scrum.IsActive ? "#006e3d" : "#808080");">
                             @(!scrum.IsActive ? "Publish" : "Unpublish")
                         </button>
                     </form>
@@ -115,7 +115,6 @@
 
         <button onclick="closeExportModal()">Close</button>
     </div>
-
     <script>
         function toggleNav() {
             const navLinks = document.getElementById('navLinks');
@@ -181,5 +180,9 @@
             return true;
         }
     </script>
-
+    <footer class="footer">
+        <div class="container">
+            &copy; 2024 Temple SCRUM. All rights reserved.
+        </div>
+    </footer>
 </body>

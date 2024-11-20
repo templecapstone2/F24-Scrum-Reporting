@@ -106,7 +106,7 @@ h1 {
     align-items: center;
     justify-content: space-between;
     background-color: #D9D9D9;
-    padding: 10px;
+    padding: 15px;
     border-radius: 10px;
     outline: 1px solid;
     border-bottom-style: outset;
@@ -115,18 +115,25 @@ h1 {
 }
 
 .delete-button {
-    padding: 5px 10px;
+    padding: 10px 15px;
     background-color: #C8102E;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 10px;
     cursor: pointer;
     font-size: 10px;
-    transition: background-color 0.2s;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s, transform 0.2s ease-in-out, box-shadow 0.3s;
+    outline: none;
 }
 
     .delete-button:hover {
-        background-color: #9E0D24 /*darker temple red*/;
+        background-color: #9E0D24;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
     }
 
 
@@ -148,18 +155,25 @@ h1 {
 }
 
 .add-team-button {
-    padding: 5px 10px;
-    background-color: #C8102E;
+    padding: 10px 20px;
+    background-color: #006e3d;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 10px;
     cursor: pointer;
-    font-size: 14px;
-    transition: background-color 0.3s;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s, transform 0.2s ease-in-out, box-shadow 0.3s;
+    outline: none;
 }
 
     .add-team-button:hover {
-        background-color: #A41E35;
+        background-color: #00381a;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
     }
 
 .modal {
@@ -172,7 +186,9 @@ h1 {
     height: 100%;
     overflow: auto;
     background-color: rgba(0,0,0,0.4);
-    align-content: center;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
 }
 
 .modal-content {
@@ -183,6 +199,9 @@ h1 {
     width: 80%;
     max-width: 170px;
     border-radius: 7px;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
 }
 
 
@@ -204,12 +223,14 @@ h1 {
     display: flex;
     justify-content: space-between;
     margin-top: 20px;
-
+    align-items: center;
+    text-align: center;
+    justify-content: center;
 }
 
 .add-button {
     padding: 5px 10px;
-    background-color: #C8102E;
+    background-color: #006e3d;
     color: white;
     border: none;
     border-radius: 5px;
@@ -219,7 +240,7 @@ h1 {
 }
 
     .add-button:hover {
-        background-color: #9E0D24 /*darker temple red*/;
+        background-color: #00381a;
     }
 
 
@@ -235,7 +256,7 @@ h1 {
 }
 
 .teamsList {
-    width: 50%;
+    width: 100%;
     text-align: center;
     justify-items: center;
 }
@@ -248,7 +269,7 @@ h1 {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    width: 50%;
+    width: 100%;
 }
 
 .scrum-row {
@@ -257,12 +278,12 @@ h1 {
     justify-content: space-between;
     margin-top: 10px;
     background-color: #D9D9D9;
-    padding: 10px;
+    padding: 15px;
     border-radius: 10px;
     outline: 1px solid;
     border-bottom-style: outset;
     align-self: center;
-    width: 60%;
+    width: 40%;
 }
 
 .scrum-name {
@@ -276,16 +297,25 @@ h1 {
 }
 
 .publish-btn {
-    padding: 5px 10px;
-    background-color: #C8102E;
+    padding: 10px 15px;
+    background-color: #004d2c;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 10px;
     cursor: pointer;
-    transition: background-color 0.2s;
+    font-size: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s, transform 0.2s ease-in-out, box-shadow 0.3s;
+    outline: none;
 }
+
     .publish-btn:hover {
-        background-color: #9E0D24 /*darker temple red*/;
+        background-color: #A41E35; 
+        transform: translateY(-2px); 
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); 
     }
 
     .publish-btn.published {
@@ -316,18 +346,25 @@ h1 {
 }
 
 .bottom-button {
-    padding: 10px 20px;
+    padding: 10px 15px;
     background-color: #C8102E;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 10px;
     cursor: pointer;
     font-size: 16px;
-    transition: background-color 0.3s;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s, transform 0.2s ease-in-out, box-shadow 0.3s;
+    outline: none;
 }
 
     .bottom-button:hover {
         background-color: #A41E35;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
     }
 
 
@@ -351,6 +388,7 @@ h1 {
     padding: .5rem;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     border: 1px solid #A0A0A0;
+    gap: 90px;
 }
 
     .filters input,
@@ -381,17 +419,20 @@ h1 {
     display: flex;
     gap: 1.5rem;
     flex-direction: column;
-    width: 50%;
+    width: 100%;
 }
 
 
 .response-cards {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     justify-content: center;
     gap: 20px;
-    height: 100%;
+    height: 500px; /* Set a fixed height for the card container */
+    max-height: 500px; /* Optional: sets a max height if needed */
+    overflow-y: auto; /* Makes the container scrollable vertically */
     align-self: center;
+    padding-right: 10px; /* Optional: to prevent scroll bar from cutting off content */
 }
 
 .response-card {
@@ -407,7 +448,11 @@ h1 {
     height: fit-content;
 }
 
-/* Header Section (Name, Team, Date) */
+    .response-card.overdue {
+        background-color: #f8d7da;
+        border: 1px solid #d3a0a0;
+    }
+
 .response-header {
     align-self: center;
     padding-bottom: 15px;
@@ -445,21 +490,52 @@ h1 {
     }
 
 .details-btn {
-    padding: 5px 10px;
-    background-color: #C8102E;
+    padding: 10px 15px;
+    background-color: #808080;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 10px;
     cursor: pointer;
-    font-size: 10px;
-    transition: background-color 0.2s;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s, transform 0.2s ease-in-out, box-shadow 0.3s;
+    outline: none;
+    display: unset;
+    margin-left: 80px;
+    margin-top: 5px;
 }
 
-    .details-btn:hover {
-        background-color: #9E0D24 /*darker temple red*/;
+    .details-btn.active {
+        background-color: #C8102E; /* Red when active */
     }
 
+    .details-btn:hover {
+        background-color: #9E0D24; 
+        transform: translateY(-2px); 
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); 
+    }
 
+.footer {
+    background-color: #A41E35;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    border-top: 4px solid #A41E35;
+}
+
+    .footer a {
+        color: white;
+        text-decoration: none;
+    }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
 
 
 /*Styling For Student Management Page******************************************************/
@@ -468,24 +544,40 @@ h1 {
     display: flex;
     gap: 1.5rem;
     flex-direction: column;
-    width: 50%;
+    width: 100%;
 }
 
 .users-container {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 15px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
 }
 
 .user-row {
-    display: grid;
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
     background-color: #D9D9D9;
     padding: 10px;
     border-radius: 10px;
     outline: 1px solid;
     border-bottom-style: outset;
-    grid-template-columns: repeat(1, 1fr);
+    width: 90%; /* Ensure it takes full width */
+}
+
+    .user-row form {
+        display: flex;
+        flex-direction: column; /* Stack form elements vertically */
+        gap: 10px; /* Add some space between the elements */
+    }
+
+.user-name {
+    font-weight: bold;
     text-align: center;
+}
+
+.team-dropdown {
+    padding: 5px;
+    font-size: 14px;
 }
 
 .user-name{
@@ -494,18 +586,30 @@ h1 {
 
 
 .change-team-btn {
-    padding: 5px 10px;
-    background-color: #C8102E;
+    background-color: #C8102E; /* Temple Red */
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 10px;
     cursor: pointer;
-    font-size: 10px;
-    transition: background-color 0.2s;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s, transform 0.2s ease-in-out, box-shadow 0.3s;
+    outline: none;
+    margin-top: 0px;
+    width: 60%; /* Adjust width as needed */
+    display: block; /* Ensure the button is block-level */
+    margin-left: auto;
+    margin-right: auto; /* Centers the button */
+    height: 30px;
 }
 
     .change-team-btn:hover {
-        background-color: #9E0D24 /*darker temple red*/;
+        background-color: #9E0D24; 
+        transform: translateY(-2px); 
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); 
     }
 
 /* Styling for alert messages for error handling */
@@ -604,6 +708,10 @@ h1 {
         text-align: left;
     }
 
+    .details-btn {
+        margin-left: 0px;
+    }
+
     .filters {
         flex-direction: column;
         gap: 0.5rem;
@@ -619,7 +727,7 @@ h1 {
 
     .details-btn,
     .bottom-button {
-        font-size: 14px;
+        font-size: 12px;
         padding: 8px;
     }
 
@@ -662,7 +770,7 @@ h1 {
     }
 
     .users-container {
-        grid-template-columns: repeat(1, 1fr);
+        grid-template-columns: repeat(2, 1fr);
         width: 400px;
         align-self: center;
     }

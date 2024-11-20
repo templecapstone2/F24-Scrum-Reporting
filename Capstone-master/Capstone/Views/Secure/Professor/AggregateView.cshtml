@@ -76,11 +76,6 @@
                 </div>
             </div>
 
-
-
-
-
-
             <div class="response-cards">
                 @foreach (var response in Model.Responses)
                 {
@@ -123,7 +118,14 @@
 
                     if (team != null)
                     {
-                        <div class="response-card"
+
+                        <div @{
+                            var currentDate = DateTime.Now;
+                            var dueDate = scrum.DateDue; 
+                            var submissionDate = response.DateSubmitted; 
+                            var isOverdue = submissionDate > dueDate; 
+                        } class="response-card @(isOverdue ? "overdue" : "")"
+
                              data-student-name="@($"{student.FirstName} {student.LastName}")"
                              data-team-name="@team.Name"
                              data-date-submitted="@response.DateSubmitted">
@@ -164,7 +166,11 @@
 
 
     </div>
-
+    <footer class="footer">
+        <div class="container">
+            &copy; 2024 Temple SCRUM. All rights reserved.
+        </div>
+    </footer>
     <script>
         const students = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Students));
         const teamUsers = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.TeamUsers));
@@ -234,8 +240,10 @@
             // Toggle the visibility of the response body
             if (responseBody.style.display === 'block') {
                 responseBody.style.display = 'none'; // Hide if already visible
+                button.classList.remove('active'); // Remove the active class (turn button back to gray)
             } else {
                 responseBody.style.display = 'block'; // Show if hidden
+                button.classList.add('active'); // Add the active class (turn button red)
             }
         }
 
