@@ -70,9 +70,9 @@ html, body {
 
 .content-container {
     display: flex;
-    gap: 100px;
+    gap: 50px;
     width: auto;
-    justify-content: center;
+    /* justify-content: center; */
     padding: 20px;
 }
 
