@@ -4,6 +4,7 @@
 @{
     string routePrefix = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") != "Development" ? "/cis4396-f05" : "";
 }
+
 <style>
     .headerbg {
         background-image: url('@routePrefix/images/TempleBKG2.jpg');
@@ -28,6 +29,7 @@
         </header>
 
         <section class="middle-container">
+
             <button class="hamburger" onclick="toggleNav()">&#9776;</button>
 
             <nav class="sidenav">
