@@ -136,7 +136,7 @@
                                     <div class="response-team">Team: <span style="font-weight: bold">@(team.Name)</span></div>
                                     <div class="response-scrum-id">Scrum: <span style="font-weight: bold">@scrum.Name</span></div>
                                     <div class="response-due-date">Due Date: <span style="font-weight: bold">@scrum.DateDue</span></div>
-                                    <div class="response-date">Submitted: <span style="font-weight: bold">@response.DateSubmitted</span></div>
+                                    <div class="response-date">Submitted: <span style="font-weight: bold; color: @(isOverdue ? "red" : "inherit")">@response.DateSubmitted</span></div>
                                 </div>
 
                                 <button class="details-btn" onclick="toggleDetails(this)">Details</button>

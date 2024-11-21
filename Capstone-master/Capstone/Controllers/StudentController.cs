@@ -84,7 +84,7 @@ namespace Capstone.Controllers
         }
 
         [HttpGet("Response")]
-        public async Task<IActionResult> Response(int Id, int responseID)
+        public async Task<IActionResult> Response(int scrumID, int responseID)
         {
             var userJson = HttpContext.Session.GetString("currentUser");
             User loggedInUser = JsonSerializer.Deserialize<User>(userJson);
@@ -94,7 +94,7 @@ namespace Capstone.Controllers
             var teams = await teamService.GetTeams();
             var responses = await responseService.GetResponses();
 
-            Scrum scrum = scrums.FirstOrDefault(s => s.ID == Id);
+            Scrum scrum = scrums.FirstOrDefault(s => s.ID == scrumID);
             TeamUser teamUser = teamUsers.FirstOrDefault(tu => tu.UserID == loggedInUser.ID);
             Team team = teamUser != null ? teams.FirstOrDefault(t => t.ID == teamUser.TeamID) : null;
             Response response = responses.FirstOrDefault(r => r.ID == responseID);
@@ -102,10 +102,19 @@ namespace Capstone.Controllers
             {
                 response = new Response
                 {
-                    ScrumID = Id,
+                    ScrumID = scrumID,
                     UserID = loggedInUser.ID,
                     ID = 0
                 };
+            }
+            // Check for null values and handle accordingly
+            if (scrum == null)
+            {
+                return NotFound("Scrum not found.");
+            }
+            if (responseID != 0 && response == null)
+            {
+                return NotFound("Response not found.");
             }
 
             ResponseModel responseModel = new ResponseModel(scrum, loggedInUser, team, response);

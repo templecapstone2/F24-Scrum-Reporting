@@ -45,18 +45,23 @@
                 {
                     // Check if response exists for this scrum
                     int responseID = 0;
+                    bool isSubmittedLate = false;
                     foreach (var response in Model.Responses)
                     {
                         if (response.ScrumID == scrum.ID)
                         {
                             responseID = response.ID;
-                            break;
+                            isSubmittedLate = scrum.DateDue < response.DateSubmitted;
+                        break;
                         }
                     }
 
-                    // Determine the due date color
                     bool isPastDue = scrum.DateDue < DateTime.Now;
-                    string dueDateColor = isPastDue ? "color:red;" : "color:black;";
+                    string dueDateColor = "color:black;";
+                    if (isPastDue && responseID == 0)
+                    {
+                        dueDateColor = "color:red;";
+                    }
 
                     <div class="scrum-card">
                         <div class="scrum-info">
@@ -66,20 +71,39 @@
                         <div class="scrum-action">
                             @if (responseID == 0)
                             {
+                                // No response submitted yet
+                                if (isPastDue)
+                                {
+                                    // Past due and no response
+                                    <a asp-controller="Student" asp-action="Response" asp-route-scrumID="@scrum.ID" asp-route-responseID="@responseID" class="respond-btn">
+                                        Respond (Overdue)
+                                    </a>
+                                }
+                                else
+                                {
+                                    // Not past due and no response
+                                    <a asp-controller="Student" asp-action="Response" asp-route-scrumID="@scrum.ID" asp-route-responseID="@responseID" class="respond-btn">
+                                        Respond
+                                    </a>
+                                }
 
-                                <a asp-controller="Student" asp-action="Response" asp-route-id="@scrum.ID" asp-route-responseid="@responseID" class="respond-btn">
-                                    Respond
-                                </a>
                             }
                             else
                             {
                                 if (isPastDue)
                                 {
-                                    <button class="btn-secondary" disabled>Overdue</button>
+                                    if (isSubmittedLate)
+                                    {
+                                        <button class="btn-secondary" disabled>Submitted (Late)</button>
+                                    }
+                                    else
+                                    {
+                                        <button class="btn-secondary" disabled>Submitted</button>
+                                    }
                                 }
                                 else
                                 {
-                                    <a asp-controller="Student" asp-action="Response" asp-route-id="@scrum.ID" asp-route-responseid="@responseID" class="edit-btn">
+                                    <a asp-controller="Student" asp-action="Response" asp-route-scrumID="@scrum.ID" asp-route-responseID="@responseID" class="edit-btn">
                                         Edit Response
                                     </a>
                                 }
