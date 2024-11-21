@@ -58,9 +58,9 @@
 
                     bool isPastDue = scrum.DateDue < DateTime.Now;
                     string dueDateColor = "color:black;";
-                    if (isPastDue && responseID == 0)
+                    if (scrum.DateDue < DateTime.Now)
                     {
-                        dueDateColor = "color:red;";
+                        dueDateColor = "color:red; font-weight:bold;";
                     }
 
                     <div class="scrum-card">
@@ -75,16 +75,16 @@
                                 if (isPastDue)
                                 {
                                     // Past due and no response
-                                    <a asp-controller="Student" asp-action="Response" asp-route-scrumID="@scrum.ID" asp-route-responseID="@responseID" class="respond-btn">
+                                    <button asp-controller="Student" asp-action="Response" asp-route-scrumID="@scrum.ID" asp-route-responseID="@responseID" class="respond-btn">
                                         Respond (Overdue)
-                                    </a>
+                                    </button>
                                 }
                                 else
                                 {
                                     // Not past due and no response
-                                    <a asp-controller="Student" asp-action="Response" asp-route-scrumID="@scrum.ID" asp-route-responseID="@responseID" class="respond-btn">
+                                    <button asp-controller="Student" asp-action="Response" asp-route-scrumID="@scrum.ID" asp-route-responseID="@responseID" class="respond-btn">
                                         Respond
-                                    </a>
+                                    </button>
                                 }
 
                             }
@@ -103,9 +103,9 @@
                                 }
                                 else
                                 {
-                                    <a asp-controller="Student" asp-action="Response" asp-route-scrumID="@scrum.ID" asp-route-responseID="@responseID" class="edit-btn">
+                                    <button asp-controller="Student" asp-action="Response" asp-route-scrumID="@scrum.ID" asp-route-responseID="@responseID" class="edit-btn">
                                         Edit Response
-                                    </a>
+                                    </button>
                                 }
                             }
                         </div>

@@ -119,11 +119,10 @@ h1 {
     background-color: #C8102E;
     color: white;
     border: none;
-    border-radius: 10px;
+    border-radius: 5px;
     cursor: pointer;
-    font-size: 10px;
+    font-size: 12px;
     font-weight: bold;
-    text-transform: uppercase;
     letter-spacing: 1px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transition: background-color 0.3s, transform 0.2s ease-in-out, box-shadow 0.3s;
@@ -156,14 +155,13 @@ h1 {
 
 .add-team-button {
     padding: 10px 20px;
-    background-color: #006e3d;
+    background-color: #C8102E;
     color: white;
     border: none;
-    border-radius: 10px;
+    border-radius: 5px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 12px;
     font-weight: bold;
-    text-transform: uppercase;
     letter-spacing: 1px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transition: background-color 0.3s, transform 0.2s ease-in-out, box-shadow 0.3s;
@@ -171,7 +169,7 @@ h1 {
 }
 
     .add-team-button:hover {
-        background-color: #00381a;
+        background-color: #A41E35;
         transform: translateY(-2px);
         box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
     }
@@ -229,18 +227,18 @@ h1 {
 }
 
 .add-button {
-    padding: 5px 10px;
-    background-color: #006e3d;
+    padding: 5px 15px;
+    background-color: #C8102E;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 10px;
+    font-size: 12px;
     transition: background-color 0.2s;
 }
 
     .add-button:hover {
-        background-color: #00381a;
+        background-color: #A41E35;
     }
 
 
@@ -283,7 +281,6 @@ h1 {
     outline: 1px solid;
     border-bottom-style: outset;
     align-self: center;
-    width: 40%;
 }
 
 .scrum-name {
@@ -301,11 +298,10 @@ h1 {
     background-color: #004d2c;
     color: white;
     border: none;
-    border-radius: 10px;
+    border-radius: 5px;
     cursor: pointer;
-    font-size: 10px;
+    font-size: 12px;
     font-weight: bold;
-    text-transform: uppercase;
     letter-spacing: 1px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transition: background-color 0.3s, transform 0.2s ease-in-out, box-shadow 0.3s;
@@ -346,15 +342,14 @@ h1 {
 }
 
 .bottom-button {
-    padding: 10px 15px;
+    padding: 10px 20px;
     background-color: #C8102E;
     color: white;
     border: none;
-    border-radius: 10px;
+    border-radius: 5px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 12px;
     font-weight: bold;
-    text-transform: uppercase;
     letter-spacing: 1px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transition: background-color 0.3s, transform 0.2s ease-in-out, box-shadow 0.3s;
@@ -428,11 +423,7 @@ h1 {
     grid-template-columns: repeat(3, 1fr);
     justify-content: center;
     gap: 20px;
-    height: 500px; /* Set a fixed height for the card container */
-    max-height: 500px; /* Optional: sets a max height if needed */
-    overflow-y: auto; /* Makes the container scrollable vertically */
     align-self: center;
-    padding-right: 10px; /* Optional: to prevent scroll bar from cutting off content */
 }
 
 .response-card {
@@ -490,22 +481,22 @@ h1 {
     }
 
 .details-btn {
-    padding: 10px 15px;
     background-color: #808080;
     color: white;
     border: none;
-    border-radius: 10px;
-    cursor: pointer;
+    border-radius: 5px;
     font-size: 12px;
     font-weight: bold;
-    text-transform: uppercase;
+    cursor: pointer;
+    padding: 10px 20px;
     letter-spacing: 1px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transition: background-color 0.3s, transform 0.2s ease-in-out, box-shadow 0.3s;
     outline: none;
-    display: unset;
-    margin-left: 80px;
-    margin-top: 5px;
+    width: 50%; /* Adjust width as needed */
+    display: block; /* Ensure the button is block-level */
+    margin-left: auto;
+    margin-right: auto; /* Centers the button */
 }
 
     .details-btn.active {
@@ -589,21 +580,19 @@ h1 {
     background-color: #C8102E; /* Temple Red */
     color: white;
     border: none;
-    border-radius: 10px;
-    cursor: pointer;
+    border-radius: 5px;
     font-size: 12px;
     font-weight: bold;
-    text-transform: uppercase;
+    cursor: pointer;
+    padding: 10px 20px;
     letter-spacing: 1px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transition: background-color 0.3s, transform 0.2s ease-in-out, box-shadow 0.3s;
     outline: none;
-    margin-top: 0px;
-    width: 60%; /* Adjust width as needed */
+    width: 80%; /* Adjust width as needed */
     display: block; /* Ensure the button is block-level */
     margin-left: auto;
     margin-right: auto; /* Centers the button */
-    height: 30px;
 }
 
     .change-team-btn:hover {
@@ -708,10 +697,6 @@ h1 {
         text-align: left;
     }
 
-    .details-btn {
-        margin-left: 0px;
-    }
-
     .filters {
         flex-direction: column;
         gap: 0.5rem;
@@ -744,7 +729,7 @@ h1 {
     /*Team Management Page*/
 
     .teamsList {
-        width: 90%;
+        width: 30rem;
         align-self: center;
     }
 
