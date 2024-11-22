@@ -58,7 +58,7 @@
 
                     bool isPastDue = scrum.DateDue < DateTime.Now;
                     string dueDateColor = "color:black;";
-                    if (scrum.DateDue < DateTime.Now)
+                    if (isPastDue && responseID == 0)
                     {
                         dueDateColor = "color:red; font-weight:bold;";
                     }
