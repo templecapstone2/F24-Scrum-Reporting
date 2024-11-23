@@ -131,7 +131,7 @@ namespace Capstone.Controllers
             return RedirectToAction("StudentManagement", new { userID });
         }
 
-        [HttpGet("AggragateView")]
+        [HttpGet("AggregateView")]
         public async Task<IActionResult> AggregateView()
         {
             List<Response> responses = await responseService.GetResponses();
@@ -140,14 +140,15 @@ namespace Capstone.Controllers
             List<User> students = await userService.GetStudents();
             List<TeamUser> teamUsers = await teamUserService.GetTeamUsers();
 
-            var model = new AggregateViewModel(responses, scrums, teams, students, teamUsers);
+            AggregateViewModel model = new AggregateViewModel(responses, scrums, teams, students, teamUsers);
+            model.Responses = model.sortResponses(responses);
             return View("~/Views/Secure/Professor/AggregateView.cshtml", model);
         }
 
         [HttpGet("TeamManagement")]
         public async Task<IActionResult> TeamManagement()
         {
-            var teams = await teamService.GetTeams();
+            List<Team> teams = await teamService.GetTeams();
             return View("~/Views/Secure/Professor/TeamManagement.cshtml", teams);
         }
 

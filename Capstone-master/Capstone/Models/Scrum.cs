@@ -4,7 +4,7 @@ namespace Capstone.Models
 {
     public class Scrum
     {
-        public int id;
+        private int id;
         private String name;
         private DateTime dateDue;
         private bool isActive;
