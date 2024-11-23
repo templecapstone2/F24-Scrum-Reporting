@@ -215,6 +215,7 @@ namespace Capstone.Controllers
             try
             {
                 StringBuilder sb = new StringBuilder();
+                sb.AppendLine(fileName).AppendLine();
                 Dictionary<string, string> csvDict = new Dictionary<string, string>();
 
                 List<User> students = await userService.GetStudents();
@@ -233,7 +234,6 @@ namespace Capstone.Controllers
                 {
                     sb.AppendLine(kvp.Key);
                     sb.AppendLine(kvp.Value);
-                    sb.AppendLine();
                 }
 
                 var fileBytes = Encoding.UTF8.GetBytes(sb.ToString());

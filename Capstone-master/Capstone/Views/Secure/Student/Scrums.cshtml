@@ -75,16 +75,20 @@
                                 if (isPastDue)
                                 {
                                     // Past due and no response
-                                    <button asp-controller="Student" asp-action="Response" asp-route-scrumID="@scrum.ID" asp-route-responseID="@responseID" class="respond-btn">
-                                        Respond (Overdue)
-                                    </button>
+                                    <form asp-controller="Student" asp-action="Response" method="get">
+                                        <input type="hidden" name="scrumID" value="@scrum.ID" />
+                                        <input type="hidden" name="responseID" value="@responseID" />
+                                        <button type="submit" class="respond-btn">Respond (Overdue)</button>
+                                    </form>
                                 }
                                 else
                                 {
                                     // Not past due and no response
-                                    <button asp-controller="Student" asp-action="Response" asp-route-scrumID="@scrum.ID" asp-route-responseID="@responseID" class="respond-btn">
-                                        Respond
-                                    </button>
+                                    <form asp-controller="Student" asp-action="Response" method="get">
+                                        <input type="hidden" name="scrumID" value="@scrum.ID" />
+                                        <input type="hidden" name="responseID" value="@responseID" />
+                                        <button type="submit" class="respond-btn">Respond</button>
+                                    </form>
                                 }
 
                             }
@@ -92,6 +96,7 @@
                             {
                                 if (isPastDue)
                                 {
+                                    // Past due and submitted
                                     if (isSubmittedLate)
                                     {
                                         <button class="btn-secondary" disabled>Submitted (Late)</button>
@@ -103,9 +108,12 @@
                                 }
                                 else
                                 {
-                                    <button asp-controller="Student" asp-action="Response" asp-route-scrumID="@scrum.ID" asp-route-responseID="@responseID" class="edit-btn">
-                                        Edit Response
-                                    </button>
+                                    // Not past due and submitted
+                                    <form asp-controller="Student" asp-action="Response" method="get">
+                                        <input type="hidden" name="scrumID" value="@scrum.ID" />
+                                        <input type="hidden" name="responseID" value="@responseID" />
+                                        <button type="submit" class="respond-btn">Edit Response</button>
+                                    </form>
                                 }
                             }
                         </div>
