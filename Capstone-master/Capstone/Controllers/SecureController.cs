@@ -35,10 +35,10 @@ namespace Capstone.Controllers
             //var id = GetShibbolethHeaderAttributes();
 
             // For Professor Testing
-            //var id = "916524704";
+            var id = "916524704";
 
             // For Student Testing
-            var id = "915812681";
+            //var id = "915812681";
 
             ViewData["tuid"] = id;
             HttpContext.Session.SetString("TUID", id);
