@@ -17,7 +17,7 @@
     </div>
 
     <div class="content-container">
-        <button class="hamburger-menu" onclick="toggleNav()" aria-label="Open navigation menu">☰</button>
+        <button class="hamburger" onclick="toggleNav()">&#9776;</button>
 
         <nav class="sidenav" id="navLinks">
             <a asp-controller="Professor" asp-action="Dashboard">Dashboard</a>
@@ -89,6 +89,9 @@
         </div>
     </div>
 
+    <div class="extra-bottom" style="width: 100%; height: 50px">
+    </div>
+
     <div id="exportModal" class="modal" style="display: none;">
         <div class="modal-content">
             <h4>Enter Export Details</h4>
@@ -117,8 +120,8 @@
     </div>
     <script>
         function toggleNav() {
-            const navLinks = document.getElementById('navLinks');
-            navLinks.classList.toggle('active');
+            var sidenav = document.querySelector(".sidenav");
+            sidenav.classList.toggle("open");
         }
 
         function validateDueDate(scrumID) {

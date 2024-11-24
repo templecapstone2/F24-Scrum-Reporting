@@ -10,16 +10,20 @@ html, body {
 
 
 /* Style for the hamburger icon */
-.hamburger-menu {
-    font-size: 40px;
-    background: none;
-    border: none;
-    cursor: pointer;
+.hamburger {
     display: none;
-    color: #A41E35;
-    margin: 5px;
-    width: 10%;
-    align-self: center;
+    font-size: 30px;
+    cursor: pointer;
+    z-index: 15;
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background-color: rgba(200, 16, 46, 0.1);
+    color: #C8102E;
+    border: 2px solid rgba(0, 0, 0, 0);
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 
 
@@ -309,9 +313,9 @@ h1 {
 }
 
     .publish-btn:hover {
-        background-color: #A41E35; 
-        transform: translateY(-2px); 
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); 
+        background-color: #A41E35;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
     }
 
     .publish-btn.published {
@@ -376,14 +380,13 @@ h1 {
 .filters {
     display: flex;
     gap: .2rem;
-    justify-content: center;
     background: linear-gradient(135deg, #D9D9D9 0%, #B0B0B0 100%);
     border-radius: 10px;
     width: 100%;
     padding: .5rem;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     border: 1px solid #A0A0A0;
-    gap: 90px;
+    gap: 120px;
 }
 
     .filters input,
@@ -420,10 +423,8 @@ h1 {
 
 .response-cards {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    justify-content: center;
+    grid-template-columns: repeat(4, 1fr);
     gap: 20px;
-    align-self: center;
 }
 
 .response-card {
@@ -504,9 +505,9 @@ h1 {
     }
 
     .details-btn:hover {
-        background-color: #9E0D24; 
-        transform: translateY(-2px); 
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); 
+        background-color: #9E0D24;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
     }
 
 .footer {
@@ -574,7 +575,7 @@ h1 {
     font-size: 14px;
 }
 
-.user-name{
+.user-name {
     width: 100%;
 }
 
@@ -599,9 +600,9 @@ h1 {
 }
 
     .change-team-btn:hover {
-        background-color: #9E0D24; 
-        transform: translateY(-2px); 
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); 
+        background-color: #9E0D24;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
     }
 
 /* Styling for alert messages for error handling */
@@ -649,32 +650,27 @@ h1 {
         gap: 10px;
     }
 
-    .hamburger-menu {
+    .hamburger {
         display: block;
     }
 
     /* Reduce the width of the sidenav and make links smaller */
     .sidenav {
         display: none;
-        background: white;
-        transition: 0.3s;
-        align-self: center;
-        height: 250px;
-        border-radius: 0px;
-        border: none;
-        box-shadow: none;
-        width: 200px;
+        transition: transform 0.3s ease-in-out;
     }
 
-        .sidenav a {
-            padding: 5px;
-            display: block;
-            font-size: 20px;
-            background: white;
-            border-bottom: #C8102E solid 3px;
-            border-radius: 0px;
-            box-shadow: none;
-            width: 200px;
+        .sidenav.open {
+            display: flex;
+            position: fixed;
+            background: rgba(0, 0, 0, 0.3);
+            width: 100vw;
+            height: 100vh;
+            backdrop-filter: blur(5px);
+            padding: 0;
+            justify-content: center;
+            top: 0;
+            left: 0;
         }
 
         .sidenav.active {
@@ -726,7 +722,7 @@ h1 {
     }
 
     .scrum-row {
-       width: auto;
+        width: auto;
     }
 
     /*Team Management Page*/
@@ -741,16 +737,14 @@ h1 {
     }
 
     .modal-content {
-
     }
 
 
 
     /*Student Management Page*/
 
-    .user-row{
+    .user-row {
         text-align: center;
-
     }
 
     .students-container {
@@ -762,7 +756,6 @@ h1 {
         width: 400px;
         align-self: center;
     }
-
 }
 
 
@@ -777,7 +770,7 @@ h1 {
         text-align: center;
     }
 
-    
+
 
     /*Aggregate View Page*/
 
@@ -796,6 +789,3 @@ h1 {
 
 
 }
-
-
-

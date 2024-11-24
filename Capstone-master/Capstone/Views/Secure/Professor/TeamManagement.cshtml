@@ -18,7 +18,7 @@
     </div>
 
     <div class="content-container">
-        <button class="hamburger-menu" onclick="toggleNav()" aria-label="Open navigation menu">☰</button>
+        <button class="hamburger" onclick="toggleNav()">&#9776;</button>
 
         <nav class="sidenav" id="navLinks">
             <a asp-controller="Professor" asp-action="Dashboard">Dashboard</a>
@@ -59,6 +59,9 @@
 
             <button id="addTeamBtn" class="add-team-button" onclick="showAddTeamForm()">Add Team</button>
         </div>
+    </div>
+
+    <div class="extra-bottom" style="width: 100%; height: 50px">
     </div>
 
     <!-- Add Team Modal -->
@@ -112,8 +115,8 @@
         }
 
         function toggleNav() {
-            const navLinks = document.getElementById('navLinks');
-            navLinks.classList.toggle('active');
+            var sidenav = document.querySelector(".sidenav");
+            sidenav.classList.toggle("open");
         }
     </script>
     <footer class="footer">
