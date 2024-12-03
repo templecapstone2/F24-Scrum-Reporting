@@ -42,7 +42,7 @@ html, body {
 }
 
     .sidenav a {
-        width: 80%;
+        width: 270px;
         display: flex;
         justify-content: center;
         align-items: center;

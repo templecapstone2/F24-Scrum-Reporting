@@ -27,7 +27,7 @@ html, body {
 }
 
 .sidenav {
-    width: 300px;
+    width: 400px;
     background-color: #D9D9D9;
     z-index: 10;
     padding: 15px;
@@ -94,7 +94,6 @@ html, body {
 
 .content-container {
     width: 100vw;
-    position: fixed;
 }
 
     .content-container h1 {
