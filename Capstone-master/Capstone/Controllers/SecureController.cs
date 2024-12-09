@@ -37,7 +37,7 @@ namespace Capstone.Controllers
             // For Professor Testing
             //var id = "916524704";
 
-            // For Student Testing
+            // For Demo Testing
             var id = "915812681";
 
             ViewData["tuid"] = id;

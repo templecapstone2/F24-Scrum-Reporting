@@ -156,6 +156,21 @@ html, body {
     .content-container {
         width: 100%;
     }
+        .content-container h1 {
+            margin-bottom: 0px;
+        }
+
+        .content-container h2 {
+            margin-top: 20px;
+        }
+
+    .break h1 {
+        white-space: normal;
+    }
+
+    .break .name {
+        display: block;
+    }
 }
 
 
